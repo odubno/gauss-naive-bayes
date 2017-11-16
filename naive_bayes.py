@@ -10,9 +10,6 @@ import requests
 class GaussNB:
 
     def __init__(self):
-        """
-        https://machinelearningmastery.com/naive-bayes-classifier-scratch-python/
-        """
         self.summaries = {}
 
     def load_csv(self, data):
@@ -107,9 +104,8 @@ class GaussNB:
         :param x: a variable
         :param mean: µ - the expected value or average from M samples
         :param stdev: σ - standard deviation
-        Gaussian (Normal) Density function.
+        :return: Gaussian (Normal) Density function.
         N(x; µ, σ) = (1 / 2πσ) * (e ^ (x–µ)^2/-2σ^2
-        :return:
         """
         variance = stdev ** 2
         exp_squared_diff = (x - mean) ** 2
@@ -118,6 +114,9 @@ class GaussNB:
         denominator = ((2 * pi) ** .5) * stdev
         N = exponent / denominator
         return N
+
+    def poisson_pdf(self):
+        pass
 
     def get_prediction(self, test_vector):
         """

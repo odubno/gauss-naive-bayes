@@ -20,6 +20,38 @@ pip install requests
 ```
 
 ### Step by Step
+
+#### Data
+- Data is comma separated.
+- Each row repesents an individual data point.
+- Each column represents a feature.
+- Last column represents the target class for each row.
+```
+6,148,72,1
+1,85,66,0
+8,183,64,1
+1,89,66,0
+0,137,40,1
+```
+
+#### Splitting Data
+```python
+def split_data(self, data, weight):
+    """
+    :param data: original data set
+    :param weight: percentage of data used for training
+    :return:
+    append rows to train while removing those same rows from data
+    """
+    train_size = int(len(data) * weight)
+    train_set = []
+    for i in range(train_size):
+        index = random.randrange(len(data))
+        train_set.append(data[index])
+        data.pop(index)
+    return [train_set, data]
+```
+
 #### Train
 Calculate the mu and variance of features for each target class.
 
