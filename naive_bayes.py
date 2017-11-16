@@ -162,9 +162,9 @@ class GaussNB:
 
 if __name__ == '__main__':
     nb = GaussNB()
-    # url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data'
-    # data = requests.get(url)
-    data = open('pima-indians-diabetes.data.csv').read()
+    url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data'
+    data = requests.get(url).content
+    # data = open('pima-indians-diabetes.data.csv').read()
     weight = 0.67
     data = nb.load_csv(data)
     train_list, test_list = nb.split_data(data, weight)
