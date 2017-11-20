@@ -5,24 +5,59 @@ from collections import defaultdict
 from math import e
 from math import pi
 import requests
+import re
 
 
 class GaussNB:
 
-    def __init__(self):
+    def __init__(self, normalize=False, standardize=False):
         self.summaries = {}
+        self.normalize = normalize
+        self.standardize = standardize
 
-    def load_csv(self, data):
+    def load_csv(self, data, clean='', header=False, rows=0, normalize=False, delimeter=','):
         """
         :param data:
         :return:
         Load and covert each string into float
         """
-        lines = csv.reader(data.splitlines())
+        lines = csv.reader(data.splitlines(), delimiter=delimeter)
         dataset = list(lines)
-        for i in range(len(dataset)):
-            dataset[i] = [float(x) for x in dataset[i]]
+        if header:
+            # remove header
+            dataset = dataset[1:]
+        if rows:
+            dataset = dataset[:rows]
+        if clean in ['adult']:
+            for i in range(len(dataset)):
+                if not dataset[i]:
+                    # skipping empty rows
+                    continue
+                sex = dataset[i][9].lower().strip()
+                dataset[i] = [float(re.search('\d+', x).group(0)) for x in dataset[i] if re.search('\d+', x)]
+                dataset[i].append(sex)
+        elif clean in ['iris', 'diabetes', 'redwine']:
+            for i in range(len(dataset)):
+                dataset[i] = [float(x) if re.search('\d', x) else x for x in dataset[i]]
+        else:
+            print 'Add dataset.'
+            return None
+        if normalize:
+            pass
         return dataset
+
+    def normalize_data(self, data):
+        minimum = min(data)
+        maximum = max(data)
+        min_max = minimum - maximum
+        result = [abs((i - minimum)/(min_max)) for i in data]
+        return result
+
+    def standardize_data(self, data):
+        stdev = self.stdev(data)
+        avg = self.mean(data)
+        result = [(i - avg)/ stdev for i in data]
+        return result
 
     def split_data(self, data, weight):
         """
@@ -70,8 +105,11 @@ class GaussNB:
         target_map = defaultdict(list)
         for index in range(len(data)):
             features = data[index]
+            if not features:
+                continue
             x = features[target]
             target_map[x].append(features[:-1])
+        print 'Identifying %s different target classes: %s' % (len(target_map.keys()), target_map.keys())
         return dict(target_map)
 
     def summarize(self, data):
@@ -82,6 +120,10 @@ class GaussNB:
         Calculate mean and stdev for each column of the target set
         """
         for attributes in zip(*data):
+            if self.normalize:
+                attributes = self.normalize_data(attributes)
+            if self.standardize:
+                attributes = self.standardize_data(attributes)
             summary = (self.mean(attributes), self.stdev(attributes))
             yield summary
 
@@ -115,9 +157,6 @@ class GaussNB:
         N = exponent / denominator
         return N
 
-    def poisson_pdf(self):
-        pass
-
     def get_prediction(self, test_vector):
         """
         :param test_vector: list of features to test
@@ -131,7 +170,10 @@ class GaussNB:
         for target, features in self.summaries.iteritems():
             for index in range(len(features)):
                 mean, stdev = features[index]
-                x = test_vector[index]
+                try:
+                    x = test_vector[index]
+                except:
+                   continue
                 N = self.normal_pdf(x, mean, stdev)
                 prob = probs.get(target, 1) * N
                 probs[target] = prob
@@ -159,17 +201,36 @@ class GaussNB:
                 correct += 1
         return correct / float(len(test_set))
 
-if __name__ == '__main__':
-    nb = GaussNB()
-    url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data'
-    data = requests.get(url).content
-    # data = open('pima-indians-diabetes.data.csv').read()
+
+def main():
+    urls = {
+        'iris': 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data',  # ~ 94% accurracy
+        'diabetes': 'https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data',  # ~ 76% accuracy
+        'redwine': 'http://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv',  # ~ 34% accuracy
+        'adult': 'http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'  # ~ 65% accuracy. varries with sample sizes
+    }
     weight = 0.67
-    data = nb.load_csv(data)
-    train_list, test_list = nb.split_data(data, weight)
-    print ('Split {0} rows into train={1} and test={2} rows').format(len(data), len(train_list), len(test_list))
-    nb.train(train_list, -1)
-    predicted_list = nb.predict(test_list)
-    accuracy = nb.accuracy(test_list, predicted_list)
-    print ('Accuracy: {0}%').format(accuracy)
+    for title, url in urls.iteritems():
+        nb = GaussNB()
+        data = requests.get(url).content
+        print '\n ************ \n'
+        print 'Executing: %s dataset' % title
+        if title in ['iris', 'diabetes']:
+            data = nb.load_csv(data, clean=title, header=False, rows=False, delimeter=',')
+        elif title in ['redwine']:
+            data = nb.load_csv(data, clean=title, header=True, rows=False, delimeter=';')
+        elif title in ['adult']:
+            data = nb.load_csv(data, clean=title, header=True, rows=1000, delimeter=',')
+        else:
+            print 'Add title and url.'
+            break
+        train_list, test_list = nb.split_data(data, weight)
+        print 'Split %s rows into train=%s and test=%s rows' % (len(data), len(train_list), len(test_list))
+        nb.train(train_list, -1)
+        predicted_list = nb.predict(test_list)
+        accuracy = nb.accuracy(test_list, predicted_list)
+        print 'Accuracy: %.3f' % accuracy
+
+if __name__ == '__main__':
+    main()
 
