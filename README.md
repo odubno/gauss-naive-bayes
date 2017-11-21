@@ -1,6 +1,19 @@
-# Naive Bayes In Python
+# Gauss Naive Bayes In Python
 
-Writing a Gaussian Naive Bayes classifier in python from scratch.
+## Overview
+Creating a classifier using the Normal PDF (Probability Distribution Function) and the Joint PDF in python from scratch.
+
+#### Normal PDF:
+![Alt text](img/normal_distribution.svg "Optional Title")
+
+See [wikipedia](https://en.wikipedia.org/wiki/Normal_distribution) definition.
+
+`x` is the target class and the variable that we will predict.
+The Normal Distribution will help determine the probability of `x` occuring for each feature. In other words for each column of our dataset, the Normal Distribution will calculate the probability of `x` occuring 
+
+#### Joint PDF:
+![Alt text](img/joint_pdf.svg "Optional Title")
+
 
 ## Getting Started
 
@@ -13,7 +26,7 @@ git clone https://github.com/odubno/naive_bayes.git
 
 
 Every function is created from scratch.
-However, instead of you having to download the data, we're using a quick api call to get the csv.
+However, instead of having to download the data, we're using a quick api call to get the csv.
 
 ```
 pip install requests
@@ -60,7 +73,6 @@ Using the the Normal Distribution, calculate the PDF for all test features of ea
 Calculate the Joint PDF of each row, by multiplying pdf results together.
 Choose the highest joint pdf.
 
-![Alt text](img/normal_distribution.svg "Optional Title")
 
 ### Installing
 
