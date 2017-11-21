@@ -6,15 +6,17 @@ Creating a classifier using the Normal PDF (Probability Distribution Function) a
 #### Normal PDF:
 ![Alt text](img/normal_distribution.svg "Optional Title")
 
-See [wikipedia](https://en.wikipedia.org/wiki/Normal_distribution) definition.
+See [Normal Distribution (Wikipedia)](https://en.wikipedia.org/wiki/Normal_distribution) definition.
 
 `x` is the target class and the variable that we will predict.
-The Normal Distribution will help determine the probability of `x` occuring for each feature. In other words for each column of our dataset, the Normal Distribution will calculate the probability of `x` occuring 
+The Normal Distribution will help determine the likelihood of `x` occuring for each feature. In other words for each column of our dataset, the Normal Distribution will calculate the probability of `x` occuring. 
 
 #### Joint PDF:
 ![Alt text](img/joint_pdf.svg "Optional Title")
 
+See [Joint PDF (Wikipedia )](https://en.wikipedia.org/wiki/Joint_probability_distribution) definition.
 
+The Joint PDF simply joins all of the PDFs. In our case it's the Normal Distribution PDF. The results from the PDF, for each feature, are all multiplied and the result is the Joint PDF.
 ## Getting Started
 
 Git clone the repo to use the code 
