@@ -19,7 +19,7 @@ class GaussNB:
         """
         :param data:
         :return:
-        Load and covert each string into float
+        Load and convert each string of data into float
         """
         lines = csv.reader(data.splitlines(), delimiter=delimeter)
         dataset = list(lines)
@@ -42,8 +42,6 @@ class GaussNB:
         else:
             print 'Add dataset.'
             return None
-        if normalize:
-            pass
         return dataset
 
     def normalize_data(self, data):
@@ -82,7 +80,7 @@ class GaussNB:
         """
         :param numbers: list of numbers
         :return:
-        Calculates the standard deviation for a list of numbers.
+        Calculate the standard deviation for a list of numbers.
         """
         avg = self.mean(numbers)
         squared_diff_list = []
@@ -96,11 +94,10 @@ class GaussNB:
 
     def group_by_target(self, data, target):
         """
-        :param data: training set
-        :param target: identify class value column
+        :param data: Training set. Lists of events (rows) in a list
+        :param target: Index for the target column. Usually the last index in the list
         :return:
-        Creating a map of target to a list of it's features.
-        One to many relationship.
+        Mapping each target to a list of it's features
         """
         target_map = defaultdict(list)
         for index in range(len(data)):
@@ -109,37 +106,52 @@ class GaussNB:
                 continue
             x = features[target]
             target_map[x].append(features[:-1])
-        print 'Identifying %s different target classes: %s' % (len(target_map.keys()), target_map.keys())
+        print 'Identified %s different target classes: %s' % (len(target_map.keys()), target_map.keys())
         return dict(target_map)
 
     def summarize(self, data):
         """
-        :param data:
+        :param data: lists of events (rows) in a list
         :return:
-        Use zip to line up each index of multiple lists into a single column.
-        Calculate mean and stdev for each column of the target set
+        Use zip to line up each feature into a single column across multiple lists.
+        yield the mean and the stdev for each feature
         """
         for attributes in zip(*data):
             if self.normalize:
                 attributes = self.normalize_data(attributes)
             if self.standardize:
                 attributes = self.standardize_data(attributes)
-            summary = (self.mean(attributes), self.stdev(attributes))
-            yield summary
+            yield {
+                'stdev': self.stdev(attributes),
+                'mean': self.mean(attributes)
+            }
 
     def train(self, data, x_target):
         """
         :param data:
-        :param x_target: dependent variable
+        :param x_target: dependent variable/ predicted variable
         :return:
-        Return mean and stdev for each target target.
+        For each target:
+            1. yield prior_prob: the probability of that target. eg P(Iris-virginica)
+            2. yield summary: list of [{'mean': 0.0, 'stdev': 0.0}, ...]
         """
         class_feature_map = self.group_by_target(data, x_target)
         self.summaries = {}
         for target, features in class_feature_map.iteritems():
-            # summaries (mean, stdev) for each column
-            self.summaries[target] = [i for i in self.summarize(features)]
+            self.summaries[target] = {
+                'prior_prob': self.probability(class_feature_map, target, data),
+                'summary': [i for i in self.summarize(features)],
+            }
         return self.summaries
+
+    def probability(self, class_feature_map, target, data):
+        """
+        :return:
+        The probability of each target class
+        """
+        total = float(len(data))
+        result = len(class_feature_map[target]) / total
+        return result
 
     def normal_pdf(self, x, mean, stdev):
         """
@@ -159,30 +171,35 @@ class GaussNB:
 
     def get_prediction(self, test_vector):
         """
-        :param test_vector: list of features to test
+        :param test_vector: list of features to test on
         :return:
-        Return the best predicted target for each row of the test_set.
-        For each index of the test_vector, calculate the normal PDF
-        Use Naive Bayes, N(x; µ, σ), to determine probabilities and multiply probabilities across each target.
-        Return the target with the largest probability
+        For each x of the test_vector:
+            1. Calculate the Normal Probability Density Function using N(x; µ, σ). eg P(sepal length | Iris-virginica)
+            2. Multiply all Normal PDFs together to get the likelihood.
+            3. Multiply the likelihood by the Prior Probability to calculate the Joint PDF. P(Iris-virginica)
+
+        *** Joint PDF = P(sepal length | Iris-virginica) * P(Iris-virginica) ***
+
+        Return the class with the largest Joint PDF
         """
-        probs = {}
+        joint_pdf = {}
         for target, features in self.summaries.iteritems():
-            for index in range(len(features)):
-                mean, stdev = features[index]
-                try:
-                    x = test_vector[index]
-                except:
-                   continue
-                N = self.normal_pdf(x, mean, stdev)
-                prob = probs.get(target, 1) * N
-                probs[target] = prob
-        best_target = max(probs, key=probs.get)
+            total_features = len(features['summary'])
+            likelihood = 0
+            for index in range(total_features):
+                mean = features['summary'][index]['mean']
+                stdev = features['summary'][index]['stdev']
+                x = test_vector[index]
+                normal_pdf = self.normal_pdf(x, mean, stdev)
+                likelihood = joint_pdf.get(target, 1) * normal_pdf
+            prior_prob = features['prior_prob']
+            joint_pdf[target] = prior_prob * likelihood
+        best_target = max(joint_pdf, key=joint_pdf.get)
         return best_target
 
     def predict(self, test_set):
         """
-        :param test_set: list of lists containing data points for each column.
+        :param test_set: list of features to test on
         :return:
         Predict the likeliest target for each row of the test_set.
         Return a list of predicted targets.
@@ -194,6 +211,12 @@ class GaussNB:
         return predictions
 
     def accuracy(self, test_set, predicted):
+        """
+        :param test_set: list of test_data
+        :param predicted: list of predicted classes
+        :return:
+        Calculate the the avrage performance of the classifier.
+        """
         correct = 0
         actual = [item[-1] for item in test_set]
         for x, y in zip(actual, predicted):
@@ -203,6 +226,10 @@ class GaussNB:
 
 
 def main():
+    """
+    :return:
+    Training and testing data
+    """
     urls = {
         'iris': 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data',  # ~ 94% accurracy
         'diabetes': 'https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data',  # ~ 76% accuracy
@@ -220,7 +247,7 @@ def main():
         elif title in ['redwine']:
             data = nb.load_csv(data, clean=title, header=True, rows=False, delimeter=';')
         elif title in ['adult']:
-            data = nb.load_csv(data, clean=title, header=True, rows=1000, delimeter=',')
+            data = nb.load_csv(data, clean=title, header=True, rows=10000, delimeter=',')
         else:
             print 'Add title and url.'
             break
