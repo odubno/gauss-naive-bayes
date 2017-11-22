@@ -1,7 +1,34 @@
 # Gauss Naive Bayes In Python
 
-## Overview
-Creating a classifier using the Normal PDF (Probability Distribution Function) and the Joint PDF in python from scratch.
+## Overview 
+We will be using Naive Bayes along with the Gaussian Distribution (Normal Distribution) to build a classifier in Python from scratch.
+
+Our Naive Bayes will attempt to classify four classic data sets:
+
+* [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)
+* [diabetes](https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data)
+* [redwine](http://archive.ics.ucimachine-learning-databases/wine-quality/winequality-red.csv)
+* [adult](http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data)
+
+All of the data used here is provided by [UCI Machine Learning](http://archive.ics.uci.edu/ml/index.php).
+
+For the purposes of showing how the code works we'll be using the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set.
+
+#### Iris Data Set:
+
+The Iris data set is a classic and is widely used when talking about classification problems. 
+The data set has 4 independent variables and 1 dependent variable with 3 different classes.
+
+1. *sepal length* (cm)
+2. *sepal width* (cm) 
+3. *petal length* (cm) 
+4. *petal width* (cm) 
+5. classes: 
+    * *Iris Setosa*, 
+    * *Iris Versicolour*
+    * *Iris Virginica*
+
+
 
 #### Normal PDF:
 ![Alt text](img/normal_distribution.svg "Optional Title")
