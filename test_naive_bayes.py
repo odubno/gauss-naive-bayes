@@ -1,6 +1,6 @@
 from unittest import TestCase
 import unittest
-from naive_bayes import GaussNB
+from gauss_nb import GaussNB
 
 
 class GaussNBTest(TestCase):

@@ -195,7 +195,7 @@ class GaussNB:
         denominator (marginal pdf): predictor prior probability
         posterior_prob = joint pdf/ marginal pdf
 
-        returning a dictionary mapping of class to it's posterio probability
+        returning a dictionary mapping of class to it's posterior probability
         """
         posterior_probs = {}
         for target, features in self.summaries.iteritems():
@@ -217,7 +217,7 @@ class GaussNB:
 
     def marginal_pdf(self, pdfs):
         """
-        :param pdfs: list of probability densities
+        :param pdfs: list of probability densities for each feature
         :return:
         Marginal Probability Density Function (Predictor Prior Probability)
         Summing up the product of P(class) prior probability and the probability density of each feature P(feature | class)
