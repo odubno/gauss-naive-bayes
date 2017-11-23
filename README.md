@@ -32,7 +32,7 @@ The first 4 columns are our features and the 5th column is our classes.
 
 
 #### Bayes Theorem:
-![Bayes](bayes_explained3.JPG "Bayes" )
+![Bayes](img/bayes_exp.JPG "Bayes" )
 
 **Class Prior Probability:** 
 * This is our Prior Belief
