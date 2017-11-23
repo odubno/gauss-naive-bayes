@@ -166,8 +166,8 @@ class GaussNB:
         exp_power = -exp_squared_diff / (2 * variance)
         exponent = e ** exp_power
         denominator = ((2 * pi) ** .5) * stdev
-        N = exponent / denominator
-        return N
+        pdf = exponent / denominator
+        return pdf
 
     def get_prediction(self, test_vector):
         """
