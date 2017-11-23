@@ -139,7 +139,7 @@ class GaussNB:
         self.summaries = {}
         for target, features in class_feature_map.iteritems():
             self.summaries[target] = {
-                'prior_prob': self.probability(class_feature_map, target, data),
+                'class_prior_prob': self.probability(class_feature_map, target, data),
                 'summary': [i for i in self.summarize(features)],
             }
         return self.summaries
@@ -171,31 +171,71 @@ class GaussNB:
 
     def get_prediction(self, test_vector):
         """
-        :param test_vector: list of features to test on
+        :param test_vector: single list of features to test
         :return:
-        For each x of the test_vector:
-            1. Calculate the Normal Probability Density Function using N(x; µ, σ). eg P(sepal length | Iris-virginica)
-            2. Multiply all Normal PDFs together to get the likelihood.
-            3. Multiply the likelihood by the Prior Probability to calculate the Joint PDF. P(Iris-virginica)
-
-        *** Joint PDF = P(sepal length | Iris-virginica) * P(Iris-virginica) ***
-
-        Return the class with the largest Joint PDF
+        Return the target class with the largest/best posterior probability
         """
-        joint_pdf = {}
+        posterior_probs = self.posterior_probabilities(test_vector)
+        best_target = max(posterior_probs, key=posterior_probs.get)
+        return best_target
+
+    def posterior_probabilities(self, test_vector):
+        """
+        :param test_vector: single list of features to test
+        :return:
+        For each feature (x) in the test_vector:
+            1. Calculate Predictor Prior Probability using the Normal Probability Density Function N(x; µ, σ). eg = P(feature | class)
+            2. Calculate Likelihood by getting the product of the class_prior_prob and the Normal PDFs
+            3. Multiply Likelihood by the class_prior_prob to calculate the Joint PDF. P(Iris-virginica)
+
+        Eg
+        class_prior_prob: P(setosa)
+        likelihood: P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)
+        numerator (joint pdf): prior_prob * likelihood
+        denominator (marginal pdf): predictor prior probability
+        posterior_prob = joint pdf/ marginal pdf
+
+        returning a dictionary mapping of class to it's posterio probability
+        """
+        posterior_probs = {}
         for target, features in self.summaries.iteritems():
             total_features = len(features['summary'])
             likelihood = 0
+            pdfs = []
             for index in range(total_features):
                 mean = features['summary'][index]['mean']
                 stdev = features['summary'][index]['stdev']
                 x = test_vector[index]
                 normal_pdf = self.normal_pdf(x, mean, stdev)
-                likelihood = joint_pdf.get(target, 1) * normal_pdf
-            prior_prob = features['prior_prob']
-            joint_pdf[target] = prior_prob * likelihood
-        best_target = max(joint_pdf, key=joint_pdf.get)
-        return best_target
+                likelihood = posterior_probs.get(target, 1) * normal_pdf
+                pdfs.append(normal_pdf)
+            predictor_prior_prob = self.marginal_pdf(pdfs)
+            class_prior_prob = features['class_prior_prob']
+            joint_pdf = class_prior_prob * likelihood
+            posterior_probs[target] = joint_pdf / predictor_prior_prob
+        return posterior_probs
+
+    def marginal_pdf(self, pdfs):
+        """
+        :param pdfs: list of probability densities
+        :return:
+        Marginal Probability Density Function (Predictor Prior Probability)
+        Summing up the product of P(class) prior probability and the probability density of each feature P(feature | class)
+
+        marginal pdf =
+          P(setosa) * P(sepal length | setosa) + P(versicolour) * P(sepal length | versicolour) + P(virginica) * P(sepal length | verginica)
+        + P(setosa) * P(sepal width | setosa) + P(versicolour) * P(sepal width | versicolour) + P(virginica) * P(sepal width | verginica)
+        + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | verginica)
+        + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | verginica)
+        """
+        predictors = []
+        for target, features in self.summaries.iteritems():
+            prior_prob = features['class_prior_prob']
+            for index in range(len(pdfs)):
+                normal_pdf = pdfs[index]
+                predictors.append(prior_prob * normal_pdf)
+        marginal_pdf = sum(predictors)
+        return marginal_pdf
 
     def predict(self, test_set):
         """
