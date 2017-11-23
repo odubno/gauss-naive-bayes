@@ -12,12 +12,14 @@ Our Naive Bayes will attempt to classify four classic data sets:
 
 All of the data used here is provided by [UCI Machine Learning](http://archive.ics.uci.edu/ml/index.php).
 
-For the purposes of showing how the code works we'll be using the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set.
+For the purposes of showing how the code works we'll be working with the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set.
 
 #### Iris Data Set:
 
-The Iris data set is a classic and is widely used when talking about classification problems. 
+The Iris data set is a classic and is widely used when explaining classification models. 
 The data set has 4 independent variables and 1 dependent variable with 3 different classes.
+
+The first 4 columns are our features and the 5th column is our classes.
 
 1. *sepal length* (cm)
 2. *sepal width* (cm) 
@@ -29,9 +31,11 @@ The data set has 4 independent variables and 1 dependent variable with 3 differe
     * *Iris Virginica*
 
 
+#### Bayes Theorem:
+<img src="img/bayes_explained.JPG" alt="Drawing" style="width: 200px;"/>
 
 #### Normal PDF:
-![Alt text](img/normal_distribution.svg "Optional Title")
+![Alt text](img/normal_distribution.svg "Normal Distribution" )
 
 See [Normal Distribution (Wikipedia)](https://en.wikipedia.org/wiki/Normal_distribution) definition.
 
