@@ -255,7 +255,7 @@ class GaussNB:
         :param test_set: list of test_data
         :param predicted: list of predicted classes
         :return:
-        Calculate the the avrage performance of the classifier.
+        Calculate the the average performance of the classifier.
         """
         correct = 0
         actual = [item[-1] for item in test_set]
