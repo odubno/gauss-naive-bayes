@@ -32,10 +32,10 @@ The first 4 columns are our features and the 5th column is our classes.
 
 
 #### Bayes Theorem:
-<img src="img/bayes_explained.JPG" alt="Drawing" style="width: 200px;"/>
+![Bayes](img/bayes_explained.JPG "Bayes" )
 
 #### Normal PDF:
-![Alt text](img/normal_distribution.svg "Normal Distribution" )
+![Normal Distribution](img/normal_distribution.svg "Normal Distribution" )
 
 See [Normal Distribution (Wikipedia)](https://en.wikipedia.org/wiki/Normal_distribution) definition.
 
