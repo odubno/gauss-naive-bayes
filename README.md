@@ -3,7 +3,7 @@
 ## Overview 
 We will be using Naive Bayes along with the Gaussian Distribution (Normal Distribution) to build a classifier in Python from scratch.
 
-Our Naive Bayes will attempt to classify four classic data sets:
+The Gauss Naive Bayes Classifier will run on four classic data sets:
 
 * [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)
 * [diabetes](https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data)
@@ -32,7 +32,17 @@ The first 4 columns are our features and the 5th column is our classes.
 
 
 #### Bayes Theorem:
-![Bayes](img/bayes_explained2.JPG "Bayes" )
+![Bayes](img/bayes_explained.JPG "Bayes" )
+
+**Class Prior Probability:** 
+* This is our Prior Belief
+
+**Likelihood:**
+* We are using the Normal Distribution (Gauss) to calculate this. Hence, the name Gause Navie Bayes.
+
+**Predictor Prior Probability:**
+* Most Naive Bayes Classifiers do not calculate this. The results do not change or change very little. Though we do calculate it here.
+
 
 #### Normal PDF:
 ![Normal Distribution](img/normal_distribution.svg "Normal Distribution" )
