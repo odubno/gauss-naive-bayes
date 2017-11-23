@@ -132,8 +132,8 @@ class GaussNB:
         :param x_target: dependent variable/ predicted variable
         :return:
         For each target:
-            1. yield prior_prob: the probability of that target. eg P(Iris-virginica)
-            2. yield summary: list of [{'mean': 0.0, 'stdev': 0.0}, ...]
+            1. yield class_prior_prob: the probability of each class. P(class) eg P(Iris-virginica)
+            2. yield summary: list of {'mean': 0.0, 'stdev': 0.0}
         """
         class_feature_map = self.group_by_target(data, x_target)
         self.summaries = {}
