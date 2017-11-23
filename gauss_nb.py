@@ -15,13 +15,17 @@ class GaussNB:
         self.normalize = normalize
         self.standardize = standardize
 
-    def load_csv(self, data, clean='', header=False, rows=0, normalize=False, delimeter=','):
+    def load_csv(self, data, clean='', header=False, rows=0, delimiter=','):
         """
         :param data:
+        :param clean:
+        :param header:
+        :param rows:
+        :param delimiter:
         :return:
         Load and convert each string of data into float
         """
-        lines = csv.reader(data.splitlines(), delimiter=delimeter)
+        lines = csv.reader(data.splitlines(), delimiter=delimiter)
         dataset = list(lines)
         if header:
             # remove header
@@ -48,13 +52,13 @@ class GaussNB:
         minimum = min(data)
         maximum = max(data)
         min_max = minimum - maximum
-        result = [abs((i - minimum)/(min_max)) for i in data]
+        result = [abs((i - minimum) / min_max) for i in data]
         return result
 
     def standardize_data(self, data):
         stdev = self.stdev(data)
         avg = self.mean(data)
-        result = [(i - avg)/ stdev for i in data]
+        result = [(i - avg) / stdev for i in data]
         return result
 
     def split_data(self, data, weight):
@@ -184,11 +188,11 @@ class GaussNB:
         :param test_vector: single list of features to test
         :return:
         For each feature (x) in the test_vector:
-            1. Calculate Predictor Prior Probability using the Normal Probability Density Function N(x; µ, σ). eg = P(feature | class)
+            1. Calculate Predictor Prior Probability using the Normal PDF N(x; µ, σ). eg = P(feature | class)
             2. Calculate Likelihood by getting the product of the class_prior_prob and the Normal PDFs
             3. Multiply Likelihood by the class_prior_prob to calculate the Joint PDF. P(Iris-virginica)
 
-        Eg
+        E.g.
         class_prior_prob: P(setosa)
         likelihood: P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)
         numerator (joint pdf): prior_prob * likelihood
@@ -283,11 +287,11 @@ def main():
         print '\n ************ \n'
         print 'Executing: %s dataset' % title
         if title in ['iris', 'diabetes']:
-            data = nb.load_csv(data, clean=title, header=False, rows=False, delimeter=',')
+            data = nb.load_csv(data, clean=title, header=False, rows=False, delimiter=',')
         elif title in ['redwine']:
-            data = nb.load_csv(data, clean=title, header=True, rows=False, delimeter=';')
+            data = nb.load_csv(data, clean=title, header=True, rows=False, delimiter=';')
         elif title in ['adult']:
-            data = nb.load_csv(data, clean=title, header=True, rows=10000, delimeter=',')
+            data = nb.load_csv(data, clean=title, header=True, rows=10000, delimiter=',')
         else:
             print 'Add title and url.'
             break
@@ -298,6 +302,6 @@ def main():
         accuracy = nb.accuracy(test_list, predicted_list)
         print 'Accuracy: %.3f' % accuracy
 
+
 if __name__ == '__main__':
     main()
-
