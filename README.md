@@ -1,7 +1,20 @@
 # Gauss Naive Bayes In Python
 
+
+
+## Table of Contents
+  - [Overview](#overview)
+    - [Iris Data Set](#iris-data-set)
+    - [Bayes Theorem](#bayes-theorem)
+    - [Commit History by Author](#commit-history-by-author)
+    - [Cloning a Repository](#cloning-a-repository)
+    - [Branch](#branch)
+      - [Compare all Branches to Another Branch](#compare-all-branches-to-another-branch)
+      - [Comparing Branches](#comparing-branches)
+      - [Compare Branches across Forked Repositories](#compare-branches-across-forked-repositories)
+
 ## Overview 
-We will be using Naive Bayes along with the Gaussian Distribution (Normal Distribution) to build a classifier in Python from scratch.
+We will be using Naive Bayes and the Gaussian Distribution (Normal Distribution) to build a classifier in Python from scratch.
 
 The Gauss Naive Bayes Classifier will run on four classic data sets:
 
@@ -10,16 +23,16 @@ The Gauss Naive Bayes Classifier will run on four classic data sets:
 * [redwine](http://archive.ics.ucimachine-learning-databases/wine-quality/winequality-red.csv)
 * [adult](http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data)
 
-All of the data used here is provided by [UCI Machine Learning](http://archive.ics.uci.edu/ml/index.php).
 
-For the purposes of showing how the code works we'll be working with the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set.
+Here we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set.
 
 #### Iris Data Set:
 
 The Iris data set is a classic and is widely used when explaining classification models. 
-The data set has 4 independent variables and 1 dependent variable with 3 different classes.
+The data set has 4 independent variables and 1 dependent variable that has 3 different classes.
 
-The first 4 columns are our features and the 5th column is our classes.
+The first 4 columns are the independent variables (features).                                      
+The 5th column is the dependent variable (class).
 
 1. *sepal length* (cm)
 2. *sepal width* (cm) 
@@ -149,17 +162,25 @@ Give an example
 
 ## Authors
 
-* **Oleh Dubno** - *algorithms and python code* - [odubno](http://odubno.github.io/)
-* **Danny Argov** - *algorithms and idea generation*
+* **Oleh Dubno** - [github.odubno](http://odubno.github.io/)
+* **Danny Argov**
 
 See also the list of [contributors](https://github.com/odubno/naive_bayes/graphs/contributors) who participated in this project.
 
 
 ## Acknowledgments
 
-* Hat tip to Dr. Jason Brownlee, who wrote a blog of [How To Implement Naive Bayes From Scratch in Python](https://machinelearningmastery.com/naive-bayes-classifier-scratch-python/). 
-Much of the logic here comes from his post. 
-* Chris Albon [Naive Bayes Classifier From Scratch](https://chrisalbon.com/machine-learning/naive_bayes_classifier_from_scratch.html)
-* Sunil Ray [6 Easy Steps to Learn Naive Bayes Algorithm](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/)
-* Inspiration:
+
+#### Sources:
+Hat tip to the authors that made this code possible: 
+
+| Author                  | URL           |
+| -------------           |:-------------:|
+| Dr. Jason Brownlee      | [How To Implement Naive Bayes From Scratch in Python](https://machinelearningmastery.com/naive-bayes-classifier-scratch-python/) |
+| Chris Albon             | [Naive Bayes Classifier From Scratch](https://chrisalbon.com/machine-learning/naive_bayes_classifier_from_scratch.html) |
+| Sunil Ray               | [6 Easy Steps to Learn Naive Bayes Algorithm](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/) |
+| Rahul Saxena            | [How The Naive Bayes Classifier Works In Machine Learning](http://dataaspirant.com/2017/02/06/naive-bayes-classifier-machine-learning/) |
+| Data Source             | [UCI Machine Learning](http://archive.ics.uci.edu/ml/index.php) |
+
+#### Inspiration:  
 Project for Columbia Probability and Statistics course - Prof. Banu Baydil
