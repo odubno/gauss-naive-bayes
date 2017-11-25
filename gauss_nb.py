@@ -4,7 +4,7 @@ import csv
 from collections import defaultdict
 from math import e
 from math import pi
-import requests
+import requests_test
 import re
 
 
@@ -283,7 +283,7 @@ def main():
     weight = 0.67
     for title, url in urls.iteritems():
         nb = GaussNB()
-        data = requests.get(url).content
+        data = requests_test.get(url).content
         print '\n ************ \n'
         print 'Executing: %s dataset' % title
         if title in ['iris', 'diabetes']:

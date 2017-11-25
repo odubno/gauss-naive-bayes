@@ -159,5 +159,7 @@ See also the list of [contributors](https://github.com/odubno/naive_bayes/graphs
 
 * Hat tip to Dr. Jason Brownlee, who wrote a blog of [How To Implement Naive Bayes From Scratch in Python](https://machinelearningmastery.com/naive-bayes-classifier-scratch-python/). 
 Much of the logic here comes from his post. 
+* Chris Albon [Naive Bayes Classifier From Scratch](https://chrisalbon.com/machine-learning/naive_bayes_classifier_from_scratch.html)
+* Sunil Ray [6 Easy Steps to Learn Naive Bayes Algorithm](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/)
 * Inspiration:
 Project for Columbia Probability and Statistics course - Prof. Banu Baydil
