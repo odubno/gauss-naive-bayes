@@ -6,13 +6,13 @@
   - [Overview](#overview)
     - [Iris Data Set](#iris-data-set)
     - [Bayes Theorem](#bayes-theorem)
-    - [Commit History by Author](#commit-history-by-author)
-    - [Cloning a Repository](#cloning-a-repository)
-    - [Branch](#branch)
-      - [Compare all Branches to Another Branch](#compare-all-branches-to-another-branch)
-      - [Comparing Branches](#comparing-branches)
-      - [Compare Branches across Forked Repositories](#compare-branches-across-forked-repositories)
-
+    - [Normal Probability Density Function](#normal-pdf)
+    - [Joint Probability Density Function](#joint-pdf)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [State By Step](#step-by-step)
+      - [Data](#data)
+      
 ## Overview 
 We will be using Naive Bayes and the Gaussian Distribution (Normal Distribution) to build a classifier in Python from scratch.
 
