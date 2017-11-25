@@ -51,10 +51,10 @@ The 5th column is the dependent variable (class).
 * This is our Prior Belief
 
 **Likelihood:**
-* We are using the [Normal Distribution (Gauss)](#normal-pdf) to calculate this. Hence, the name Gause Navie Bayes.
+* We are using the [Normal Distribution (Gauss)](#normal-pdf) to calculate this. Hence, the name Gauss Naive Bayes.
 
 **Predictor Prior Probability:**
-* Most Naive Bayes Classifiers do not calculate this. The results do not change or change very little. Though we do calculate it here.
+* Marginal probability of how probable the new evidence is under all possible hypothesis. Most Naive Bayes Classifiers do not calculate this. The results do not change or change very little. Though we do calculate it here.
 
 
 #### Normal PDF:
@@ -69,13 +69,10 @@ The Normal Distribution will help determine the likelihood of a *class* occuring
 
 See [Joint PDF (Wikipedia )](https://en.wikipedia.org/wiki/Joint_probability_distribution) definition.
 
-The Joint PDF is the product of all PDFs. In our case it's the Normal Distribution PDF. Multiplying all of the PDFs gives us the likelihood.
-## Getting Started
+The Joint PDF is the product of all PDFs. In our case, the product of all Normal Distribution PDFs. Multiplying all of the PDFs gives us the likelihood.
 
-Git clone the repo to use the code 
-```
-git clone https://github.com/odubno/naive_bayes.git
-```
+
+## Getting Started
 
 ### Prerequisites
 
@@ -84,22 +81,112 @@ Every function is created from scratch.
 However, instead of having to download the data, we're using a quick api call to get the csv.
 
 ```
-pip install requests
+$ pip install requests
 ```
 
 ### Step by Step
 
 #### Data
-- Data is comma separated.
-- Each row repesents an individual data point.
-- Each column represents a feature.
-- Last column represents the target class for each row.
+- The first 4 columns represent the **features** (*sepal length*, *sepal width*, *petal length*, *petal width*)
+- The last column represents the **class** for each row. (*Setosa*, *Versicolour*, *Virginica*)
+
+| sepal length  | sepal width | petal length | petal width | class |
+| :-----------: |:-----------:| :----------: | :----------:| :----:|
+| 5.1 | 3.5 | 1.4 | 0.2| Iris-setosa | 
+| 4.9 | 3.0 | 1.4 | 0.2| Iris-setosa |
+| 7.0 | 3.2 | 4.7 | 1.4| Iris-versicolor |
+| 6.3 | 2.8 | 5.1 | 1.5| Iris-virginica |
+| 6.4 | 3.2 | 4.5 | 1.5| Iris-versicolor |
+
+
+#### Create Python Class
+Import the necessary libraries
+```python
+# -*- coding: utf-8 -*-
+from collections import defaultdict
+from math import pi
+from math import e
+import requests
+import random
+import csv
+import re
 ```
-6,148,72,1
-1,85,66,0
-8,183,64,1
-1,89,66,0
-0,137,40,1
+
+Create the skeleton
+
+```python
+# -*- coding: utf-8 -*-
+from collections import defaultdict
+from math import pi
+from math import e
+import requests
+import random
+import csv
+import re
+
+
+class GaussNB:
+
+    def __init__(self):
+        pass
+        
+        
+def main():
+    print "Here we will handle class methods."
+    
+    
+if __name__ == '__main__':
+    main()
+```
+Execute in terminal:
+```
+$ python gauss_nb.py
+```
+
+
+###### Output:
+```
+Here we will execute methods from the class.
+```
+
+```python
+class GaussNB:
+
+    def __init__(self):
+        pass
+        
+    def load_csv(self, data, header=False, delimiter=','):
+        """
+        :param data:
+        :param header:
+        :param delimiter:
+        :return:
+        Load and convert each string of data into float
+        """
+        lines = csv.reader(data.splitlines(), delimiter=delimiter)
+        dataset = list(lines)
+        if header:
+            # remove header
+            dataset = dataset[1:]
+        for i in range(len(dataset)):
+            dataset[i] = [float(x) for x in dataset[i]]
+        return dataset
+        
+def main():
+    nb = GaussNB()
+    url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+    data = requests.get(url).content
+    data = nb.load_csv(data, header=True, delimiter=',')
+    print 'Loaded Data. Columns: %s | Rows: %s' % (len(data[0]), len(data))
+    
+    
+if __name__ == '__main__':
+    main()
+```
+
+###### Output:
+```
+Loaded Data. Columns: 5 | Rows: 150
 ```
 
 #### Splitting Data
