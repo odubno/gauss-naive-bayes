@@ -51,7 +51,7 @@ The 5th column is the dependent variable (class).
 * This is our Prior Belief
 
 **Likelihood:**
-* We are using the Normal Distribution (Gauss) to calculate this. Hence, the name Gause Navie Bayes.
+* We are using the [Normal Distribution (Gauss)](#normal-pdf) to calculate this. Hence, the name Gause Navie Bayes.
 
 **Predictor Prior Probability:**
 * Most Naive Bayes Classifiers do not calculate this. The results do not change or change very little. Though we do calculate it here.
@@ -62,15 +62,14 @@ The 5th column is the dependent variable (class).
 
 See [Normal Distribution (Wikipedia)](https://en.wikipedia.org/wiki/Normal_distribution) definition.
 
-`x` is the target class and the variable that we will predict.
-The Normal Distribution will help determine the likelihood of `x` occuring for each feature. In other words for each column of our dataset, the Normal Distribution will calculate the probability of `x` occuring. 
+The Normal Distribution will help determine the likelihood of a *class* occuring for each feature. In other words for each column of our dataset, the Normal Distribution will calculate the likelihood of that *class* occuring. 
 
 #### Joint PDF:
 ![Alt text](img/joint_pdf.svg "Optional Title")
 
 See [Joint PDF (Wikipedia )](https://en.wikipedia.org/wiki/Joint_probability_distribution) definition.
 
-The Joint PDF simply joins all of the PDFs. In our case it's the Normal Distribution PDF. The results from the PDF, for each feature, are all multiplied and the result is the Joint PDF.
+The Joint PDF is the product of all PDFs. In our case it's the Normal Distribution PDF. Multiplying all of the PDFs gives us the likelihood.
 ## Getting Started
 
 Git clone the repo to use the code 
