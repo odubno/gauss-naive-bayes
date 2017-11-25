@@ -99,20 +99,13 @@ $ pip install requests
 | 6.4 | 3.2 | 4.5 | 1.5| Iris-versicolor |
 
 
-#### Create Python Class
-Import the necessary libraries
-```python
-# -*- coding: utf-8 -*-
-from collections import defaultdict
-from math import pi
-from math import e
-import requests
-import random
-import csv
-import re
-```
+#### Python Code
 
-Create the skeleton
+Building the Naive Bayes Classifier.
+
+##### Skeleton
+
+Create the skeleton. Import the necessary libraries and create the class.
 
 ```python
 # -*- coding: utf-8 -*-
@@ -149,6 +142,7 @@ $ python gauss_nb.py
 Here we will execute methods from the class.
 ```
 
+##### Loading the CSV
 ```python
 class GaussNB:
 
