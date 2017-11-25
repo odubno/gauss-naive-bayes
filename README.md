@@ -86,7 +86,7 @@ $ pip install requests
 
 ### Step by Step
 
-#### Data
+#### 1. Data
 - The first 4 columns represent the **features** (*sepal length*, *sepal width*, *petal length*, *petal width*)
 - The last column represents the **class** for each row. (*Setosa*, *Versicolour*, *Virginica*)
 
@@ -99,11 +99,11 @@ $ pip install requests
 | 6.4 | 3.2 | 4.5 | 1.5| Iris-versicolor |
 
 
-#### Python Code
+#### 2. Python Code
 
 Building the Naive Bayes Classifier.
 
-##### Skeleton
+#### Skeleton
 
 Create the skeleton. Import the necessary libraries and create the class.
 
