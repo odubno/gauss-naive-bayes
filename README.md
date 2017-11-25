@@ -139,7 +139,7 @@ $ python gauss_nb.py
 
 ###### Output:
 ```
-Here we will execute methods from the class.
+Here we will handle class methods.
 ```
 
 ##### Loading the CSV
@@ -183,7 +183,9 @@ if __name__ == '__main__':
 Loaded Data. Columns: 5 | Rows: 150
 ```
 
-#### Splitting Data
+##### Split Data
+Splitting data into train and test.
+
 ```python
 def split_data(self, data, weight):
     """
