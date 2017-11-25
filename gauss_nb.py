@@ -4,7 +4,7 @@ import csv
 from collections import defaultdict
 from math import e
 from math import pi
-import requests_test
+import requests
 import re
 
 
@@ -136,14 +136,14 @@ class GaussNB:
         :param x_target: dependent variable/ predicted variable
         :return:
         For each target:
-            1. yield class_prior_prob: the probability of each class. P(class) eg P(Iris-virginica)
+            1. yield prior: the probability of each class. P(class) eg P(Iris-virginica)
             2. yield summary: list of {'mean': 0.0, 'stdev': 0.0}
         """
         class_feature_map = self.group_by_target(data, x_target)
         self.summaries = {}
         for target, features in class_feature_map.iteritems():
             self.summaries[target] = {
-                'class_prior_prob': self.probability(class_feature_map, target, data),
+                'prior': self.probability(class_feature_map, target, data),
                 'summary': [i for i in self.summarize(features)],
             }
         return self.summaries
@@ -189,13 +189,13 @@ class GaussNB:
         :return:
         For each feature (x) in the test_vector:
             1. Calculate Predictor Prior Probability using the Normal PDF N(x; µ, σ). eg = P(feature | class)
-            2. Calculate Likelihood by getting the product of the class_prior_prob and the Normal PDFs
-            3. Multiply Likelihood by the class_prior_prob to calculate the Joint PDF. P(Iris-virginica)
+            2. Calculate Likelihood by getting the product of the prior and the Normal PDFs
+            3. Multiply Likelihood by the prior to calculate the Joint PDF. P(Iris-virginica)
 
         E.g.
-        class_prior_prob: P(setosa)
+        prior: P(setosa)
         likelihood: P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)
-        numerator (joint pdf): prior_prob * likelihood
+        numerator (joint pdf): prior * likelihood
         denominator (marginal pdf): predictor prior probability
         posterior_prob = joint pdf/ marginal pdf
 
@@ -210,13 +210,12 @@ class GaussNB:
                 mean = features['summary'][index]['mean']
                 stdev = features['summary'][index]['stdev']
                 x = test_vector[index]
-                normal_pdf = self.normal_pdf(x, mean, stdev)
-                likelihood = posterior_probs.get(target, 1) * normal_pdf
-                pdfs.append(normal_pdf)
-            predictor_prior_prob = self.marginal_pdf(pdfs)
-            class_prior_prob = features['class_prior_prob']
-            joint_pdf = class_prior_prob * likelihood
-            posterior_probs[target] = joint_pdf / predictor_prior_prob
+                normal = self.normal_pdf(x, mean, stdev)
+                likelihood = posterior_probs.get(target, 1) * normal
+                pdfs.append(normal)
+            marginal = self.marginal_pdf(pdfs)
+            prior = features['prior']
+            posterior_probs[target] = (prior * likelihood) / marginal
         return posterior_probs
 
     def marginal_pdf(self, pdfs):
@@ -234,10 +233,10 @@ class GaussNB:
         """
         predictors = []
         for target, features in self.summaries.iteritems():
-            prior_prob = features['class_prior_prob']
+            prior = features['prior']
             for index in range(len(pdfs)):
                 normal_pdf = pdfs[index]
-                predictors.append(prior_prob * normal_pdf)
+                predictors.append(prior * normal_pdf)
         marginal_pdf = sum(predictors)
         return marginal_pdf
 
@@ -283,7 +282,7 @@ def main():
     weight = 0.67
     for title, url in urls.iteritems():
         nb = GaussNB()
-        data = requests_test.get(url).content
+        data = requests.get(url).content
         print '\n ************ \n'
         print 'Executing: %s dataset' % title
         if title in ['iris', 'diabetes']:
