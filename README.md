@@ -87,6 +87,9 @@ $ pip install requests
 ### Step by Step
 
 #### 1. Data
+
+> Sample from the Iris data
+
 - The first 4 columns represent the **features** (*sepal length*, *sepal width*, *petal length*, *petal width*)
 - The last column represents the **class** for each row. (*Setosa*, *Versicolour*, *Virginica*)
 
@@ -101,11 +104,11 @@ $ pip install requests
 
 #### 2. Python Code
 
-Building the Naive Bayes Classifier.
+Building the Naive Bayes Classifier. 
 
 #### Skeleton
 
-Create the skeleton. Import the necessary libraries and create the class.
+Create the skeleton, import the necessary libraries and create the class.
 
 ```python
 # -*- coding: utf-8 -*-
@@ -143,35 +146,38 @@ Here we will handle class methods.
 ```
 
 ##### Loading the CSV
+
+Writing the method to read in the data.
+
+
 ```python
 class GaussNB:
 
     def __init__(self):
         pass
         
-    def load_csv(self, data, header=False, delimiter=','):
+    def load_csv(self, data, header=False):
         """
-        :param data:
-        :param header:
-        :param delimiter:
+        :param data: raw comma seperated file
+        :param header: remove header if it exists
         :return:
-        Load and convert each string of data into float
+        Load and convert each string of data into a float
         """
-        lines = csv.reader(data.splitlines(), delimiter=delimiter)
+        lines = csv.reader(data.splitlines())
         dataset = list(lines)
         if header:
             # remove header
             dataset = dataset[1:]
         for i in range(len(dataset)):
-            dataset[i] = [float(x) for x in dataset[i]]
+            dataset[i] = [float(x) if re.search('\d', x) else x for x in dataset[i]]
         return dataset
         
 def main():
     nb = GaussNB()
     url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
     data = requests.get(url).content
-    data = nb.load_csv(data, header=True, delimiter=',')
-    print 'Loaded Data. Columns: %s | Rows: %s' % (len(data[0]), len(data))
+    data = nb.load_csv(data, header=True)
+    print data[:3] # first 3 rows
     
     
 if __name__ == '__main__':
@@ -180,7 +186,7 @@ if __name__ == '__main__':
 
 ###### Output:
 ```
-Loaded Data. Columns: 5 | Rows: 150
+[[4.9, 3.0, 1.4, 0.2, 'Iris-setosa'], [4.7, 3.2, 1.3, 0.2, 'Iris-setosa'], [4.6, 3.1, 1.5, 0.2, 'Iris-setosa']]
 ```
 
 ##### Split Data
