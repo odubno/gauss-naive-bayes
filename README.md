@@ -193,7 +193,6 @@ Splitting data into train and test.
 
 ```python
 class GaussNB:
-
     .
     .
     .
@@ -248,7 +247,6 @@ e.g. (This is just a sample. Using the [table](#1-data) from above.)
 
 ```python
 class GaussNB:
-
     .
     .
     .
