@@ -120,7 +120,6 @@ import random
 import csv
 import re
 
-
 class GaussNB:
 
     def __init__(self):
@@ -193,20 +192,88 @@ if __name__ == '__main__':
 Splitting data into train and test.
 
 ```python
-def split_data(self, data, weight):
-    """
-    :param data: original data set
-    :param weight: percentage of data used for training
-    :return:
-    append rows to train while removing those same rows from data
-    """
-    train_size = int(len(data) * weight)
-    train_set = []
-    for i in range(train_size):
-        index = random.randrange(len(data))
-        train_set.append(data[index])
-        data.pop(index)
-    return [train_set, data]
+class GaussNB:
+
+    def split_data(self, data, weight):
+        """
+        :param data:
+        :param weight: indicates the percentage of rows that'll be used for training
+        :return:
+        Randomly selects rows for training according to the weight and uses the rest of the rows for testing.
+        """
+        train_size = int(len(data) * weight)
+        train_set = []
+        for i in range(train_size):
+            index = random.randrange(len(data))
+            train_set.append(data[index])
+            data.pop(index)
+        return [train_set, data]
+
+
+def main():
+    nb = GaussNB()
+    url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+    data = requests.get(url).content
+    data = nb.load_csv(data, header=True)
+    train_list, test_list = nb.split_data(data, weight=.67)
+    print "Using %s rows for training and %s rows for testing" % (len(train_list), len(test_list))
+
+if __name__ == '__main__':
+    main()
+```
+
+
+##### Group Data By Class
+
+This method will map each class to it's respective rows
+
+e.g. (Using the [table](#1.-data) from above.)
+```python
+{
+        'Iris-virginica': [
+        [6.3, 2.8, 5.1, 1.5],
+    ], 'Iris-setosa': [
+        [5.1, 3.5, 1.4, 0.2],
+        [4.9, 3.0, 1.4, 0.2],
+    ], 'Iris-versicolor': [
+        [7.0, 3.2, 4.7, 1.4],
+        [6.4, 3.2, 4.5, 1.5],
+    ]
+}
+```
+
+```python
+class GaussNB:
+
+    def group_by_target(self, data, target):
+        """
+        :param data: Training set. Lists of events (rows) in a list
+        :param target: Index for the target column. Usually the last index in the list
+        :return:
+        Mapping each target to a list of it's features
+        """
+        target_map = defaultdict(list)
+        for index in range(len(data)):
+            features = data[index]
+            if not features:
+                continue
+            x = features[target]
+            target_map[x].append(features[:-1])
+        print 'Identified %s different target classes: %s' % (len(target_map.keys()), target_map.keys())
+        return dict(target_map)
+
+def main():
+    nb = GaussNB()
+    url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+    data = requests.get(url).content
+    data = nb.load_csv(data, header=True)
+    train_list, test_list = nb.split_data(data, weight=.67)
+    print "Using %s rows for training and %s rows for testing" % (len(train_list), len(test_list))
+    group = nb.group_by_target(data, -1)
+    print "Grouped into classes: %s" % group.keys()
+
+if __name__ == '__main__':
+    main()
 ```
 
 #### Train
