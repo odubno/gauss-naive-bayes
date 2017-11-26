@@ -43,6 +43,17 @@ The 5th column is the dependent variable (class).
     * *Iris Versicolour*
     * *Iris Virginica*
 
+- 5 row sample from the Iris data
+- The first 4 columns represent the **features** (*sepal length*, *sepal width*, *petal length*, *petal width*)
+- The last column represents the **class** for each row. (*Setosa*, *Versicolour*, *Virginica*)
+
+| sepal length  | sepal width | petal length | petal width | class |
+| :-----------: |:-----------:| :----------: | :----------:| :----:|
+| 5.1 | 3.5 | 1.4 | 0.2| Iris-setosa | 
+| 4.9 | 3.0 | 1.4 | 0.2| Iris-setosa |
+| 7.0 | 3.2 | 4.7 | 1.4| Iris-versicolor |
+| 6.3 | 2.8 | 5.1 | 1.5| Iris-virginica |
+| 6.4 | 3.2 | 4.5 | 1.5| Iris-versicolor |
 
 #### Bayes Theorem:
 ![Bayes](img/bayes_exp.JPG "Bayes" )
@@ -72,7 +83,9 @@ See [Joint PDF (Wikipedia )](https://en.wikipedia.org/wiki/Joint_probability_dis
 The Joint PDF is the product of all PDFs. In our case, the product of all Normal Distribution PDFs. Multiplying all of the PDFs gives us the likelihood.
 
 
-## Getting Started
+## Python Code
+
+Building the Naive Bayes Classifier. 
 
 ### Prerequisites
 
@@ -84,31 +97,10 @@ However, instead of having to download the data, we're using a quick api call to
 $ pip install requests
 ```
 
-### Step by Step
+### Skeleton
 
-#### 1. Data
-
-> Sample from the Iris data
-
-- The first 4 columns represent the **features** (*sepal length*, *sepal width*, *petal length*, *petal width*)
-- The last column represents the **class** for each row. (*Setosa*, *Versicolour*, *Virginica*)
-
-| sepal length  | sepal width | petal length | petal width | class |
-| :-----------: |:-----------:| :----------: | :----------:| :----:|
-| 5.1 | 3.5 | 1.4 | 0.2| Iris-setosa | 
-| 4.9 | 3.0 | 1.4 | 0.2| Iris-setosa |
-| 7.0 | 3.2 | 4.7 | 1.4| Iris-versicolor |
-| 6.3 | 2.8 | 5.1 | 1.5| Iris-virginica |
-| 6.4 | 3.2 | 4.5 | 1.5| Iris-versicolor |
-
-
-#### 2. Python Code
-
-Building the Naive Bayes Classifier. 
-
-#### Skeleton
-
-Create the skeleton, import the necessary libraries and create the class.
+Create the skeleton: 
+- import the necessary libraries and create the class.
 
 ```python
 # -*- coding: utf-8 -*-
@@ -144,9 +136,9 @@ $ python gauss_nb.py
 Here we will handle class methods.
 ```
 
-##### Loading the CSV
+#### Load CSV
 
-Writing the method to read in the data.
+Writing the method to read in the raw data.
 
 
 ```python
@@ -188,8 +180,9 @@ if __name__ == '__main__':
 [[4.9, 3.0, 1.4, 0.2, 'Iris-setosa'], [4.7, 3.2, 1.3, 0.2, 'Iris-setosa'], [4.6, 3.1, 1.5, 0.2, 'Iris-setosa']]
 ```
 
-##### Split Data
-Splitting data into train and test.
+#### Split Data
+Splitting data into train and test set.
+The weight will determine how much of the data will be training data.
 
 ```python
 class GaussNB:
@@ -226,14 +219,14 @@ if __name__ == '__main__':
 ```
 
 
-##### Group Data By Class
+#### Group Data
 
-This method will map each class to it's respective rows
+Grouping data by class. This method will map each class to it's respective rows of data.
 
-e.g. (This is just a sample. Using the [table](#1-data) from above.)
-```python
+e.g. (This is just a sample. Using the [table](#iris-data-set) from above.)
+```json
 {
-        'Iris-virginica': [
+       'Iris-virginica': [
         [6.3, 2.8, 5.1, 1.5],
     ], 'Iris-setosa': [
         [5.1, 3.5, 1.4, 0.2],
@@ -264,7 +257,7 @@ class GaussNB:
             if not features:
                 continue
             x = features[target]
-            target_map[x].append(features[:-1])
+            target_map[x].append(features[:-1])  # designating the last column as the class column
         print 'Identified %s different target classes: %s' % (len(target_map.keys()), target_map.keys())
         return dict(target_map)
 
@@ -284,6 +277,8 @@ if __name__ == '__main__':
 
 ###### Output:
 `Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']`
+
+
 
 #### Train
 Calculate the mu and variance of features for each target class.
