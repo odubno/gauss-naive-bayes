@@ -224,7 +224,7 @@ if __name__ == '__main__':
 Grouping data by class. This method will map each class to it's respective rows of data.
 
 e.g. (This is just a sample. Using the [table](#iris-data-set) from above.)
-```json
+```python
 {
        'Iris-virginica': [
         [6.3, 2.8, 5.1, 1.5],
