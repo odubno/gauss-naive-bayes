@@ -194,6 +194,10 @@ Splitting data into train and test.
 ```python
 class GaussNB:
 
+    .
+    .
+    .
+
     def split_data(self, data, weight):
         """
         :param data:
@@ -227,7 +231,7 @@ if __name__ == '__main__':
 
 This method will map each class to it's respective rows
 
-e.g. (Using the [table](#1-data) from above.)
+e.g. (This is just a sample. Using the [table](#1-data) from above.)
 ```python
 {
         'Iris-virginica': [
@@ -244,6 +248,10 @@ e.g. (Using the [table](#1-data) from above.)
 
 ```python
 class GaussNB:
+
+    .
+    .
+    .
 
     def group_by_target(self, data, target):
         """
@@ -270,11 +278,14 @@ def main():
     train_list, test_list = nb.split_data(data, weight=.67)
     print "Using %s rows for training and %s rows for testing" % (len(train_list), len(test_list))
     group = nb.group_by_target(data, -1)
-    print "Grouped into classes: %s" % group.keys()
+    print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
 
 if __name__ == '__main__':
     main()
 ```
+
+###### Output:
+`Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']`
 
 #### Train
 Calculate the mu and variance of features for each target class.
