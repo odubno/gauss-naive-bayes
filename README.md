@@ -227,7 +227,7 @@ if __name__ == '__main__':
 
 This method will map each class to it's respective rows
 
-e.g. (Using the [table](#1.-data) from above.)
+e.g. (Using the [table](#1-data) from above.)
 ```python
 {
         'Iris-virginica': [
