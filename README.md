@@ -23,7 +23,7 @@ The complete code for the below tutotial could be found in [nb_tutorial.py](http
   - [Build Model](#build-model)
     - [Prior Probability](#prior-probability)
     - [Train](#train)
-    - [Normal Probability](#normal-probability)
+    - [Likelihood](#likelihood)
     - [Marginal Probability](#marginal-probability)
     - [Posterior Probability](#posterior-probability)
   - [Test Model](#test-model)
@@ -423,7 +423,7 @@ Feature Summary:
 
 Building methods for calculating [Bayes Theorem](#bayes-theorem):
 1. [Prior Probability](#prior-probability)
-2. [Normal Probability](#normal-probability)
+2. [Likelihood](#likelihood)
 3. [Marginal Probability](#marginal-probability)
 4. [Posterior Probability](#posterior-probability)
 
@@ -535,18 +535,24 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 ```
 
-## Normal Probability
+## Likelihood
 ![Alt text](img/likelihood.jpg "Optional Title")
 
-The Normal Distribution will determine the likelihood of each feature for the test set. Here we're using the [normal pdf formula](#normal-pdf-formula) mentioned above.
+We calculate the Normal Probability using [Normal Distribution](#normal-pdf-formula), for each feature given the class.
+
+![Alt text](img/likelihood2.jpg "Marginal")
+
+We're looking to get the Likelihood and it's calculated by multiplying all 4 Normal Probabilities. 
 
 E.g.
 
-As a quick example, below, we're using the Normal Distribution to determine the likelihood that 5 will occur given the mean of 4.98 and the standard deviation of 0.35.
+As a quick example, below, we're using the Normal Distribution to calculate a single Normal Probability. 
 
-FYI, we're "testing" 5 as the *sepal width* feature against **Iris-setosa** class: {'mean': 4.980000000000001, 'stdev': 0.34680810554104063} of the sepal width.
+*5* is the value for the *sepal-width* and *{'mean': 4.98, 'stdev': 0.35}* is the summary for **Iris-setosa** *sepal-width*.
 
+We make this calculation for each feature and multiply all of the results together to get the Likelihood given that class.
 
+Likelihood is a single value.
 
 ```python
 class GaussNB:
@@ -592,7 +598,7 @@ This is to be repeated for each class when running the prediction. The class wit
 
 ![Alt text](img/bayes_2.JPG "Optional Title")
 
-The marginal probability is calculated using sum of the product of Prior Probability and Normal Probability.
+The marginal probability is calculated using the sum of the product of the Prior Probability and Normal Probability.
 ![Alt text](img/bayes_marginal.JPG "Optional Title")
 
 The Marginal Probability is determined using all 3 classes and the Normal Probability of their features.
