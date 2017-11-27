@@ -812,8 +812,7 @@ Accuracy: 0.960
 ```
 
 ### Break down
-The above code will only work with the Iris Data set. You could find the logic in nb_tutorial.py 
-
+The above code will only work with the Iris Data set. You could find the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py) 
 
 
 ## Authors
