@@ -8,10 +8,26 @@
     - [Bayes Theorem](#bayes-theorem)
     - [Normal Probability Density Function](#normal-pdf)
     - [Joint Probability Density Function](#joint-pdf)
-  - [Getting Started](#getting-started)
+  - [Prepare Dare](#prepare-data)
     - [Prerequisites](#prerequisites)
-    - [State By Step](#step-by-step)
-      - [Data](#data)
+    - [Load CSV](#load-csv)
+    - [Split Data](#split-data)
+    - [Group Data](#group-data)
+  - [Summarize Data](summarize-data)
+    - [Mean](#mean)
+    - [Standard Deviation](#standard-deviation)
+    - [Summary](#summary)
+  - [Prior Probability](#prior-probability)
+  - [Train](#train)
+  - [Normal Probability](#normal-probability)
+  - [Marginal Probability](#marginal-probability)
+  - [Posterior Probability](#posterior-probability)
+  - [Get Prediction](#get-prediction)
+  - [Predict](#predict)
+  - [Accuracy](#accuracy)
+  - [Break down](#break-down)
+  - [Authors](#authors)
+  - [Acknowledgments](#acknowledgments)
       
 ## Overview 
 We will be using Naive Bayes and the Gaussian Distribution (Normal Distribution) to build a classifier in Python from scratch.
@@ -341,7 +357,7 @@ Standard Deviation: 1.88414436814
 ```
 
 #### Summary
-Returns a the mean and standard deviation for each column of the data set,
+Returns the mean and the standard deviation for each column of the data set.
 
 ```python
 class GaussNB:
@@ -494,9 +510,9 @@ The Normal Distribution will determine the likelihood of each feature for the te
 
 E.g.
 
-As a quick example below, we're using Normal Distribution to determine the likelihood that 5 will occur given the mean of 4.98 and the standard deviation of 0.35.
+As a quick example below, we're using the Normal Distribution to determine the likelihood that 5 will occur given the mean of 4.98 and the standard deviation of 0.35.
 
-FYI, we're "testing" 5 as the sepal width against Iris-setosa: {'mean': 4.980000000000001, 'stdev': 0.34680810554104063} of the sepal width.
+FYI, we're "testing" 5 as the *sepal width* feature against **Iris-setosa** class: {'mean': 4.980000000000001, 'stdev': 0.34680810554104063} of the sepal width.
 
 
 
@@ -537,9 +553,9 @@ if __name__ == '__main__':
 ### Marginal Probability
 
 ![Alt text](img/marginal.jpg "Marginal")
-referenced in [Bayes Theorem](#bayes-theorem).
+P(features) is referenced from [Bayes Theorem](#bayes-theorem).
 
-Below we break down bayes theorem further, and expand on calculating the marginal probability only using the Iris-setosa class.
+Below we break down Bayes Theorem further, and expand on calculating the Marginal Probability only using the **Iris-setosa** class.
 This is to be repeated for each class when running the prediction. The class with the highest posterior probability is the predicted class.
 
 ![Alt text](img/bayes_2.JPG "Optional Title")
@@ -547,15 +563,15 @@ This is to be repeated for each class when running the prediction. The class wit
 The marginal probability is calculated using sum of the product of Prior Probability and normal probability.
 ![Alt text](img/bayes_marginal.JPG "Optional Title")
 
-The marginal probability is determined using all 3 classes and the normal probability of their features.
-The marginal value, a single value, will be the same across all classes for each test. 
+The Marginal Probability is determined using all 3 classes and the normal probability of their features.
+The Marginal value, a single value, will be the same across all classes for each test. 
 We could think of the marginal probability as the total probability of all 3 classes occurring given the normal probability of each class.
-Thus, the marginal value will be the same across all classes.
+Thus, the Marginal value will be the same across all classes.
 
-To predict the class, we're looking for the **highest** [posterior probability](#bayes-theorem) from among all possible classes. 
+To predict the class, we're looking for the **highest** [Posterior Probability](#bayes-theorem) from among all possible classes. 
 Dividing by the same value will not improve the accuracy of predicting the correct class.
 
-For the purposes of sticking to the true [bayes theorem](#bayes-theorem), we'll use it here.
+For the purposes of sticking to the true [Bayes Theorem](#bayes-theorem), we'll use it here.
 
 ```python
 class GaussNB:
@@ -731,7 +747,7 @@ According to the test row the best prediction is: Iris-versicolor
 
 This method will loop and return a prediction for each list of features in a list. 
 
-For testing this method, we'll use the same [data sample](#group-data) from above.
+For testing this method, we'll use the same [data sample](#group-data) above.
 
 ```python
 class GaussNB:
