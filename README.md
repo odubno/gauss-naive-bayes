@@ -26,9 +26,10 @@ The complete code for the below tutotial could be found in [nb_tutorial.py](http
     - [Normal Probability](#normal-probability)
     - [Marginal Probability](#marginal-probability)
     - [Posterior Probability](#posterior-probability)
-  - [Get Prediction](#get-prediction)
-  - [Predict](#predict)
-  - [Accuracy](#accuracy)
+  - [Test Model](#test-model)
+    - [Get Prediction](#get-prediction)
+    - [Predict](#predict)
+    - [Accuracy](#accuracy)
   - [Break down](#break-down)
   - [Authors](#authors)
   - [Acknowledgments](#acknowledgments)
@@ -729,7 +730,13 @@ Posterior Probabilityies: {
     'Iris-versicolor': 0.14165560618269524
 }
 ```
-# Get Prediction
+# Test Model
+
+1. [Get Prediction](#get-prediction)
+2. [Predict](#predict)
+3. [Accuracy](#accuracy)
+
+## Get Prediction
 This `get_prediction()` method will simply choose and return the highest [Posterior Probability](#posterior-probability).
 
 ```python
@@ -770,7 +777,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 According to the test row the best prediction is: Iris-versicolor
 ```
 
-# Predict
+## Predict
 
 This method will return a prediction for each list (row).
 
@@ -837,7 +844,7 @@ predicted target: ['Iris-versicolor'] | true target: Iris-virginica
 predicted target: ['Iris-setosa', 'Iris-setosa'] | true target: Iris-setosa # both test rows were predicted to be setosa
 predicted target: ['Iris-versicolor', 'Iris-versicolor'] | true target: Iris-versicolor # both test rows were predicted to be versicolor
 ```
-# Accuracy
+## Accuracy
 Accuracy will test the performance of the model by taking the total of correct predictions and dividing them by the total of predictions.
 
 ```python
