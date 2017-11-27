@@ -36,7 +36,7 @@ The complete code for the below tutotial could be found in [nb_tutorial.py](http
 # Overview 
 We will be using Naive Bayes and the Gaussian Distribution (Normal Distribution) to build a classifier in Python from scratch.
 
-The Gauss Naive Bayes Classifier will run on four classic data sets:
+The Gauss Naive Bayes Classifier will beable to run on four classic data sets:
 
 * [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)
 * [diabetes](https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data)
@@ -45,6 +45,8 @@ The Gauss Naive Bayes Classifier will run on four classic data sets:
 
 
 Here we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set.
+
+The logic for the code to work on all four data sets is in [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py)
 
 ## Iris Data Set:
 
