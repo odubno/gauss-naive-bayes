@@ -46,7 +46,8 @@ The Gauss Naive Bayes Classifier will beable to run on four classic data sets:
 
 Here we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set.
 
-The logic for the code to work on all four data sets is in [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py)
+The logic for the code to work on all four data sets is in [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py).
+This tutotial will follow the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
 
 ## Iris Data Set:
 
@@ -339,6 +340,7 @@ Mean: 3.95
 ```
 
 ## Standard Deviation
+Calculating the spread of data. Later used to calculate the Normal Distribution.
 
 ```python
 class GaussNB:
@@ -374,7 +376,7 @@ Standard Deviation: 1.88414436814
 ```
 
 ## Summary
-Returns the mean and the standard deviation for each column of the data set.
+Returns the (mean, standard deviation) combination for each feature column of the data set.
 
 ```python
 class GaussNB:
@@ -426,7 +428,7 @@ Building methods for calculating [Bayes Theorem](#bayes-theorem):
 
 #### Prior Probability
 Calculating the prior probability for each class.
-Prior probability is simply the probability of the each class occuring.
+Prior probability is simply the probability of each class occurring.
 
 ```python
 class GaussNB:
@@ -468,7 +470,7 @@ P(Iris-versicolor): 0.32
 ```
 
 ## Train
-Putting the previous methods together to determine the prior probability for each class and the (mean, standard deviation) combination for each feature of each class.
+Tying the previous methods together to determine the Prior Probability for each class and the (mean, standard deviation) combination for each feature of each class.
 ```python
 class GaussNB:
     . 
@@ -535,7 +537,7 @@ The Normal Distribution will determine the likelihood of each feature for the te
 
 E.g.
 
-As a quick example below, we're using the Normal Distribution to determine the likelihood that 5 will occur given the mean of 4.98 and the standard deviation of 0.35.
+As a quick example, below, we're using the Normal Distribution to determine the likelihood that 5 will occur given the mean of 4.98 and the standard deviation of 0.35.
 
 FYI, we're "testing" 5 as the *sepal width* feature against **Iris-setosa** class: {'mean': 4.980000000000001, 'stdev': 0.34680810554104063} of the sepal width.
 
@@ -585,15 +587,15 @@ This is to be repeated for each class when running the prediction. The class wit
 
 ![Alt text](img/bayes_2.JPG "Optional Title")
 
-The marginal probability is calculated using sum of the product of Prior Probability and normal probability.
+The marginal probability is calculated using sum of the product of Prior Probability and Normal Probability.
 ![Alt text](img/bayes_marginal.JPG "Optional Title")
 
-The Marginal Probability is determined using all 3 classes and the normal probability of their features.
+The Marginal Probability is determined using all 3 classes and the Normal Probability of their features.
 The Marginal value, a single value, will be the same across all classes for each test. 
-We could think of the marginal probability as the total probability of all 3 classes occurring given the normal probability of each class.
+We could think of the Marginal Probability as the total probability of all 3 classes occurring given the Normal Probability of each class.
 Thus, the Marginal value will be the same across all classes.
 
-To predict the class, we're looking for the **highest** [Posterior Probability](#bayes-theorem) from among all possible classes. 
+Reminder, to predict the class, we're looking for the **highest** [Posterior Probability](#bayes-theorem) from among all possible classes. 
 Dividing by the same value will not improve the accuracy of predicting the correct class.
 
 For the purposes of sticking to the true [Bayes Theorem](#bayes-theorem), we'll use it here.
@@ -728,7 +730,7 @@ Posterior Probabilityies: {
 }
 ```
 # Get Prediction
-This `get_prediction()` method will simply choose and return the highest [posterior probability](#posterior-probability).
+This `get_prediction()` method will simply choose and return the highest [Posterior Probability](#posterior-probability).
 
 ```python
 class GaussNB:
@@ -770,9 +772,16 @@ According to the test row the best prediction is: Iris-versicolor
 
 # Predict
 
-This method will loop and return a prediction for each list of features in a list. 
+This method will return a prediction for each list (row).
 
-For testing this method, we'll use the same [data sample](#group-data) above.
+Example input, list of lists: 
+```
+[
+    [5.1, 3.5, 1.4, 0.2],
+    [4.9, 3.0, 1.4, 0.2],
+]
+```
+For testing this method, we'll use the data from the [sample data](#group-data) above.
 
 ```python
 class GaussNB:
@@ -820,7 +829,14 @@ def main():
 if __name__ == '__main__':
     main()
 ```
-
+###### Output: 
+```
+Using 100 rows for training and 50 rows for testing
+Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
+predicted target: ['Iris-versicolor'] | true target: Iris-virginica
+predicted target: ['Iris-setosa', 'Iris-setosa'] | true target: Iris-setosa # both test rows were predicted to be setosa
+predicted target: ['Iris-versicolor', 'Iris-versicolor'] | true target: Iris-versicolor # both test rows were predicted to be versicolor
+```
 # Accuracy
 Accuracy will test the performance of the model by taking the total of correct predictions and dividing them by the total of predictions.
 
