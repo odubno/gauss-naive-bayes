@@ -488,6 +488,8 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 ```
 
 ### Normal Probability
+![Alt text](img/likelihood.jpg "Optional Title")
+
 The Normal Distribution will determine the likelihood of each feature for the test set. Here we're using the [normal pdf formula](#normal-pdf-formula) mentioned above.
 
 E.g.
@@ -533,6 +535,9 @@ if __name__ == '__main__':
 ```
 
 ### Marginal Probability
+
+![Alt text](img/marginal.jpg "Optional Title")
+
 The marginal probability is determined using all 3 classes and the likelihood of their features.
 The marginal value, a single value, will be the same across all classes for each test. 
 We could think of the marginal probability as the total probability of all 3 classes occurring given the likelihood of each class.
@@ -556,10 +561,10 @@ class GaussNB:
         Summing up the product of P(class) prior probability and the probability density of each feature P(feature | class)
 
         marginal pdf =
-          P(setosa) * P(sepal length | setosa) + P(versicolour) * P(sepal length | versicolour) + P(virginica) * P(sepal length | verginica)
-        + P(setosa) * P(sepal width | setosa) + P(versicolour) * P(sepal width | versicolour) + P(virginica) * P(sepal width | verginica)
-        + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | verginica)
-        + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | verginica)
+          P(setosa) * P(sepal length | setosa) + P(versicolour) * P(sepal length | versicolour) + P(virginica) * P(sepal length | virginica)
+        + P(setosa) * P(sepal width | setosa) + P(versicolour) * P(sepal width | versicolour) + P(virginica) * P(sepal width | virginica)
+        + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | virginica)
+        + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | virginica)
         """
         predictors = []
         for target, features in self.summaries.iteritems():
@@ -594,6 +599,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 ```
 
 ### Posterior Probability
+![Alt text](img/posterior.jpg "Optional Title")
 Tying everything together.
 
 Using the [Bayes Theorem](#bayes-theorem) from above:
