@@ -1,5 +1,8 @@
 # Gauss Naive Bayes In Python
 
+Building a Naive Bayes classifier using Python.
+
+The complete code for the below tutotial could be found in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py)
 
 
 # Table of Contents
