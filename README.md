@@ -2,7 +2,7 @@
 
 
 
-## Table of Contents
+# Table of Contents
   - [Overview](#overview)
     - [Iris Data Set](#iris-data-set)
     - [Bayes Theorem](#bayes-theorem)
@@ -30,7 +30,7 @@
   - [Authors](#authors)
   - [Acknowledgments](#acknowledgments)
       
-## Overview 
+# Overview 
 We will be using Naive Bayes and the Gaussian Distribution (Normal Distribution) to build a classifier in Python from scratch.
 
 The Gauss Naive Bayes Classifier will run on four classic data sets:
@@ -43,7 +43,7 @@ The Gauss Naive Bayes Classifier will run on four classic data sets:
 
 Here we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set.
 
-#### Iris Data Set:
+## Iris Data Set:
 
 The Iris data set is a classic and is widely used when explaining classification models. 
 The data set has 4 independent variables and 1 dependent variable that has 3 different classes.
@@ -72,7 +72,7 @@ The 5th column is the dependent variable (class).
 | 6.3 | 2.8 | 5.1 | 1.5| Iris-virginica |
 | 6.4 | 3.2 | 4.5 | 1.5| Iris-versicolor |
 
-#### Bayes Theorem:
+## Bayes Theorem:
 ![Bayes](img/bayes_1.JPG "Bayes" )
 
 **Class Prior Probability:** 
@@ -85,14 +85,14 @@ The 5th column is the dependent variable (class).
 * Marginal probability of how probable the new evidence is under all possible hypothesis. Most Naive Bayes Classifiers do not calculate this. The results do not change or change very little. Though we do calculate it here.
 
 
-#### Normal PDF Formula:
+## Normal PDF Formula:
 ![Normal Distribution](img/normal_distribution.svg "Normal Distribution" )
 
 See [Normal Distribution (Wikipedia)](https://en.wikipedia.org/wiki/Normal_distribution) definition.
 
 The Normal Distribution will help determine the likelihood of a *class* occuring for each feature. In other words for each column of our dataset, the Normal Distribution will calculate the likelihood of that *class* occuring. 
 
-#### Joint PDF Formula:
+## Joint PDF Formula:
 ![Alt text](img/joint_pdf.svg "Optional Title")
 
 See [Joint PDF (Wikipedia )](https://en.wikipedia.org/wiki/Joint_probability_distribution) definition.
@@ -100,11 +100,11 @@ See [Joint PDF (Wikipedia )](https://en.wikipedia.org/wiki/Joint_probability_dis
 The Joint PDF is the product of all PDFs. In our case, the product of all Normal Distribution PDFs. Multiplying all of the PDFs gives us the likelihood.
 
 
-## Prepare Data
+# Prepare Data
 
 Building the Naive Bayes Classifier. 
 
-### Prerequisites
+## Prerequisites
 
 
 Every function is created from scratch.
@@ -114,7 +114,7 @@ However, instead of having to download the data, we're using a quick api call to
 $ pip install requests
 ```
 
-### Skeleton
+## Skeleton
 
 Create the skeleton: 
 - import the necessary libraries and create the class.
@@ -153,7 +153,7 @@ $ python nb_tutorial.py
 Here we will handle class methods.
 ```
 
-#### Load CSV
+## Load CSV
 
 Writing the method to read in the raw data.
 
@@ -197,7 +197,7 @@ if __name__ == '__main__':
 [[4.9, 3.0, 1.4, 0.2, 'Iris-setosa'], [4.7, 3.2, 1.3, 0.2, 'Iris-setosa'], [4.6, 3.1, 1.5, 0.2, 'Iris-setosa']]
 ```
 
-#### Split Data
+## Split Data
 Splitting data into train and test set.
 The weight will determine how much of the data will be training.
 
@@ -235,7 +235,7 @@ if __name__ == '__main__':
 ```
 
 
-#### Group Data
+## Group Data
 
 Grouping data by class. This method will map each class to it's respective rows of data.
 
@@ -293,9 +293,9 @@ if __name__ == '__main__':
 ###### Output:
 `Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']`
 
-### Summarize Data
+# Summarize Data
 
-#### Mean
+## Mean
 
 ```python
 class GaussNB:
@@ -322,7 +322,7 @@ if __name__ == '__main__':
 Mean: 3.95
 ```
 
-#### Standard Deviation
+## Standard Deviation
 
 ```python
 class GaussNB:
@@ -357,7 +357,7 @@ if __name__ == '__main__':
 Standard Deviation: 1.88414436814
 ```
 
-#### Summary
+## Summary
 Returns the mean and the standard deviation for each column of the data set.
 
 ```python
@@ -399,7 +399,8 @@ Feature Summary:
     {'mean': 1.0, 'stdev': 1.1313708498984762} # petal width
 ]
 ```
-### Build Model
+
+# Build Model
 
 Building methods for calculating [Bayes Theorem](#bayes-theorem):
 1. [Prior Probability](#prior-probability)
@@ -450,7 +451,7 @@ P(Iris-setosa): 0.3
 P(Iris-versicolor): 0.32
 ```
 
-#### Train
+## Train
 Putting the previous methods together to determine the prior probability for each class and the (mean, standard deviation) combination for each feature of each class.
 ```python
 class GaussNB:
@@ -511,7 +512,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 ```
 
-#### Normal Probability
+## Normal Probability
 ![Alt text](img/likelihood.jpg "Optional Title")
 
 The Normal Distribution will determine the likelihood of each feature for the test set. Here we're using the [normal pdf formula](#normal-pdf-formula) mentioned above.
@@ -558,7 +559,7 @@ if __name__ == '__main__':
 1.13797564994
 ```
 
-#### Marginal Probability
+## Marginal Probability
 
 ![Alt text](img/marginal.jpg "Marginal")
 P(features) is referenced from [Bayes Theorem](#bayes-theorem).
@@ -631,7 +632,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 0.38610000431
 ```
 
-#### Posterior Probability
+## Posterior Probability
 ![Alt text](img/posterior.jpg "Optional Title")
 Tying everything together.
 
@@ -710,7 +711,7 @@ Posterior Probabilityies: {
     'Iris-versicolor': 0.14165560618269524
 }
 ```
-### Get Prediction
+# Get Prediction
 This `get_prediction()` method will simply choose and return the highest [posterior probability](#posterior-probability).
 
 ```python
@@ -751,7 +752,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 According to the test row the best prediction is: Iris-versicolor
 ```
 
-### Predict
+# Predict
 
 This method will loop and return a prediction for each list of features in a list. 
 
@@ -804,7 +805,7 @@ if __name__ == '__main__':
     main()
 ```
 
-### Accuracy
+# Accuracy
 Accuracy will test the performance of the model by taking the total of correct predictions and dividing them by the total of predictions.
 
 ```python
@@ -854,7 +855,7 @@ Accuracy: 0.960
 The above code will only work with the Iris Data set. You could find the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py) 
 
 
-## Authors
+# Authors
 
 * **Oleh Dubno** - [github.odubno](http://odubno.github.io/)
 * **Danny Argov**
@@ -862,10 +863,10 @@ The above code will only work with the Iris Data set. You could find the logic i
 See also the list of [contributors](https://github.com/odubno/naive_bayes/graphs/contributors) who participated in this project.
 
 
-## Acknowledgments
+# Acknowledgments
 
 
-#### Sources:
+## Sources:
 Hat tip to the authors that made this code possible: 
 
 | Author                  | URL           |
@@ -876,5 +877,5 @@ Hat tip to the authors that made this code possible:
 | Rahul Saxena            | [How The Naive Bayes Classifier Works In Machine Learning](http://dataaspirant.com/2017/02/06/naive-bayes-classifier-machine-learning/) |
 | Data Source             | [UCI Machine Learning](http://archive.ics.uci.edu/ml/index.php) |
 
-#### Inspiration:  
+# Inspiration:  
 Project for Columbia Probability and Statistics course - Prof. Banu Baydil
