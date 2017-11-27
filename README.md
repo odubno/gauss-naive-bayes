@@ -737,7 +737,14 @@ Posterior Probabilityies: {
 3. [Accuracy](#accuracy)
 
 ## Get Prediction
-This `get_prediction()` method will simply choose and return the highest [Posterior Probability](#posterior-probability).
+
+This method will call our `posterior_probabilities()` method on a single `test vector` eg (`[6.3, 2.8, 5.1, 1.5]`). 
+
+The `test vector` is a list of features. For each `test vector` we will calculate 3 Posterior Probabilities; one for each class.
+
+The [Posterior Probability](#posterior-probability) is the updated believe given the new data, `test vector`.
+
+The `get_prediction()` method will simply choose the highest Posterior Probability and return the predicted class for the given `test_vector`.
 
 ```python
 class GaussNB:
