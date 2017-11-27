@@ -17,11 +17,12 @@
     - [Mean](#mean)
     - [Standard Deviation](#standard-deviation)
     - [Summary](#summary)
-  - [Prior Probability](#prior-probability)
-  - [Train](#train)
-  - [Normal Probability](#normal-probability)
-  - [Marginal Probability](#marginal-probability)
-  - [Posterior Probability](#posterior-probability)
+  - [Build Model](#build-model)
+    - [Prior Probability](#prior-probability)
+    - [Train](#train)
+    - [Normal Probability](#normal-probability)
+    - [Marginal Probability](#marginal-probability)
+    - [Posterior Probability](#posterior-probability)
   - [Get Prediction](#get-prediction)
   - [Predict](#predict)
   - [Accuracy](#accuracy)
@@ -398,8 +399,15 @@ Feature Summary:
     {'mean': 1.0, 'stdev': 1.1313708498984762} # petal width
 ]
 ```
+### Build Model
 
-### Prior Probability
+Building methods for calculating [Bayes Theorem](#bayes-theorem):
+1. [Prior Probability](#prior-probability)
+2. [Normal Probability](#normal-probability)
+3. [Marginal Probability](#marginal-probability)
+4. [Posterior Probability](#posterior-probability)
+
+#### Prior Probability
 Calculating the prior probability for each class.
 Prior probability is simply the probability of the each class occuring.
 
@@ -442,7 +450,7 @@ P(Iris-setosa): 0.3
 P(Iris-versicolor): 0.32
 ```
 
-### Train
+#### Train
 Putting the previous methods together to determine the prior probability for each class and the (mean, standard deviation) combination for each feature of each class.
 ```python
 class GaussNB:
@@ -503,7 +511,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 ```
 
-### Normal Probability
+#### Normal Probability
 ![Alt text](img/likelihood.jpg "Optional Title")
 
 The Normal Distribution will determine the likelihood of each feature for the test set. Here we're using the [normal pdf formula](#normal-pdf-formula) mentioned above.
@@ -550,7 +558,7 @@ if __name__ == '__main__':
 1.13797564994
 ```
 
-### Marginal Probability
+#### Marginal Probability
 
 ![Alt text](img/marginal.jpg "Marginal")
 P(features) is referenced from [Bayes Theorem](#bayes-theorem).
@@ -623,7 +631,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 0.38610000431
 ```
 
-### Posterior Probability
+#### Posterior Probability
 ![Alt text](img/posterior.jpg "Optional Title")
 Tying everything together.
 
