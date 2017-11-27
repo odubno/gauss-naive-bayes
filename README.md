@@ -127,7 +127,7 @@ if __name__ == '__main__':
 ```
 Execute in terminal:
 ```
-$ python gauss_nb.py
+$ python nb_tutorial.py
 ```
 
 
@@ -812,7 +812,7 @@ Accuracy: 0.960
 ```
 
 ### Break down
-
+The above code will only work with the Iris Data set. You could find the logic in nb_tutorial.py 
 
 
 
