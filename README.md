@@ -83,7 +83,7 @@ See [Joint PDF (Wikipedia )](https://en.wikipedia.org/wiki/Joint_probability_dis
 The Joint PDF is the product of all PDFs. In our case, the product of all Normal Distribution PDFs. Multiplying all of the PDFs gives us the likelihood.
 
 
-## Python Code
+## Prepare Data
 
 Building the Naive Bayes Classifier. 
 
@@ -189,7 +189,6 @@ class GaussNB:
     .
     .
     .
-
     def split_data(self, data, weight):
         """
         :param data:
@@ -243,8 +242,7 @@ class GaussNB:
     .
     .
     .
-
-    def group_by_target(self, data, target):
+    def group_by_class(self, data, target):
         """
         :param data: Training set. Lists of events (rows) in a list
         :param target: Index for the target column. Usually the last index in the list
@@ -268,7 +266,7 @@ def main():
     data = nb.load_csv(data, header=True)
     train_list, test_list = nb.split_data(data, weight=.67)
     print "Using %s rows for training and %s rows for testing" % (len(train_list), len(test_list))
-    group = nb.group_by_target(data, -1)
+    group = nb.group_by_class(data, -1)
     print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
 
 if __name__ == '__main__':
@@ -278,7 +276,313 @@ if __name__ == '__main__':
 ###### Output:
 `Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']`
 
+### Summarize Data
 
+#### Mean
+
+```python
+class GaussNB:
+    .
+    . 
+    . 
+    def mean(self, numbers):
+        """
+        :param numbers: list of numbers
+        :return: 
+        """
+        result = sum(numbers) / float(len(numbers))
+        return result
+
+def main():
+    nb = GaussNB()
+    print "Mean: %s" % nb.mean([5.9, 3.0, 5.1, 1.8])
+
+if __name__ == '__main__':
+    main()
+```
+###### Output:
+```
+Mean: 3.95
+```
+
+#### Standard Deviation
+
+```python
+class GaussNB:
+    . 
+    . 
+    . 
+    def stdev(self, numbers):
+        """
+        :param numbers: list of numbers
+        :return:
+        Calculate the standard deviation for a list of numbers.
+        """
+        avg = self.mean(numbers)
+        squared_diff_list = []
+        for num in numbers:
+            squared_diff = (num - avg) ** 2
+            squared_diff_list.append(squared_diff)
+        squared_diff_sum = sum(squared_diff_list)
+        sample_n = float(len(numbers) - 1)
+        var = squared_diff_sum / sample_n
+        return var ** .5
+
+def main():
+    nb = GaussNB()
+    print "Standard Deviation: %s" % nb.stdev([5.9, 3.0, 5.1, 1.8])
+
+if __name__ == '__main__':
+    main()
+```
+###### Output:
+```
+Standard Deviation: 1.88414436814
+```
+
+#### Summary
+Returns a the mean and standard deviation for each column of the data set,
+
+```python
+class GaussNB:
+    . 
+    . 
+    . 
+    def summarize(self, data):
+        """
+        :param data: lists of events (rows) in a list
+        :return:
+        Use zip to line up each feature into a single column across multiple lists.
+        yield the mean and the stdev for each feature
+        """
+        for attributes in zip(*data):
+            yield {
+                'stdev': self.stdev(attributes),
+                'mean': self.mean(attributes)
+            }
+
+def main():
+    nb = GaussNB()
+    data = [
+        [5.9, 3.0, 5.1, 1.8], 
+        [5.1, 3.5, 1.4, 0.2]
+    ]
+    print "Feature Summary: %s" % [i for i in nb.summarize(data)]
+
+if __name__ == '__main__':
+    main()
+```
+###### Output:
+```
+Feature Summary: 
+[
+    {'mean': 5.5, 'stdev': 0.5656854249492386}, # sepal length 
+    {'mean': 3.25, 'stdev': 0.3535533905932738}, # sepal width
+    {'mean': 3.25, 'stdev': 2.6162950903902256}, # petal length
+    {'mean': 1.0, 'stdev': 1.1313708498984762} # petal width
+]
+```
+
+### Calculate Prior Probability
+Calculating the prior probability for each class.
+Prior probability is the probability of the each class occuring.
+
+```python
+class GaussNB:
+    . 
+    . 
+    . 
+    def prior_prob(self, group, target, data):
+        """
+        :return:
+        The probability of each target class
+        """
+        total = float(len(data))
+        result = len(group[target]) / total
+        return result
+
+def main():
+    nb = GaussNB()
+    url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+    data = requests.get(url).content
+    data = nb.load_csv(data, header=True)
+    train_list, test_list = nb.split_data(data, weight=.67)
+    print "Using %s rows for training and %s rows for testing" % (len(train_list), len(test_list))
+    group = nb.group_by_class(data, -1)  # designating the last column as the class column
+    print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
+    for target_class in ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']:
+        prior_prob = nb.prior_prob(group, target_class, data)
+        print 'P(%s): %s' % (target_class, prior_prob)
+
+if __name__ == '__main__':
+    main()
+```
+###### Output:
+```
+Using 100 rows for training and 50 rows for testing
+Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
+P(Iris-virginica): 0.38
+P(Iris-setosa): 0.3
+P(Iris-versicolor): 0.32
+```
+
+### Train
+Putting the previous methods together to determine the prior for each class and the (mean, standard deviation) combination for each feature of each class.
+```python
+class GaussNB:
+    . 
+    . 
+    . 
+    def train(self, train_list, target):
+        """
+        :param data:
+        :param target: target class
+        :return:
+        For each target:
+            1. yield prior: the probability of each class. P(class) eg P(Iris-virginica)
+            2. yield summary: list of {'mean': 0.0, 'stdev': 0.0}
+        """
+        group = self.group_by_class(train_list, target)
+        self.summaries = {}
+        for target, features in group.iteritems():
+            self.summaries[target] = {
+                'prior': self.prior_prob(group, target, train_list),
+                'summary': [i for i in self.summarize(features)],
+            }
+        return self.summaries
+
+def main():
+    nb = GaussNB()
+    url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+    data = requests.get(url).content
+    data = nb.load_csv(data, header=True)
+    train_list, test_list = nb.split_data(data, weight=.67)
+    print "Using %s rows for training and %s rows for testing" % (len(train_list), len(test_list))
+    group = nb.group_by_class(data, -1)  # designating the last column as the class column
+    print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
+    print nb.train(train_list, -1)
+
+if __name__ == '__main__':
+    main()
+```
+###### Output:
+```
+Using 100 rows for training and 50 rows for testing
+Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
+{'Iris-setosa': {'prior': 0.3,
+  'summary': [{'mean': 4.980000000000001, 'stdev': 0.34680810554104063}, # sepal length 
+   {'mean': 3.406666666666667, 'stdev': 0.3016430104397023}, # sepal width
+   {'mean': 1.496666666666667, 'stdev': 0.20254132542705236}, # petal length
+   {'mean': 0.24333333333333343, 'stdev': 0.12228664272317624}]}, # petal width
+ 'Iris-versicolor': {'prior': 0.31,
+  'summary': [{'mean': 5.96774193548387, 'stdev': 0.4430102307127106},
+   {'mean': 2.7903225806451615, 'stdev': 0.28560443356698495},
+   {'mean': 4.303225806451613, 'stdev': 0.41990782398659987},
+   {'mean': 1.3451612903225807, 'stdev': 0.17289439874755796}]},
+ 'Iris-virginica': {'prior': 0.39,
+  'summary': [{'mean': 6.679487179487178, 'stdev': 0.585877428882027},
+   {'mean': 3.002564102564103, 'stdev': 0.34602036712733625},
+   {'mean': 5.643589743589742, 'stdev': 0.5215336048086158},
+   {'mean': 2.0487179487179477, 'stdev': 0.2927831916298213}]}}
+
+```
+
+### Normal PDF
+The Normal Distribution will determine the likelihood of each feature for the test set.
+
+E.g.
+
+As a quick example below, we're using Normal Distribution to determine the likelihood that 5 will occur given the mean of 4.98 and the standard deviation of 0.35.
+
+FYI, we're "testing" 5 against Iris-setosa: {'mean': 4.980000000000001, 'stdev': 0.34680810554104063} of the sepal width.
+
+
+
+```python
+class GaussNB:
+    . 
+    . 
+    .
+    def normal_pdf(self, x, mean, stdev):
+        """
+        :param x: a variable
+        :param mean: µ - the expected value or average from M samples
+        :param stdev: σ - standard deviation
+        :return: Gaussian (Normal) Density function.
+        N(x; µ, σ) = (1 / 2πσ) * (e ^ (x–µ)^2/-2σ^2
+        """
+        variance = stdev ** 2
+        exp_squared_diff = (x - mean) ** 2
+        exp_power = -exp_squared_diff / (2 * variance)
+        exponent = e ** exp_power
+        denominator = ((2 * pi) ** .5) * stdev
+        pdf = exponent / denominator
+        return pdf
+
+def main():
+    nb = GaussNB()
+    normal_pdf = nb.normal_pdf(5, 4.98, 0.35)
+    print normal_pdf
+
+if __name__ == '__main__':
+    main()
+```
+###### Output:
+```
+1.13797564994
+```
+
+### Marginal PDF
+
+```python
+class GaussNB:
+    . 
+    . 
+    . 
+    def marginal_pdf(self, pdfs):
+        """
+        :param pdfs: list of probability densities for each feature
+        :return:
+        Marginal Probability Density Function (Predictor Prior Probability)
+        Summing up the product of P(class) prior probability and the probability density of each feature P(feature | class)
+
+        marginal pdf =
+          P(setosa) * P(sepal length | setosa) + P(versicolour) * P(sepal length | versicolour) + P(virginica) * P(sepal length | verginica)
+        + P(setosa) * P(sepal width | setosa) + P(versicolour) * P(sepal width | versicolour) + P(virginica) * P(sepal width | verginica)
+        + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | verginica)
+        + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | verginica)
+        """
+        predictors = []
+        for target, features in self.summaries.iteritems():
+            prior = features['prior']
+            for index in range(len(pdfs)):
+                normal_pdf = pdfs[index]
+                predictors.append(prior * normal_pdf)
+        marginal_pdf = sum(predictors)
+        return marginal_pdf
+
+def main():
+    nb = GaussNB()
+    url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+    data = requests.get(url).content
+    data = nb.load_csv(data, header=True)
+    train_list, test_list = nb.split_data(data, weight=.67)
+    print "Using %s rows for training and %s rows for testing" % (len(train_list), len(test_list))
+    group = nb.group_by_class(data, -1)  # designating the last column as the class column
+    print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
+    nb.train(train_list, -1)
+    marginal_pdf = nb.marginal_pdf(pdfs=[0.02, 0.37, 3.44e-12, 4.35e-09])
+    print marginal_pdf
+
+if __name__ == '__main__':
+    main()
+```
+###### Output:
+```
+Using 100 rows for training and 50 rows for testing
+Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
+0.38610000431
+```
 
 #### Train
 Calculate the mu and variance of features for each target class.
