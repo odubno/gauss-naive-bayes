@@ -68,14 +68,14 @@ The 5th column is the dependent variable (class).
 * Marginal probability of how probable the new evidence is under all possible hypothesis. Most Naive Bayes Classifiers do not calculate this. The results do not change or change very little. Though we do calculate it here.
 
 
-#### Normal PDF:
+#### Normal PDF Formula:
 ![Normal Distribution](img/normal_distribution.svg "Normal Distribution" )
 
 See [Normal Distribution (Wikipedia)](https://en.wikipedia.org/wiki/Normal_distribution) definition.
 
 The Normal Distribution will help determine the likelihood of a *class* occuring for each feature. In other words for each column of our dataset, the Normal Distribution will calculate the likelihood of that *class* occuring. 
 
-#### Joint PDF:
+#### Joint PDF Formula:
 ![Alt text](img/joint_pdf.svg "Optional Title")
 
 See [Joint PDF (Wikipedia )](https://en.wikipedia.org/wiki/Joint_probability_distribution) definition.
@@ -182,7 +182,7 @@ if __name__ == '__main__':
 
 #### Split Data
 Splitting data into train and test set.
-The weight will determine how much of the data will be training data.
+The weight will determine how much of the data will be training.
 
 ```python
 class GaussNB:
@@ -383,9 +383,9 @@ Feature Summary:
 ]
 ```
 
-### Calculate Prior Probability
+### Prior Probability
 Calculating the prior probability for each class.
-Prior probability is the probability of the each class occuring.
+Prior probability is simply the probability of the each class occuring.
 
 ```python
 class GaussNB:
@@ -427,7 +427,7 @@ P(Iris-versicolor): 0.32
 ```
 
 ### Train
-Putting the previous methods together to determine the prior for each class and the (mean, standard deviation) combination for each feature of each class.
+Putting the previous methods together to determine the prior probability for each class and the (mean, standard deviation) combination for each feature of each class.
 ```python
 class GaussNB:
     . 
@@ -487,14 +487,14 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 ```
 
-### Normal PDF
-The Normal Distribution will determine the likelihood of each feature for the test set.
+### Normal Probability
+The Normal Distribution will determine the likelihood of each feature for the test set. Here we're using the [normal pdf formula](#normal-pdf-formula) mentioned above.
 
 E.g.
 
 As a quick example below, we're using Normal Distribution to determine the likelihood that 5 will occur given the mean of 4.98 and the standard deviation of 0.35.
 
-FYI, we're "testing" 5 against Iris-setosa: {'mean': 4.980000000000001, 'stdev': 0.34680810554104063} of the sepal width.
+FYI, we're "testing" 5 as the sepal width against Iris-setosa: {'mean': 4.980000000000001, 'stdev': 0.34680810554104063} of the sepal width.
 
 
 
@@ -532,7 +532,16 @@ if __name__ == '__main__':
 1.13797564994
 ```
 
-### Marginal PDF
+### Marginal Probability
+The marginal probability is determined using all 3 classes and the likelihood of their features.
+The marginal value, a single value, will be the same across all classes for each test. 
+We could think of the marginal probability as the total probability of all 3 classes occurring given the likelihood of each class.
+Thus, the marginal value will be the same across all classes.
+
+To predict the class, we're looking for the **highest** [posterior probability](#bayes-theorem) from among all possible classes. 
+Dividing by the same value will not improve our accuracy of predicting the correct class.
+
+For the purposes of sticking to the true [bayes formula](#bayes-theorem), we'll use it here.
 
 ```python
 class GaussNB:
@@ -584,44 +593,228 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 0.38610000431
 ```
 
-#### Train
-Calculate the mu and variance of features for each target class.
+### Posterior Probability
+Tying everything together.
 
-#### Test
-Using the the Normal Distribution, calculate the PDF for all test features of each target class using N(x; mu, variance).
-Calculate the Joint PDF of each row, by multiplying pdf results together.
-Choose the highest joint pdf.
+Using the [Bayes Theorem](#bayes-theorem) from above:
+- [Prior Probability](#prior-probability)
+- [Normal Probability](#normal-probability)
+- [Marginal Probability](#marginal-probability)
 
+The likelihood, for each class, will be calculated by multiplying all normal probabilities together.
 
-### Installing
+The method below takes a single list (a test row), at a time and returns posterior probabilities for each class. 
+To predict a class, we want to choose the largest posterior.
+```python
+class GaussNB:
+    .
+    .
+    .
+    def posterior_probabilities(self, test_vector):
+        """
+        :param test_vector: single list of features to test
+        :return:
+        For each feature (x) in the test_vector:
+            1. Calculate Predictor Prior Probability using the Normal PDF N(x; µ, σ). eg = P(feature | class)
+            2. Calculate Likelihood by getting the product of the prior and the Normal PDFs
+            3. Multiply Likelihood by the prior to calculate the Joint PDF. P(Iris-virginica)
 
-Once cloned, running the program is as simple as calling 
-```bazaar
-python naive_bayes.py
+        E.g.
+        prior: P(setosa)
+        likelihood: P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)
+        numerator (joint pdf): prior * likelihood
+        denominator (marginal pdf): predictor prior probability
+        posterior_prob = joint pdf/ marginal pdf
+
+        returning a dictionary mapping of class to it's posterior probability
+        """
+        posterior_probs = {}
+        for target, features in self.summaries.iteritems():
+            total_features = len(features['summary'])
+            likelihood = 0
+            pdfs = []
+            for index in range(total_features):
+                mean = features['summary'][index]['mean']
+                stdev = features['summary'][index]['stdev']
+                x = test_vector[index]
+                normal = self.normal_pdf(x, mean, stdev)
+                likelihood = posterior_probs.get(target, 1) * normal
+                pdfs.append(normal)
+            marginal = self.marginal_pdf(pdfs)
+            prior = features['prior']
+            posterior_probs[target] = (prior * likelihood) / marginal
+        return posterior_probs
+
+def main():
+    nb = GaussNB()
+    url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+    data = requests.get(url).content
+    data = nb.load_csv(data, header=True)
+    train_list, test_list = nb.split_data(data, weight=.67)
+    print "Using %s rows for training and %s rows for testing" % (len(train_list), len(test_list))
+    group = nb.group_by_class(data, -1)  # designating the last column as the class column
+    print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
+    nb.train(train_list, -1)
+    posterior_probs = nb.posterior_probabilities([6.3, 2.8, 5.1, 1.5]) # 'Iris-virginica'
+    print "Posterior Probabilityies: %s" % posterior_probs
+
+if __name__ == '__main__':
+    main()
+```
+###### Output:
+```
+Using 100 rows for training and 50 rows for testing
+Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
+Posterior Probabilityies: {
+    'Iris-virginica': 0.01402569010123345,
+    'Iris-setosa': 2.6269216431943473e-26, 
+    'Iris-versicolor': 0.14165560618269524
+}
+```
+### Get Prediction
+This `get_prediction()` method will simply choose and return the highest [posterior probability](#posterior-probability).
+
+```python
+class GaussNB:
+    .
+    . 
+    . 
+    def get_prediction(self, test_vector):
+        """
+        :param test_vector: single list of features to test
+        :return:
+        Return the target class with the largest/best posterior probability
+        """
+        posterior_probs = self.posterior_probabilities(test_vector)
+        best_target = max(posterior_probs, key=posterior_probs.get)
+        return best_target
+
+def main():
+    nb = GaussNB()
+    url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+    data = requests.get(url).content
+    data = nb.load_csv(data, header=True)
+    train_list, test_list = nb.split_data(data, weight=.67)
+    print "Using %s rows for training and %s rows for testing" % (len(train_list), len(test_list))
+    group = nb.group_by_class(data, -1)  # designating the last column as the class column
+    print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
+    nb.train(train_list, -1)
+    prediction = nb.get_prediction([6.3, 2.8, 5.1, 1.5])  # 'Iris-virginica'
+    print 'According to the test row the best prediction is: %s' % prediction
+
+if __name__ == '__main__':
+    main()
+```
+###### Output:
+```
+Using 100 rows for training and 50 rows for testing
+Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
+According to the test row the best prediction is: Iris-versicolor
 ```
 
+### Predict
 
-End with an example of getting some data out of the system or using it for a little demo
+This method will loop and return a prediction for each list of features in a list. 
 
-## Running the tests
+For testing this method, we'll use the same [data sample](#group-data) from above.
 
-Explain how to run the automated tests for this system
+```python
+class GaussNB:
+    .
+    . 
+    .
+    def predict(self, test_set):
+        """
+        :param test_set: list of features to test on
+        :return:
+        Predict the likeliest target for each row of the test_set.
+        Return a list of predicted targets.
+        """
+        predictions = []
+        for row in test_set:
+            result = self.get_prediction(row)
+            predictions.append(result)
+        return predictions
 
-### Break down into end to end tests
+def main():
+    nb = GaussNB()
+    url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+    data = requests.get(url).content
+    data = nb.load_csv(data, header=True)
+    train_list, test_list = nb.split_data(data, weight=.67)
+    print "Using %s rows for training and %s rows for testing" % (len(train_list), len(test_list))
+    group = nb.group_by_class(data, -1)  # designating the last column as the class column
+    print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
+    nb.train(train_list, -1)
+    test = {
+           'Iris-virginica': [
+            [6.3, 2.8, 5.1, 1.5],
+        ], 'Iris-setosa': [
+            [5.1, 3.5, 1.4, 0.2],
+            [4.9, 3.0, 1.4, 0.2],
+        ], 'Iris-versicolor': [
+            [7.0, 3.2, 4.7, 1.4],
+            [6.4, 3.2, 4.5, 1.5],
+        ]
+    }
+    for target, features in test.iteritems():
+        predicted = nb.predict(features)
+        print 'predicted target: %s | true target: %s' % (predicted, target)
 
-Explain what these tests test and why
-
+if __name__ == '__main__':
+    main()
 ```
-Give an example
+
+### Accuracy
+Accuracy will test the performance of the model by taking the total of correct predictions and dividing them by the total of predictions.
+
+```python
+class GaussNB:
+    .
+    . 
+    . 
+    def accuracy(self, test_set, predicted):
+        """
+        :param test_set: list of test_data
+        :param predicted: list of predicted classes
+        :return:
+        Calculate the the average performance of the classifier.
+        """
+        correct = 0
+        actual = [item[-1] for item in test_set]
+        for x, y in zip(actual, predicted):
+            if x == y:
+                correct += 1
+        return correct / float(len(test_set))
+
+def main():
+    nb = GaussNB()
+    url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+    data = requests.get(url).content
+    data = nb.load_csv(data, header=True)
+    train_list, test_list = nb.split_data(data, weight=.67)
+    print "Using %s rows for training and %s rows for testing" % (len(train_list), len(test_list))
+    group = nb.group_by_class(data, -1)  # designating the last column as the class column
+    print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
+    nb.train(train_list, -1)
+    predicted = nb.predict(test_list)
+    accuracy = nb.accuracy(test_list, predicted)
+    print 'Accuracy: %.3f' % accuracy
+
+if __name__ == '__main__':
+    main()
+```
+###### Output: 
+```
+Using 100 rows for training and 50 rows for testing
+Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
+Accuracy: 0.960
 ```
 
-### And coding style tests
+### Break down
 
-Explain what these tests test and why
 
-```
-Give an example
-```
+
 
 ## Authors
 
