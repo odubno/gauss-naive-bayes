@@ -63,10 +63,10 @@ class GaussNB:
 
     def split_data(self, data, weight):
         """
-        :param data: original data set
-        :param weight: percentage of data used for training
+        :param data:
+        :param weight: indicates the percentage of rows that'll be used for testing
         :return:
-        append rows to train while removing those same rows from data
+        Randomly select rows for testing.
         """
         train_size = int(len(data) * weight)
         train_set = []
@@ -96,7 +96,7 @@ class GaussNB:
         var = squared_diff_sum / sample_n
         return var ** .5
 
-    def group_by_target(self, data, target):
+    def group_by_class(self, data, target):
         """
         :param data: Training set. Lists of events (rows) in a list
         :param target: Index for the target column. Usually the last index in the list
@@ -130,31 +130,31 @@ class GaussNB:
                 'mean': self.mean(attributes)
             }
 
-    def train(self, data, x_target):
+    def train(self, train_list, target):
         """
         :param data:
-        :param x_target: dependent variable/ predicted variable
+        :param target: target class
         :return:
         For each target:
             1. yield prior: the probability of each class. P(class) eg P(Iris-virginica)
             2. yield summary: list of {'mean': 0.0, 'stdev': 0.0}
         """
-        class_feature_map = self.group_by_target(data, x_target)
+        group = self.group_by_class(train_list, target)
         self.summaries = {}
-        for target, features in class_feature_map.iteritems():
+        for target, features in group.iteritems():
             self.summaries[target] = {
-                'prior': self.probability(class_feature_map, target, data),
+                'prior': self.prior_prob(group, target, train_list),
                 'summary': [i for i in self.summarize(features)],
             }
         return self.summaries
 
-    def probability(self, class_feature_map, target, data):
+    def prior_prob(self, group, target, data):
         """
         :return:
         The probability of each target class
         """
         total = float(len(data))
-        result = len(class_feature_map[target]) / total
+        result = len(group[target]) / total
         return result
 
     def normal_pdf(self, x, mean, stdev):
