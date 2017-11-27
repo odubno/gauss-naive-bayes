@@ -434,6 +434,7 @@ Building methods for calculating [Bayes Theorem](#bayes-theorem):
 Prior Probability is what we know about each class before considering new information. It is simply the probability of each class occurring.
 
 This method calculates the probability of each class.
+
 ```python
 class GaussNB:
     . 

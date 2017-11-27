@@ -161,11 +161,11 @@ class GaussNB:
         marginal_pdf = sum(predictors)
         return marginal_pdf
 
-    def posterior_probabilities(self, test_vector):
+    def posterior_probabilities(self, test_row):
         """
-        :param test_vector: single list of features to test
+        :param test_row: single list of features to test
         :return:
-        For each feature (x) in the test_vector:
+        For each feature (x) in the test_row:
             1. Calculate Predictor Prior Probability using the Normal PDF N(x; µ, σ). eg = P(feature | class)
             2. Calculate Likelihood by getting the product of the prior and the Normal PDFs
             3. Multiply Likelihood by the prior to calculate the Joint PDF. P(Iris-virginica)
@@ -187,7 +187,7 @@ class GaussNB:
             for index in range(total_features):
                 mean = features['summary'][index]['mean']
                 stdev = features['summary'][index]['stdev']
-                x = test_vector[index]
+                x = test_row[index]
                 normal = self.normal_pdf(x, mean, stdev)
                 likelihood = posterior_probs.get(target, 1) * normal
                 pdfs.append(normal)
@@ -196,13 +196,13 @@ class GaussNB:
             posterior_probs[target] = (prior * likelihood) / marginal
         return posterior_probs
 
-    def get_prediction(self, test_vector):
+    def get_prediction(self, test_row):
         """
-        :param test_vector: single list of features to test
+        :param test_row: single list of features to test
         :return:
         Return the target class with the largest/best posterior probability
         """
-        posterior_probs = self.posterior_probabilities(test_vector)
+        posterior_probs = self.posterior_probabilities(test_row)
         best_target = max(posterior_probs, key=posterior_probs.get)
         return best_target
 
