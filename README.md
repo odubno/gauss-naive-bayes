@@ -653,17 +653,18 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 ## Posterior Probability
 ![Alt text](img/posterior.jpg "Optional Title")
-Tying everything together.
 
-Using the [Bayes Theorem](#bayes-theorem) from above:
+Posterior Probability is our update believe given new features (data).
+We have to calculate the Posterior Probability for each class. 
+The predicted class is the class with the highest Posterior Probability.
+
+This method takes a single `test_row` and returns the Posterior Probability for each class. 
+
+Using [Bayes Theorem](#bayes-theorem) from above:
 - [Prior Probability](#prior-probability)
 - [Normal Probability](#normal-probability)
 - [Marginal Probability](#marginal-probability)
 
-The likelihood, for each class, will be calculated by multiplying all normal probabilities together.
-
-The method below takes a single list (a test row), at a time and returns posterior probabilities for each class. 
-To predict a class, we want to choose the largest posterior.
 ```python
 class GaussNB:
     .
