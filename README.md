@@ -427,7 +427,7 @@ Building methods for calculating [Bayes Theorem](#bayes-theorem):
 3. [Marginal Probability](#marginal-probability)
 4. [Posterior Probability](#posterior-probability)
 
-#### Prior Probability
+## Prior Probability
 Calculating the prior probability for each class.
 Prior probability is simply the probability of each class occurring.
 
