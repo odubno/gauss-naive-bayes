@@ -538,17 +538,21 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 ## Likelihood
 ![Alt text](img/likelihood.jpg "Optional Title")
 
-We calculate the Normal Probability using [Normal Distribution](#normal-pdf-formula), for each feature given the class.
+We're looking to get calculate the Likelihood for each class.
+Likelihood is calculated by multiplying the Normal Probabilities of each feature. 
+
+For each feature given the class we calculate the Normal Probability using the [Normal Distribution](#normal-pdf-formula).
+
 
 ![Alt text](img/likelihood2.jpg "Marginal")
 
-We're looking to get the Likelihood and it's calculated by multiplying all 4 Normal Probabilities. 
+
 
 E.g.
 
 As a quick example, below, we're using the Normal Distribution to calculate a single Normal Probability. 
 
-*5* is the value for the *sepal-width* and *{'mean': 4.98, 'stdev': 0.35}* is the summary for **Iris-setosa** *sepal-width*.
+*5* is the value of the *sepal-width* and *{'mean': 4.98, 'stdev': 0.35}* is the summary for **Iris-setosa** *sepal-width*.
 
 We make this calculation for each feature and multiply all of the results together to get the Likelihood given that class.
 
