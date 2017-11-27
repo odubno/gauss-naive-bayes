@@ -56,7 +56,7 @@ The 5th column is the dependent variable (class).
 | 6.4 | 3.2 | 4.5 | 1.5| Iris-versicolor |
 
 #### Bayes Theorem:
-![Bayes](img/bayes_exp.JPG "Bayes" )
+![Bayes](img/bayes_1.JPG "Bayes" )
 
 **Class Prior Probability:** 
 * This is our Prior Belief
