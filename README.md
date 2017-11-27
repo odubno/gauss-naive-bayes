@@ -104,6 +104,12 @@ The Joint PDF is the product of all PDFs. In our case, the product of all Normal
 
 Building the Naive Bayes Classifier. 
 
+1. [Skeleton](#skeleton)
+2. [Load CSV](#load-csv)
+3. [Split Data](#split-data)
+4. [Group Data](#group-data)
+
+
 ## Prerequisites
 
 
@@ -294,6 +300,11 @@ if __name__ == '__main__':
 `Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']`
 
 # Summarize Data
+
+Preparing data for modeling:
+1. [Mean](#mean)
+2. [Standard Deviation](#standard-deviation)
+3. [Summary](#sumamry)
 
 ## Mean
 
