@@ -13,7 +13,7 @@
     - [Load CSV](#load-csv)
     - [Split Data](#split-data)
     - [Group Data](#group-data)
-  - [Summarize Data](summarize-data)
+  - [Summarize Data](#summarize-data)
     - [Mean](#mean)
     - [Standard Deviation](#standard-deviation)
     - [Summary](#summary)
