@@ -536,17 +536,26 @@ if __name__ == '__main__':
 
 ### Marginal Probability
 
-![Alt text](img/marginal.jpg "Optional Title")
+![Alt text](img/marginal.jpg "Marginal")
+referenced in [Bayes Theorem](#bayes-theorem).
 
-The marginal probability is determined using all 3 classes and the likelihood of their features.
+Below we break down bayes theorem further, and expand on calculating the marginal probability only using the Iris-setosa class.
+This is to be repeated for each class when running the prediction. The class with the highest posterior probability is the predicted class.
+
+![Alt text](img/bayes_2.JPG "Optional Title")
+
+The marginal probability is calculated using sum of the product of Prior Probability and normal probability.
+![Alt text](img/bayes_marginal.JPG "Optional Title")
+
+The marginal probability is determined using all 3 classes and the normal probability of their features.
 The marginal value, a single value, will be the same across all classes for each test. 
-We could think of the marginal probability as the total probability of all 3 classes occurring given the likelihood of each class.
+We could think of the marginal probability as the total probability of all 3 classes occurring given the normal probability of each class.
 Thus, the marginal value will be the same across all classes.
 
 To predict the class, we're looking for the **highest** [posterior probability](#bayes-theorem) from among all possible classes. 
-Dividing by the same value will not improve our accuracy of predicting the correct class.
+Dividing by the same value will not improve the accuracy of predicting the correct class.
 
-For the purposes of sticking to the true [bayes formula](#bayes-theorem), we'll use it here.
+For the purposes of sticking to the true [bayes theorem](#bayes-theorem), we'll use it here.
 
 ```python
 class GaussNB:
@@ -564,11 +573,11 @@ class GaussNB:
           P(setosa) * P(sepal length | setosa) + P(versicolour) * P(sepal length | versicolour) + P(virginica) * P(sepal length | virginica)
         + P(setosa) * P(sepal width | setosa) + P(versicolour) * P(sepal width | versicolour) + P(virginica) * P(sepal width | virginica)
         + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | virginica)
-        + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | virginica)
+        + P(setosa) * P(petal width | setosa) + P(versicolour) * P(petal width | versicolour) + P(virginica) * P(petal width | virginica)
         """
         predictors = []
         for target, features in self.summaries.iteritems():
-            prior = features['prior']
+            prior = features['pr ior']
             for index in range(len(pdfs)):
                 normal_pdf = pdfs[index]
                 predictors.append(prior * normal_pdf)
