@@ -953,7 +953,7 @@ See also the list of [contributors](https://github.com/odubno/naive_bayes/graphs
 
 
 ## Sources:
-Hat tip to the authors that made this code possible: 
+A hat tip to the authors that made this tutorial possible: 
 
 | Author                  | URL           |
 | -------------           |:-------------:|
@@ -962,6 +962,7 @@ Hat tip to the authors that made this code possible:
 | Sunil Ray               | [6 Easy Steps to Learn Naive Bayes Algorithm](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/) |
 | Rahul Saxena            | [How The Naive Bayes Classifier Works In Machine Learning](http://dataaspirant.com/2017/02/06/naive-bayes-classifier-machine-learning/) |
 | Data Source             | [UCI Machine Learning](http://archive.ics.uci.edu/ml/index.php) |
+| C. Randy Gallistel      | [Bayes for Beginners: Probability and Likelihood](https://www.psychologicalscience.org/observer/bayes-for-beginners-probability-and-likelihood) |
 
 # Inspiration:  
 Project for Columbia Probability and Statistics course - Prof. Banu Baydil
