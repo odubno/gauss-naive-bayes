@@ -86,7 +86,7 @@ The 5th column is the dependent variable (class).
 * This is the updated belief given the new data.
 
 **Class Prior Probability:** 
-* This is our Prior Belief. The probability of the class it self.
+* This is our Prior Belief. The probability of the class before updating our belief.
 
 **Likelihood:**
 * Likelihood is calculated using the [Normal Distribution (Gauss)](#normal-pdf). Hence, the name Gauss Naive Bayes. 
@@ -103,31 +103,40 @@ We will use the Normal Distribution to calculate the Normal Probability for each
 
 See [Normal Distribution (Wikipedia)](https://en.wikipedia.org/wiki/Normal_distribution) definition.
 
-The Normal Distribution will help determine the Normal Probability. The product of all Normal Probabilities will result in the likelihood of a *class* occurring given the new data (features). In other words, for each column of our data set the Normal Distribution will calculate the Normal Probability and the product of all columns will equal the likelihood of that *class* occurring. 
+The Normal Distribution will help determine the Normal Probability for each new feature given the class. 
+The product of all Normal Probabilities will result in the likelihood of a *class* occurring given the new features. 
+In other words, for each column of our data set the Normal Distribution will calculate the Normal Probability and the product of all columns will equal the likelihood of that *class* occurring. 
 
 ## Joint PDF Formula:
 ![Alt text](img/joint_pdf.svg "Optional Title")
 
 See [Joint PDF (Wikipedia )](https://en.wikipedia.org/wiki/Joint_probability_distribution) definition.
 
-The Joint PDF is the product of all PDFs. In our case, the product of all Normal Distribution PDFs. Multiplying all of the PDFs gives us the likelihood.
+The Joint Probability is the product of all PDFs. In our case, the product of all Normal PDFs (Normal Probabilities). 
+Multiplying all of the Normal Probabilities returns the likelihood.
 
 
 # Prepare Data
 
 Building the Naive Bayes Classifier. 
 
-1. [Skeleton](#skeleton)
-2. [Load CSV](#load-csv)
-3. [Split Data](#split-data)
-4. [Group Data](#group-data)
+Here, we'll create the structure and the methods to read and prepare data for modeling.
+
+1. [Prerequisites](#prerequisites)
+2. [Skeleton](#skeleton)
+3. [Load CSV](#load-csv)
+4. [Split Data](#split-data)
+5. [Group Data](#group-data)
+ 
+ 
+ 
 
 
 ## Prerequisites
 
 
 Every function is created from scratch.
-However, instead of having to download the data, we're using a quick api call to get the csv.
+However, instead of having to download the data, we're using an api call to get the data.
 
 ```
 $ pip install requests
@@ -174,7 +183,7 @@ Here we will handle class methods.
 
 ## Load CSV
 
-Writing the method to read in the raw data.
+Writing the method to read in the raw data and convert each string into an integer.
 
 
 ```python
@@ -217,8 +226,9 @@ if __name__ == '__main__':
 ```
 
 ## Split Data
-Splitting data into train and test set.
-The weight will determine how much of the data will be training.
+Splitting data into a train set and a test set.
+
+The weight will determine how much of the data will be in the train set.
 
 ```python
 class GaussNB:
@@ -256,7 +266,7 @@ if __name__ == '__main__':
 
 ## Group Data
 
-Grouping data by class. This method will map each class to it's respective rows of data.
+Group data by class. Map each class to it's respective rows of data.
 
 e.g. (This is just a sample. Using the [table](#iris-data-set) from above.)
 ```python
@@ -314,12 +324,17 @@ if __name__ == '__main__':
 
 # Summarize Data
 
-Preparing data for modeling:
+Preparing data for modeling. Mean and standard deviation is selp explanatory. 
+The summary is the combination of both and will be calculated for each feature.
+
+
 1. [Mean](#mean)
 2. [Standard Deviation](#standard-deviation)
 3. [Summary](#sumamry)
 
 ## Mean
+
+Calculate the mean for `[5.9, 3.0, 5.1, 1.8]`.
 
 ```python
 class GaussNB:
@@ -347,8 +362,7 @@ Mean: 3.95
 ```
 
 ## Standard Deviation
-Calculating the spread of data. Later used to calculate the Normal Distribution.
-
+Calculate the standard deviation for `[5.9, 3.0, 5.1, 1.8]`.
 ```python
 class GaussNB:
     . 
