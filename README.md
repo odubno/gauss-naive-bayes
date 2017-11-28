@@ -144,8 +144,7 @@ $ pip install requests
 
 ## Skeleton
 
-Create the skeleton: 
-- import the necessary libraries and create the class.
+Import the necessary libraries and create the class.
 
 ```python
 # -*- coding: utf-8 -*-
@@ -183,7 +182,7 @@ Here we will handle class methods.
 
 ## Load CSV
 
-Writing the method to read in the raw data and convert each string into an integer.
+Read in the raw data and convert each string into an integer.
 
 
 ```python
@@ -226,7 +225,7 @@ if __name__ == '__main__':
 ```
 
 ## Split Data
-Splitting data into a train set and a test set.
+Split the data into a train set and a test set.
 
 The weight will determine how much of the data will be in the train set.
 
@@ -266,9 +265,9 @@ if __name__ == '__main__':
 
 ## Group Data
 
-Group data by class. Map each class to it's respective rows of data.
+Group the data by class, by mapping each class to it's respective rows of data.
 
-e.g. (This is just a sample. Using the [table](#iris-data-set) from above.)
+E.g. (This is a sample of what we mean using the [table](#iris-data-set) from above.)
 ```python
 {
        'Iris-virginica': [
@@ -324,7 +323,7 @@ if __name__ == '__main__':
 
 # Summarize Data
 
-Preparing data for modeling. Mean and standard deviation is selp explanatory. 
+Prepare the data for modeling. Mean and standard deviation is self explanatory. 
 The summary is the combination of both and will be calculated for each feature.
 
 
@@ -397,7 +396,7 @@ Standard Deviation: 1.88414436814
 ```
 
 ## Summary
-Returns the (mean, standard deviation) combination for each feature column of the data set.
+Return the (mean, standard deviation) combination for each feature column of the data set.
 
 ```python
 class GaussNB:
