@@ -89,11 +89,17 @@ The 5th column is the dependent variable (class).
 * This is our Prior Belief. The probability of the class before updating our belief.
 
 **Likelihood:**
-* Likelihood is calculated using the [Normal Distribution (Gauss)](#normal-pdf). Hence, the name Gauss Naive Bayes. 
-We will use the Normal Distribution to calculate the Normal Probability for each feature given a class. Likelihood is the product of all Normal Probabilities.
+* Likelihood is calculated by taking the product of all [Normal Probability Density Functions](#normal-pdf) also referred to as Gauss. Hence, the name Gauss Naive Bayes. 
+* We will use the Normal PDF formula to calculate the Normal Probability for each feature given the class. Likelihood is the product of all Normal PDFs.
+* There's an important distinction to make between Likelihood and Probability. 
+Normal Probability is calculated for each feature given the class and is always between 0 and 1. 
+Likelihood is the product of all Normal Probabilites. 
+The number of features is infinite and limited to our imagination. 
+Hence, the product of all Normal Probabilities is not a probability but a Likelihood, 
+because there will always be features that are not be accounted for. 
 
 **Predictor Prior Probability:**
-* Predictor Prior Probability is the same as Marginal Probability. It is the probability of the new data under all possible features. It isn't necessary for a Naive Bayes Classifier to calculate this. The results do not change or change very little. Though we do calculate it here.
+* Predictor Prior Probability is the same as Marginal Probability. It is the probability given the new data under all possible features. It isn't necessary for a Naive Bayes Classifier to calculate this. The results do not change or change very little. Though we do calculate it here.
 
 
 
