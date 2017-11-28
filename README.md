@@ -37,7 +37,7 @@ The complete code for the below tutotial could be found in [nb_tutorial.py](http
 # Overview 
 We will be using Naive Bayes and the Gaussian Distribution (Normal Distribution) to build a classifier in Python from scratch.
 
-The Gauss Naive Bayes Classifier will beable to run on four classic data sets:
+The Gauss Naive Bayes Classifier will be able to run on four classic data sets:
 
 * [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)
 * [diabetes](https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data)
@@ -82,14 +82,20 @@ The 5th column is the dependent variable (class).
 ## Bayes Theorem:
 ![Bayes](img/bayes_1.JPG "Bayes" )
 
+**Posterior Probability:**
+* This is the updated belief given the new data.
+
 **Class Prior Probability:** 
-* This is our Prior Belief
+* This is our Prior Belief. The probability of the class it self.
 
 **Likelihood:**
-* We are using the [Normal Distribution (Gauss)](#normal-pdf) to calculate this. Hence, the name Gauss Naive Bayes.
+* Likelihood is calculated using the [Normal Distribution (Gauss)](#normal-pdf). Hence, the name Gauss Naive Bayes. 
+We will use the Normal Distribution to calculate the Normal Probability for each feature given a class. Likelihood is the product of all Normal Probabilities.
 
 **Predictor Prior Probability:**
-* Marginal probability of how probable the new evidence is under all possible hypothesis. Most Naive Bayes Classifiers do not calculate this. The results do not change or change very little. Though we do calculate it here.
+* Predictor Prior Probability is the same as Marginal Probability. It is the probability of the new data under all possible features. It isn't necessary for a Naive Bayes Classifier to calculate this. The results do not change or change very little. Though we do calculate it here.
+
+
 
 
 ## Normal PDF Formula:
@@ -97,7 +103,7 @@ The 5th column is the dependent variable (class).
 
 See [Normal Distribution (Wikipedia)](https://en.wikipedia.org/wiki/Normal_distribution) definition.
 
-The Normal Distribution will help determine the likelihood of a *class* occuring for each feature. In other words for each column of our dataset, the Normal Distribution will calculate the likelihood of that *class* occuring. 
+The Normal Distribution will help determine the Normal Probability. The product of all Normal Probabilities will result in the likelihood of a *class* occurring given the new data (features). In other words, for each column of our data set the Normal Distribution will calculate the Normal Probability and the product of all columns will equal the likelihood of that *class* occurring. 
 
 ## Joint PDF Formula:
 ![Alt text](img/joint_pdf.svg "Optional Title")
