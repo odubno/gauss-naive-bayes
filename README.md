@@ -48,6 +48,7 @@ The Gauss Naive Bayes Classifier will be able to run on four classic data sets:
 Here we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set.
 
 The logic for the code to work on all four data sets is in [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py).
+
 This tutotial will follow the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
 
 ## Iris Data Set:
@@ -67,7 +68,7 @@ The 5th column is the dependent variable (class).
     * *Iris Versicolour*
     * *Iris Virginica*
 
-#### 5 row sample from the Iris data
+#### 5 Row Sample
 - The first 4 columns represent the **features** (*sepal length*, *sepal width*, *petal length*, *petal width*)
 - The last column represents the **class** for each row. (*Setosa*, *Versicolour*, *Virginica*)
 
@@ -86,18 +87,18 @@ The 5th column is the dependent variable (class).
 * This is the updated belief given the new data.
 
 **Class Prior Probability:** 
-* This is our Prior Belief. The probability of the class before updating our belief.
+* This is the Prior Belief; the probability of the class before updating the belief.
 
 **Likelihood:**
 * Likelihood is calculated by taking the product of all [Normal Probability Density Functions](#normal-pdf). 
-The Normal PDF is calculated use the Gaussian Distribution. Hence, the name Gauss Naive Bayes. 
-* We will use the Normal PDF to calculate the Normal Probability for each feature given the class. 
-Likelihood is the product of all Normal PDFs.
-* There's an important distinction to make between Likelihood and Probability. 
-Normal Probability is calculated for each feature given the class and is always between 0 and 1. 
-Likelihood is the product of all Normal Probabilites. 
-The number of features is infinite and limited to our imagination. 
-Hence, the product of all Normal Probabilities is not the probability but the Likelihood, because there will always be features that are not accounted for. 
+The Normal PDF is calculated using the Gaussian Distribution. Hence, the name Gauss Naive Bayes. 
+* We will use the Normal PDF to calculate the Normal Probability value for each feature given the class. 
+* Likelihood is the product of all Normal PDFs.
+* There's an important distinction to keep in mind between Likelihood and Probability. 
+  - Normal Probability is calculated for each feature given the class and is always between 0 and 1. 
+  - Likelihood is the product of all Normal Probability values. 
+  - The number of features is infinite and limited to our imagination. 
+  - The product of all Normal Probabilities is not the probability but the Likelihood, because there will always be features that are not accounted for. 
 
 **Predictor Prior Probability:**
 * Predictor Prior Probability is the same as Marginal Probability. 
@@ -111,16 +112,17 @@ The results do not change or change very little. Though we do calculate it here.
 
 See [Normal Distribution (Wikipedia)](https://en.wikipedia.org/wiki/Normal_distribution) definition.
 
-The Normal Distribution will help determine the Normal Probability for each new feature given the class. 
-The product of all Normal Probabilities will result in the likelihood of a *class* occurring given the new features. 
-In other words, for each column of our data set the Normal Distribution will calculate the Normal Probability and the product of all columns will equal the likelihood of that *class* occurring. 
+The Normal Distribution will help determine the Normal Probability of each new feature given the class. 
+The product of all Normal Probabilities will result in the likelihood of the *class* occurring given the new features. 
+In other words, the Normal Distribution will calculate the Normal Probability value of each new feature.
+The product of all Normal Probabilities will be the likelihood.
 
 ## Joint PDF Formula:
 ![Alt text](img/joint_pdf.svg "Optional Title")
 
 See [Joint PDF (Wikipedia )](https://en.wikipedia.org/wiki/Joint_probability_distribution) definition.
 
-The Joint Probability is the product of all PDFs. In our case, the product of all Normal PDFs (Normal Probabilities). 
+The Joint Probability is the product of all PDFs. In our case, the product of all Normal PDFs. 
 Multiplying all of the Normal Probabilities returns the likelihood.
 
 
