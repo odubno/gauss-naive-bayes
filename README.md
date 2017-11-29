@@ -271,7 +271,7 @@ if __name__ == '__main__':
 
 ## Group Data
 
-Group the data by class, by mapping each class to it's respective rows of data.
+Group the data by class, by mapping each class to its respective rows of data.
 
 E.g. (This is a sample of what we mean using the [table](#iris-data-set) from above.)
 ```python
