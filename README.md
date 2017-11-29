@@ -418,12 +418,12 @@ class GaussNB:
         :param data: lists of events (rows) in a list
         :return:
         Use zip to line up each feature into a single column across multiple lists.
-        yield the mean and the stdev for each feature
+        yield the mean and the stdev for each feature column.
         """
-        for attributes in zip(*data):
+        for feature_col in zip(*data):
             yield {
-                'stdev': self.stdev(attributes),
-                'mean': self.mean(attributes)
+                'stdev': self.stdev(feature_col),
+                'mean': self.mean(feature_col)
             }
 
 def main():
@@ -512,7 +512,7 @@ class GaussNB:
     . 
     def train(self, train_list, target):
         """
-        :param data:
+        :param data: train data
         :param target: target class
         :return:
         For each target:
@@ -738,8 +738,8 @@ class GaussNB:
             for index in range(total_features):
                 mean = features['summary'][index]['mean']
                 stdev = features['summary'][index]['stdev']
-                x = test_row[index]
-                normal_prob = self.normal_pdf(x, mean, stdev)
+                test_feature = test_row[index]
+                normal_prob = self.normal_pdf(test_feature, mean, stdev)
                 likelihood = posterior_probs.get(target, 1) * normal_prob
                 normal_probs.append(normal_prob)
             marginal_prob = self.marginal_pdf(normal_probs)

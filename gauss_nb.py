@@ -235,8 +235,8 @@ class GaussNB:
         for target, features in self.summaries.iteritems():
             prior_prob = features['prior_prob']
             for index in range(len(pdfs)):
-                normal_pdf = pdfs[index]
-                predictors.append(prior_prob * normal_pdf)
+                normal_prob = pdfs[index]
+                predictors.append(prior_prob * normal_prob)
         marginal_prob = sum(predictors)
         return marginal_prob
 
