@@ -111,14 +111,14 @@ class GaussNB:
         :param target: target class
         :return:
         For each target:
-            1. yield prior: the probability of each class. P(class) eg P(Iris-virginica)
+            1. yield prior_prob: the probability of each class. P(class) eg P(Iris-virginica)
             2. yield summary: list of {'mean': 0.0, 'stdev': 0.0}
         """
         group = self.group_by_class(train_list, target)
         self.summaries = {}
         for target, features in group.iteritems():
             self.summaries[target] = {
-                'prior': self.prior_prob(group, target, train_list),
+                'prior_prob': self.prior_prob(group, target, train_list),
                 'summary': [i for i in self.summarize(features)],
             }
         return self.summaries
@@ -136,8 +136,8 @@ class GaussNB:
         exp_power = -exp_squared_diff / (2 * variance)
         exponent = e ** exp_power
         denominator = ((2 * pi) ** .5) * stdev
-        pdf = exponent / denominator
-        return pdf
+        normal_prob = exponent / denominator
+        return normal_prob
 
     def marginal_pdf(self, pdfs):
         """
@@ -154,12 +154,12 @@ class GaussNB:
         """
         predictors = []
         for target, features in self.summaries.iteritems():
-            prior = features['prior']
+            prior_prob = features['prior_prob']
             for index in range(len(pdfs)):
-                normal_pdf = pdfs[index]
-                predictors.append(prior * normal_pdf)
-        marginal_pdf = sum(predictors)
-        return marginal_pdf
+                normal_prob = pdfs[index]
+                predictors.append(prior_prob * normal_prob)
+        marginal_prob = sum(predictors)
+        return marginal_prob
 
     def posterior_probabilities(self, test_row):
         """
@@ -171,9 +171,9 @@ class GaussNB:
             3. Multiply Likelihood by the prior to calculate the Joint PDF. P(Iris-virginica)
 
         E.g.
-        prior: P(setosa)
+        prior_prob: P(setosa)
         likelihood: P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)
-        numerator (joint pdf): prior * likelihood
+        numerator (joint pdf): prior_prob * likelihood
         denominator (marginal pdf): predictor prior probability
         posterior_prob = joint pdf/ marginal pdf
 
@@ -183,17 +183,17 @@ class GaussNB:
         for target, features in self.summaries.iteritems():
             total_features = len(features['summary'])
             likelihood = 0
-            pdfs = []
+            normal_probs = []
             for index in range(total_features):
                 mean = features['summary'][index]['mean']
                 stdev = features['summary'][index]['stdev']
                 x = test_row[index]
-                normal = self.normal_pdf(x, mean, stdev)
-                likelihood = posterior_probs.get(target, 1) * normal
-                pdfs.append(normal)
-            marginal = self.marginal_pdf(pdfs)
-            prior = features['prior']
-            posterior_probs[target] = (prior * likelihood) / marginal
+                normal_prob = self.normal_pdf(x, mean, stdev)
+                likelihood = posterior_probs.get(target, 1) * normal_prob
+                normal_probs.append(normal_prob)
+            marginal = self.marginal_pdf(normal_probs)
+            prior_prob = features['prior_prob']
+            posterior_probs[target] = (prior_prob * likelihood) / marginal
         return posterior_probs
 
     def get_prediction(self, test_row):
