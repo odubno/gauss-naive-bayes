@@ -944,7 +944,7 @@ The above code will only work with the Iris Data set. You could find the logic i
 # Authors
 
 * **Oleh Dubno** - [github.odubno](http://odubno.github.io/)
-* **Danny Argov**
+* **Danny Argov**  [github.datargov](http://github.com/datargov/)
 
 See also the list of [contributors](https://github.com/odubno/naive_bayes/graphs/contributors) who participated in this project.
 
