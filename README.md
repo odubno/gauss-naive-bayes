@@ -67,7 +67,7 @@ The 5th column is the dependent variable (class).
     * *Iris Versicolour*
     * *Iris Virginica*
 
-- 5 row sample from the Iris data
+#### 5 row sample from the Iris data
 - The first 4 columns represent the **features** (*sepal length*, *sepal width*, *petal length*, *petal width*)
 - The last column represents the **class** for each row. (*Setosa*, *Versicolour*, *Virginica*)
 
