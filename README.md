@@ -89,19 +89,21 @@ The 5th column is the dependent variable (class).
 * This is our Prior Belief. The probability of the class before updating our belief.
 
 **Likelihood:**
-* Likelihood is calculated by taking the product of all [Normal Probability Density Functions](#normal-pdf) also referred to as Gauss. Hence, the name Gauss Naive Bayes. 
-* We will use the Normal PDF formula to calculate the Normal Probability for each feature given the class. Likelihood is the product of all Normal PDFs.
+* Likelihood is calculated by taking the product of all [Normal Probability Density Functions](#normal-pdf). 
+The Normal PDF is calculated use the Gaussian Distribution. Hence, the name Gauss Naive Bayes. 
+* We will use the Normal PDF to calculate the Normal Probability for each feature given the class. 
+Likelihood is the product of all Normal PDFs.
 * There's an important distinction to make between Likelihood and Probability. 
 Normal Probability is calculated for each feature given the class and is always between 0 and 1. 
 Likelihood is the product of all Normal Probabilites. 
 The number of features is infinite and limited to our imagination. 
-Hence, the product of all Normal Probabilities is not a probability but a Likelihood, 
-because there will always be features that are not be accounted for. 
+Hence, the product of all Normal Probabilities is not the probability but the Likelihood, because there will always be features that are not accounted for. 
 
 **Predictor Prior Probability:**
-* Predictor Prior Probability is the same as Marginal Probability. It is the probability given the new data under all possible features. It isn't necessary for a Naive Bayes Classifier to calculate this. The results do not change or change very little. Though we do calculate it here.
-
-
+* Predictor Prior Probability is the same as Marginal Probability. 
+It is the probability given the new data under all possible features. 
+It isn't necessary for a Naive Bayes Classifier to calculate this. 
+The results do not change or change very little. Though we do calculate it here.
 
 
 ## Normal PDF Formula:
@@ -512,14 +514,14 @@ class GaussNB:
         :param target: target class
         :return:
         For each target:
-            1. yield prior: the probability of each class. P(class) eg P(Iris-virginica)
+            1. yield prior_prob: the probability of each class. P(class) eg P(Iris-virginica)
             2. yield summary: list of {'mean': 0.0, 'stdev': 0.0}
         """
         group = self.group_by_class(train_list, target)
         self.summaries = {}
         for target, features in group.iteritems():
             self.summaries[target] = {
-                'prior': self.prior_prob(group, target, train_list),
+                'prior_prob': self.prior_prob(group, target, train_list),
                 'summary': [i for i in self.summarize(features)],
             }
         return self.summaries
@@ -542,17 +544,17 @@ if __name__ == '__main__':
 ```
 Using 100 rows for training and 50 rows for testing
 Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
-{'Iris-setosa': {'prior': 0.3,
+{'Iris-setosa': {'prior_prob': 0.3,
   'summary': [{'mean': 4.980000000000001, 'stdev': 0.34680810554104063}, # sepal length 
    {'mean': 3.406666666666667, 'stdev': 0.3016430104397023}, # sepal width
    {'mean': 1.496666666666667, 'stdev': 0.20254132542705236}, # petal length
    {'mean': 0.24333333333333343, 'stdev': 0.12228664272317624}]}, # petal width
- 'Iris-versicolor': {'prior': 0.31,
+ 'Iris-versicolor': {'prior_prob': 0.31,
   'summary': [{'mean': 5.96774193548387, 'stdev': 0.4430102307127106},
    {'mean': 2.7903225806451615, 'stdev': 0.28560443356698495},
    {'mean': 4.303225806451613, 'stdev': 0.41990782398659987},
    {'mean': 1.3451612903225807, 'stdev': 0.17289439874755796}]},
- 'Iris-virginica': {'prior': 0.39,
+ 'Iris-virginica': {'prior_prob': 0.39,
   'summary': [{'mean': 6.679487179487178, 'stdev': 0.585877428882027},
    {'mean': 3.002564102564103, 'stdev': 0.34602036712733625},
    {'mean': 5.643589743589742, 'stdev': 0.5215336048086158},
@@ -601,13 +603,13 @@ class GaussNB:
         exp_power = -exp_squared_diff / (2 * variance)
         exponent = e ** exp_power
         denominator = ((2 * pi) ** .5) * stdev
-        pdf = exponent / denominator
-        return pdf
+        normal_prob = exponent / denominator
+        return normal_prob
 
 def main():
     nb = GaussNB()
-    normal_pdf = nb.normal_pdf(5, 4.98, 0.35)
-    print normal_pdf
+    normal_prob = nb.normal_pdf(5, 4.98, 0.35)
+    print normal_prob
 
 if __name__ == '__main__':
     main()
@@ -660,12 +662,12 @@ class GaussNB:
         """
         predictors = []
         for target, features in self.summaries.iteritems():
-            prior = features['pr ior']
+            prior_prob = features['prior_prob']
             for index in range(len(pdfs)):
-                normal_pdf = pdfs[index]
-                predictors.append(prior * normal_pdf)
-        marginal_pdf = sum(predictors)
-        return marginal_pdf
+                normal_prob = pdfs[index]
+                predictors.append(prior_prob * normal_prob)
+        marginal_prob = sum(predictors)
+        return marginal_prob
 
 def main():
     nb = GaussNB()
@@ -677,8 +679,8 @@ def main():
     group = nb.group_by_class(data, -1)  # designating the last column as the class column
     print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
     nb.train(train_list, -1)
-    marginal_pdf = nb.marginal_pdf(pdfs=[0.02, 0.37, 3.44e-12, 4.35e-09])
-    print marginal_pdf
+    marginal_prob = nb.marginal_pdf(pdfs=[0.02, 0.37, 3.44e-12, 4.35e-09])
+    print marginal_prob
 
 if __name__ == '__main__':
     main()
@@ -693,11 +695,10 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 ## Posterior Probability
 ![Alt text](img/posterior.jpg "Optional Title")
 
-Posterior Probability is our update believe given new features (data).
-We have to calculate the Posterior Probability for each class. 
-The predicted class is the class with the highest Posterior Probability.
+Calculate the Posterior Probability for each class.
 
-This method takes a single `test_row` and returns the Posterior Probability for each class. 
+Posterior Probability is the update belief given the new data (features).
+Predict the class by choosing the highest Posterior Probability.
 
 Using [Bayes Theorem](#bayes-theorem) from above:
 - [Prior Probability](#prior-probability)
@@ -715,13 +716,13 @@ class GaussNB:
         :return:
         For each feature (x) in the test_row:
             1. Calculate Predictor Prior Probability using the Normal PDF N(x; µ, σ). eg = P(feature | class)
-            2. Calculate Likelihood by getting the product of the prior and the Normal PDFs
-            3. Multiply Likelihood by the prior to calculate the Joint PDF. P(Iris-virginica)
+            2. Calculate Likelihood by getting the product of the prior_prob and the Normal PDFs
+            3. Multiply Likelihood by the prior_prob to calculate the Joint PDF. P(Iris-virginica)
 
         E.g.
-        prior: P(setosa)
+        prior_prob: P(setosa)
         likelihood: P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)
-        numerator (joint pdf): prior * likelihood
+        numerator (joint pdf): prior_prob * likelihood
         denominator (marginal pdf): predictor prior probability
         posterior_prob = joint pdf/ marginal pdf
 
@@ -731,17 +732,17 @@ class GaussNB:
         for target, features in self.summaries.iteritems():
             total_features = len(features['summary'])
             likelihood = 0
-            pdfs = []
+            normal_probs = []
             for index in range(total_features):
                 mean = features['summary'][index]['mean']
                 stdev = features['summary'][index]['stdev']
                 x = test_row[index]
-                normal = self.normal_pdf(x, mean, stdev)
-                likelihood = posterior_probs.get(target, 1) * normal
-                pdfs.append(normal)
-            marginal = self.marginal_pdf(pdfs)
-            prior = features['prior']
-            posterior_probs[target] = (prior * likelihood) / marginal
+                normal_prob = self.normal_pdf(x, mean, stdev)
+                likelihood = posterior_probs.get(target, 1) * normal_prob
+                normal_probs.append(normal_prob)
+            marginal_prob = self.marginal_pdf(normal_probs)
+            prior_prob = features['prior_prob']
+            posterior_probs[target] = (prior_prob * likelihood) / marginal_prob
         return posterior_probs
 
 def main():
@@ -944,7 +945,7 @@ The above code will only work with the Iris Data set. You could find the logic i
 # Authors
 
 * **Oleh Dubno** - [github.odubno](http://odubno.github.io/)
-* **Danny Argov**  [github.datargov](http://github.com/datargov/)
+* **Danny Argov** - [github.datargov](http://github.com/datargov/)
 
 See also the list of [contributors](https://github.com/odubno/naive_bayes/graphs/contributors) who participated in this project.
 
