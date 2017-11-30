@@ -153,45 +153,45 @@ $ pip install requests
 ```
 
 ## Skeleton
-<details>
-  <summary>Click to expand</summary>
-  whatever
-</details>
+
 Import the necessary libraries and create the class.
 
-```python
-# -*- coding: utf-8 -*-
-from collections import defaultdict
-from math import pi
-from math import e
-import requests
-import random
-import csv
-import re
-
-class GaussNB:
-
-    def __init__(self):
-        pass
+<details>
+  <summary>Click to see code</summary>
+    
+    ```python
+    # -*- coding: utf-8 -*-
+    from collections import defaultdict
+    from math import pi
+    from math import e
+    import requests
+    import random
+    import csv
+    import re
+    
+    class GaussNB:
+    
+        def __init__(self):
+            pass
+            
+            
+    def main():
+        print "Here we will handle class methods."
         
         
-def main():
-    print "Here we will handle class methods."
+    if __name__ == '__main__':
+        main()
+    ```
+    Execute in terminal:
+    ```
+    $ python nb_tutorial.py
+    ```
     
-    
-if __name__ == '__main__':
-    main()
-```
-Execute in terminal:
-```
-$ python nb_tutorial.py
-```
-
-
-###### Output:
-```
-Here we will handle class methods.
-```
+    ###### Output:
+    ```
+    Here we will handle class methods.
+    ```
+</details>
 
 ## Load CSV
 
