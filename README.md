@@ -183,7 +183,7 @@ def main():
 if __name__ == '__main__':
     main()
 ```
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -236,7 +236,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -350,7 +350,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -398,7 +398,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -445,7 +445,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -493,7 +493,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -561,7 +561,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -621,7 +621,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -706,7 +706,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -788,7 +788,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -875,7 +875,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -944,7 +944,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -1021,7 +1021,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
@@ -1080,7 +1080,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Execute in terminal:
+###### Execute in terminal:
 ```
 $ python nb_tutorial.py
 ```
