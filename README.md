@@ -807,7 +807,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 Calculate the Posterior Probability for each class.
 
-Posterior Probability is the update belief given the new data (features).
+Posterior Probability is the updated belief given the new data (features).
 
 Predict the class by choosing the highest Posterior Probability.
 
@@ -906,7 +906,7 @@ This method will call our `posterior_probabilities()` method on a single `test v
 
 The `test vector` is a list of features. For each `test vector` we will calculate 3 Posterior Probabilities; one for each class.
 
-The [Posterior Probability](#posterior-probability) is the updated believe given the new data, `test vector`.
+The [Posterior Probability](#posterior-probability) is the updated belief given the new data, `test vector`.
 
 The `get_prediction()` method will simply choose the highest Posterior Probability and return the predicted class for the given `test_row`.
 
