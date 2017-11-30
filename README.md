@@ -805,13 +805,11 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 ## Posterior Probability
 ![Alt text](img/posterior.jpg "Optional Title")
 
-Calculate the Posterior Probability for each class.
+- Posterior Probability is the updated belief given the new data (features).
+- Calculate the Posterior Probability for each class.
+- Predict the class by choosing the highest Posterior Probability.
 
-Posterior Probability is the updated belief given the new data (features).
-
-Predict the class by choosing the highest Posterior Probability.
-
-Using [Bayes Theorem](#bayes-theorem) from above:
+Use [Bayes Theorem](#bayes-theorem) from above:
 - [Prior Probability](#prior-probability)
 - [Normal Probability](#normal-probability)
 - [Marginal Probability](#marginal-probability)
