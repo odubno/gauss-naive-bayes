@@ -544,6 +544,10 @@ P(Iris-versicolor): 0.32
 
 ## Train
 Tying the previous methods together to determine the Prior Probability for each class and the (mean, standard deviation) combination for each feature of each class.
+
+<details>
+  <summary>Click to see train().</summary>
+  
 ```python
 class GaussNB:
     . 
@@ -603,6 +607,8 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 ```
 
+</details>
+
 ## Likelihood
 ![Alt text](img/likelihood.jpg "Optional Title")
 
@@ -626,6 +632,9 @@ We make this calculation for each feature and multiply all of the results togeth
 
 Likelihood is a single value.
 
+<details>
+  <summary>Click to see normal_pdf().</summary>
+  
 ```python
 class GaussNB:
     . 
@@ -660,6 +669,8 @@ if __name__ == '__main__':
 1.13797564994
 ```
 
+</details>
+
 ## Marginal Probability
 
 ![Alt text](img/marginal.jpg "Marginal")
@@ -682,6 +693,9 @@ Reminder, to predict the class, we're looking for the **highest** [Posterior Pro
 Dividing by the same value will not improve the accuracy of predicting the correct class.
 
 For the purposes of sticking to the true [Bayes Theorem](#bayes-theorem), we'll use it here.
+
+<details>
+  <summary>Click to see marginal_pdf().</summary>
 
 ```python
 class GaussNB:
@@ -733,6 +747,8 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 0.38610000431
 ```
 
+</details>
+
 ## Posterior Probability
 ![Alt text](img/posterior.jpg "Optional Title")
 
@@ -745,6 +761,9 @@ Using [Bayes Theorem](#bayes-theorem) from above:
 - [Prior Probability](#prior-probability)
 - [Normal Probability](#normal-probability)
 - [Marginal Probability](#marginal-probability)
+
+<details>
+  <summary>Click to see posterior_probabilities().</summary>
 
 ```python
 class GaussNB:
@@ -812,6 +831,9 @@ Posterior Probabilityies: {
     'Iris-versicolor': 0.14165560618269524
 }
 ```
+
+</details>
+
 # Test Model
 
 1. [Get Prediction](#get-prediction)
@@ -827,6 +849,9 @@ The `test vector` is a list of features. For each `test vector` we will calculat
 The [Posterior Probability](#posterior-probability) is the updated believe given the new data, `test vector`.
 
 The `get_prediction()` method will simply choose the highest Posterior Probability and return the predicted class for the given `test_row`.
+
+<details>
+  <summary>Click to see get_prediction().</summary>
 
 ```python
 class GaussNB:
@@ -866,6 +891,8 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 According to the test row the best prediction is: Iris-versicolor
 ```
 
+</details>
+
 ## Predict
 
 This method will return a prediction for each list (row).
@@ -878,6 +905,9 @@ Example input, list of lists:
 ]
 ```
 For testing this method, we'll use the data from the [sample data](#group-data) above.
+
+<details>
+  <summary>Click to see predict().</summary>
 
 ```python
 class GaussNB:
@@ -933,9 +963,15 @@ predicted target: ['Iris-versicolor'] | true target: Iris-virginica
 predicted target: ['Iris-setosa', 'Iris-setosa'] | true target: Iris-setosa # both test rows were predicted to be setosa
 predicted target: ['Iris-versicolor', 'Iris-versicolor'] | true target: Iris-versicolor # both test rows were predicted to be versicolor
 ```
+
+</details>
+
 ## Accuracy
 Accuracy will test the performance of the model by taking the total of correct predictions and dividing them by the total of predictions.
 
+<details>
+  <summary>Click to see accuracy().</summary>
+  
 ```python
 class GaussNB:
     .
@@ -978,6 +1014,8 @@ Using 100 rows for training and 50 rows for testing
 Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 Accuracy: 0.960
 ```
+
+</details>
 
 ### Break down
 The above code will only work with the Iris Data set. You could find the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py) 
