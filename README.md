@@ -741,8 +741,8 @@ Dividing by the same value will not improve the accuracy of predicting the corre
 
 For the purposes of sticking to the true [Bayes Theorem](#bayes-theorem), we'll use it here.
 
-<details>
-  <summary>Click to expand marginal_pdf().</summary>
+<details color="green">
+  <summary color="green">Click to expand marginal_pdf().</summary>
 
 ```python
 class GaussNB:
