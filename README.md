@@ -30,7 +30,7 @@ The complete code for the below tutotial could be found in [nb_tutorial.py](http
     - [Get Prediction](#get-prediction)
     - [Predict](#predict)
     - [Accuracy](#accuracy)
-  - [Break down](#break-down)
+  - [Summary](#summary)
   - [Authors](#authors)
   - [Acknowledgments](#acknowledgments)
   - [Complete Code](#complete-code)
@@ -1093,23 +1093,21 @@ Accuracy: 0.960
 
 </details>
 
-### Break down
-The above code will only work with the Iris Data set. You could find the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py) 
+### Summary
 
+The above code will only work with the Iris Data set. You could find the [Complete Code](#complete-code) below.
 
 # Authors
 
 * **Oleh Dubno** - [github.odubno](http://odubno.github.io/)
 * **Danny Argov** - [github.datargov](http://github.com/datargov/)
 
-See also the list of [contributors](https://github.com/odubno/naive_bayes/graphs/contributors) who participated in this project.
+See the list of [contributors](https://github.com/odubno/naive_bayes/graphs/contributors) who participated in this project.
 
 
 # Acknowledgments
 
-
-## Sources:
-A hat tip to the authors that made this tutorial possible: 
+A hat tip to the authors that made this tutorial possible.
 
 | Author                  | URL           |
 | -------------           |:-------------:|
@@ -1121,11 +1119,11 @@ A hat tip to the authors that made this tutorial possible:
 | C. Randy Gallistel      | [Bayes for Beginners: Probability and Likelihood](https://www.psychologicalscience.org/observer/bayes-for-beginners-probability-and-likelihood) |
 
 # Inspiration:  
-Project for Columbia Probability and Statistics course - Prof. Banu Baydil
+Project for Columbia University Probability and Statistics course - Prof. Banu Baydil
 
 # Complete Code
 
-Code also available here, [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py)
+Code is also available in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
 
 <details>
   <summary>Click to expand nb_tutorial.py</summary>
