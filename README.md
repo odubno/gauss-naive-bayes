@@ -153,14 +153,10 @@ $ pip install requests
 ```
 
 ## Skeleton
-<details>
-  <summary>Click to expand</summary>
-  whatever
-</details>
-Import the necessary libraries and create the class.
+Import the necessary libraries and create the GaussNB class. This will be the structure of the code for the rest of the tutorial.
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>Click to see GaussNB Skeleton.</summary>
 
 ```python
 # -*- coding: utf-8 -*-
@@ -190,17 +186,19 @@ Execute in terminal:
 $ python nb_tutorial.py
 ```
 
-</details>
-
 ###### Output:
 ```
 Here we will handle class methods.
 ```
 
+</details>
+
 ## Load CSV
 
 Read in the raw data and convert each string into an integer.
 
+<details>
+  <summary>Click to see load_csv().</summary>
 
 ```python
 class GaussNB:
@@ -241,10 +239,15 @@ if __name__ == '__main__':
 [[4.9, 3.0, 1.4, 0.2, 'Iris-setosa'], [4.7, 3.2, 1.3, 0.2, 'Iris-setosa'], [4.6, 3.1, 1.5, 0.2, 'Iris-setosa']]
 ```
 
+</details>
+
 ## Split Data
 Split the data into a train set and a test set.
 
 The weight will determine how much of the data will be in the train set.
+
+<details>
+  <summary>Click to see split_data().</summary>
 
 ```python
 class GaussNB:
@@ -279,12 +282,14 @@ if __name__ == '__main__':
     main()
 ```
 
+</details>
 
 ## Group Data
 
 Group the data by class, by mapping each class to its respective rows of data.
 
 E.g. (This is a sample of what we mean using the [table](#iris-data-set) from above.)
+
 ```python
 {
        'Iris-virginica': [
@@ -299,6 +304,9 @@ E.g. (This is a sample of what we mean using the [table](#iris-data-set) from ab
 }
 ```
 
+<details>
+  <summary>Click to see group_by_class().</summary>
+  
 ```python
 class GaussNB:
     .
@@ -338,6 +346,8 @@ if __name__ == '__main__':
 ###### Output:
 `Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']`
 
+</details>
+
 # Summarize Data
 
 Prepare the data for modeling. Mean and standard deviation is self explanatory. 
@@ -352,6 +362,9 @@ The summary is the combination of both and will be calculated for each feature.
 
 Calculate the mean for `[5.9, 3.0, 5.1, 1.8]`.
 
+<details>
+  <summary>Click to see mean().</summary>
+  
 ```python
 class GaussNB:
     .
@@ -377,8 +390,14 @@ if __name__ == '__main__':
 Mean: 3.95
 ```
 
+</details>
+
 ## Standard Deviation
 Calculate the standard deviation for `[5.9, 3.0, 5.1, 1.8]`.
+
+<details>
+  <summary>Click to see stdev().</summary>
+  
 ```python
 class GaussNB:
     . 
@@ -412,9 +431,14 @@ if __name__ == '__main__':
 Standard Deviation: 1.88414436814
 ```
 
+</details>
+
 ## Summary
 Return the (mean, standard deviation) combination for each feature column of the data set.
 
+<details>
+  <summary>Click to see summarize().</summary>
+  
 ```python
 class GaussNB:
     . 
@@ -455,6 +479,8 @@ Feature Summary:
 ]
 ```
 
+</details>
+
 # Build Model
 
 Building methods for calculating [Bayes Theorem](#bayes-theorem):
@@ -471,6 +497,9 @@ Prior Probability is what we know about each class before considering new inform
 
 This method calculates the probability of each class.
 
+<details>
+  <summary>Click to see prior_prob().</summary>
+  
 ```python
 class GaussNB:
     . 
@@ -509,6 +538,8 @@ P(Iris-virginica): 0.38
 P(Iris-setosa): 0.3
 P(Iris-versicolor): 0.32
 ```
+
+</details>
 
 ## Train
 Tying the previous methods together to determine the Prior Probability for each class and the (mean, standard deviation) combination for each feature of each class.
