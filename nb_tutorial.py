@@ -90,10 +90,10 @@ class GaussNB:
         Use zip to line up each feature into a single column across multiple lists.
         yield the mean and the stdev for each feature column.
         """
-        for feature_col in zip(*data):
+        for feature in zip(*data):
             yield {
-                'stdev': self.stdev(feature_col),
-                'mean': self.mean(feature_col)
+                'stdev': self.stdev(feature),
+                'mean': self.mean(feature)
             }
 
     def prior_prob(self, group, target, data):
@@ -188,7 +188,7 @@ class GaussNB:
                 mean = features['summary'][index]['mean']
                 stdev = features['summary'][index]['stdev']
                 test_feature = test_row[index]
-                normal_prob = self.normal_pdf(test_feature, mean, stdev)
+                normal_prob = self.normal_pdf(feature, mean, stdev)
                 likelihood = posterior_probs.get(target, 1) * normal_prob
                 normal_probs.append(normal_prob)
             marginal = self.marginal_pdf(normal_probs)
