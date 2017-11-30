@@ -741,8 +741,8 @@ Dividing by the same value will not improve the accuracy of predicting the corre
 
 For the purposes of sticking to the true [Bayes Theorem](#bayes-theorem), we'll use it here.
 
-<details color="green">
-  <summary color="green">Click to expand marginal_pdf().</summary>
+<details>
+  <summary>Click to expand marginal_pdf().</summary>
 
 ```python
 class GaussNB:
@@ -808,6 +808,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 Calculate the Posterior Probability for each class.
 
 Posterior Probability is the update belief given the new data (features).
+
 Predict the class by choosing the highest Posterior Probability.
 
 Using [Bayes Theorem](#bayes-theorem) from above:
