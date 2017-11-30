@@ -2,7 +2,7 @@
 
 Building a Naive Bayes classifier using Python with drawings.
 
-The complete code for the below tutotial could be found in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py)
+The complete code for the below tutorial could be found in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py)
 
 
 # Table of Contents
@@ -48,9 +48,9 @@ The Gauss Naive Bayes Classifier will be able to run on four classic data sets:
 
 Here we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set, which is a collection of dimensional features which define 3 different types of flower species.
 
-The logic for the code to work on all four data sets is in the function: [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py).
+The logic for the code to work on all four data sets is in [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py).
 
-This tutotial will follow the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
+This tutorial will follow the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
 
 ## Iris Data Set:
 
