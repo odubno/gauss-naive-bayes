@@ -236,6 +236,11 @@ if __name__ == '__main__':
     main()
 ```
 
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output:
 ```
 [[4.9, 3.0, 1.4, 0.2, 'Iris-setosa'], [4.7, 3.2, 1.3, 0.2, 'Iris-setosa'], [4.6, 3.1, 1.5, 0.2, 'Iris-setosa']]
@@ -345,6 +350,11 @@ if __name__ == '__main__':
     main()
 ```
 
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output:
 ```Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']```
 
@@ -387,6 +397,12 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output:
 ```
 Mean: 3.95
@@ -428,6 +444,12 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output:
 ```
 Standard Deviation: 1.88414436814
@@ -470,6 +492,12 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output:
 ```
 Feature Summary: 
@@ -532,6 +560,12 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output:
 ```
 Using 100 rows for training and 50 rows for testing
@@ -586,6 +620,12 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output:
 ```
 Using 100 rows for training and 50 rows for testing
@@ -665,6 +705,12 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output:
 ```
 1.13797564994
@@ -741,6 +787,12 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output:
 ```
 Using 100 rows for training and 50 rows for testing
@@ -822,6 +874,12 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output:
 ```
 Using 100 rows for training and 50 rows for testing
@@ -885,6 +943,12 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output:
 ```
 Using 100 rows for training and 50 rows for testing
@@ -956,6 +1020,12 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output: 
 ```
 Using 100 rows for training and 50 rows for testing
@@ -1009,6 +1079,12 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
 ###### Output: 
 ```
 Using 100 rows for training and 50 rows for testing
