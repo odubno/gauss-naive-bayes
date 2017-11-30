@@ -86,7 +86,7 @@ The 5th column is the dependent variable (class).
 *drawn by Oleh Dubno*
 
 **Posterior Probability:**
-* This is the updated belief given the new data, and the objective probability, derived from the Naive Bayes technique
+* This is the updated belief given the new data, and the objective probability, derived from the Naive Bayes technique.
 
 **Class Prior Probability:** 
 * This is the Prior Belief; the probability of the class before updating the belief.
