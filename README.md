@@ -45,9 +45,9 @@ The Gauss Naive Bayes Classifier will be able to run on four classic data sets:
 * [adult](http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data)
 
 
-Here we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set.
+Here we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set, which is a collection of dimensional features which define 3 different types of flower species.
 
-The logic for the code to work on all four data sets is in [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py).
+The logic for the code to work on all four data sets is in the function: [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py).
 
 This tutotial will follow the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
 
@@ -82,15 +82,16 @@ The 5th column is the dependent variable (class).
 
 ## Bayes Theorem:
 ![Bayes](img/bayes_1.JPG "Bayes" )
+*drawn by Oleh Dubno
 
 **Posterior Probability:**
-* This is the updated belief given the new data.
+* This is the updated belief given the new data, and the objective probability, derived from the Naive Bayes technique
 
 **Class Prior Probability:** 
 * This is the Prior Belief; the probability of the class before updating the belief.
 
 **Likelihood:**
-* Likelihood is calculated by taking the product of all [Normal Probability Density Functions](#normal-pdf). 
+* Likelihood is calculated by taking the product of all [Normal Probability Density Functions](#normal-pdf) (assume independence, ergo the "Naivete"). 
 The Normal PDF is calculated using the Gaussian Distribution. Hence, the name Gauss Naive Bayes. 
 * We will use the Normal PDF to calculate the Normal Probability value for each feature given the class. 
 * Likelihood is the product of all Normal PDFs.
@@ -449,12 +450,12 @@ class GaussNB:
         :param data: lists of events (rows) in a list
         :return:
         Use zip to line up each feature into a single column across multiple lists.
-        yield the mean and the stdev for each feature column.
+        yield the mean and the stdev for each feature
         """
-        for feature_col in zip(*data):
+        for attributes in zip(*data):
             yield {
-                'stdev': self.stdev(feature_col),
-                'mean': self.mean(feature_col)
+                'stdev': self.stdev(attributes),
+                'mean': self.mean(attributes)
             }
 
 def main():
@@ -550,7 +551,7 @@ class GaussNB:
     . 
     def train(self, train_list, target):
         """
-        :param data: train data
+        :param data:
         :param target: target class
         :return:
         For each target:
@@ -776,8 +777,8 @@ class GaussNB:
             for index in range(total_features):
                 mean = features['summary'][index]['mean']
                 stdev = features['summary'][index]['stdev']
-                test_feature = test_row[index]
-                normal_prob = self.normal_pdf(test_feature, mean, stdev)
+                x = test_row[index]
+                normal_prob = self.normal_pdf(x, mean, stdev)
                 likelihood = posterior_probs.get(target, 1) * normal_prob
                 normal_probs.append(normal_prob)
             marginal_prob = self.marginal_pdf(normal_probs)
@@ -984,10 +985,8 @@ The above code will only work with the Iris Data set. You could find the logic i
 
 # Authors
 
-* **Danny Argov** - [github.datargov](http://github.com/datargov/)
-  - Explains the workings of Naive Bayes.
 * **Oleh Dubno** - [github.odubno](http://odubno.github.io/)
-  - Puts the logic of Naive Bayes into Python code.
+* **Danny Argov** - [github.datargov](http://github.com/datargov/)
 
 See also the list of [contributors](https://github.com/odubno/naive_bayes/graphs/contributors) who participated in this project.
 
