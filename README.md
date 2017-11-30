@@ -1093,7 +1093,7 @@ Accuracy: 0.960
 
 </details>
 
-### Summary
+## Summary
 
 The above code will only work with the Iris Data set. You could find the [Complete Code](#complete-code) below.
 
