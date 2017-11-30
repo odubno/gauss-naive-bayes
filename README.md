@@ -295,7 +295,9 @@ $ python nb_tutorial.py
 ```
 
 ###### Output:
-```Using 100 rows for training and 50 rows for testing```
+```
+Using 100 rows for training and 50 rows for testing
+```
 
 </details>
 
