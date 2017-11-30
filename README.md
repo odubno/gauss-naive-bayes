@@ -153,7 +153,10 @@ $ pip install requests
 ```
 
 ## Skeleton
-
+<details>
+  <summary>Click to expand</summary>
+  whatever
+</details>
 Import the necessary libraries and create the class.
 
 ```python
