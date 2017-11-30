@@ -83,7 +83,7 @@ The 5th column is the dependent variable (class).
 
 ## Bayes Theorem:
 ![Bayes](img/bayes_1.JPG "Bayes" )
-*drawn by Oleh Dubno
+*drawn by Oleh Dubno*
 
 **Posterior Probability:**
 * This is the updated belief given the new data, and the objective probability, derived from the Naive Bayes technique
