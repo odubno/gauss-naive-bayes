@@ -345,7 +345,7 @@ if __name__ == '__main__':
 ```
 
 ###### Output:
-`Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']`
+```Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']```
 
 </details>
 
