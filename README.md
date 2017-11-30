@@ -1095,7 +1095,13 @@ Accuracy: 0.960
 
 ## Summary
 
-The above code will only work with the Iris Data set. You could find the [Complete Code](#complete-code) below.
+Bayes theorem make a very **strong assumption** that all features are independent when calculating the likelihood; hence "Naive".
+Likelihood is calculated using the Gaussian Distribution and the assumption here is that all of the features are normally distributed; hence, the "Gauss". 
+
+Minus the drawbacks, the Gauss Naive Bayes is a fast performing probabilitstic classifier and works amazingly well on small data sets. 
+Once there's a lot of data, the "Naive" in Gauss NB fails to be effective. As features increase and data grows, Gauss NB loses it's effectiveness. 
+
+You could find the [Complete Code](#complete-code) below.
 
 # Authors
 
