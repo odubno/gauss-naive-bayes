@@ -158,7 +158,7 @@ $ pip install requests
 Import the necessary libraries and create the GaussNB class. This will be the structure of the code for the rest of the tutorial.
 
 <details>
-  <summary>Expand to see GaussNB Skeleton.</summary>
+  <summary>Click to expand GaussNB Skeleton.</summary>
 
 ```python
 # -*- coding: utf-8 -*-
@@ -200,7 +200,7 @@ Here we will handle class methods.
 Read in the raw data and convert each string into an integer.
 
 <details>
-  <summary>Expand to see load_csv().</summary>
+  <summary>Click to expand load_csv().</summary>
 
 ```python
 class GaussNB:
@@ -254,7 +254,7 @@ Split the data into a train set and a test set.
 The weight will determine how much of the data will be in the train set.
 
 <details>
-  <summary>Expand to see split_data().</summary>
+  <summary>Click to expand split_data().</summary>
 
 ```python
 class GaussNB:
@@ -312,7 +312,7 @@ E.g. (This is a sample of what we mean using the [table](#iris-data-set) from ab
 ```
 
 <details>
-  <summary>Expand to see group_by_class().</summary>
+  <summary>Click to expand group_by_class().</summary>
   
 ```python
 class GaussNB:
@@ -375,7 +375,7 @@ The summary is the combination of both and will be calculated for each feature.
 Calculate the mean for `[5.9, 3.0, 5.1, 1.8]`.
 
 <details>
-  <summary>Expand to see mean().</summary>
+  <summary>Click to expand mean().</summary>
   
 ```python
 class GaussNB:
@@ -414,7 +414,7 @@ Mean: 3.95
 Calculate the standard deviation for `[5.9, 3.0, 5.1, 1.8]`.
 
 <details>
-  <summary>Expand to see stdev().</summary>
+  <summary>Click to expand stdev().</summary>
   
 ```python
 class GaussNB:
@@ -461,7 +461,7 @@ Standard Deviation: 1.88414436814
 Return the (mean, standard deviation) combination for each feature column of the data set.
 
 <details>
-  <summary>Expand to see summarize().</summary>
+  <summary>Click to expand summarize().</summary>
   
 ```python
 class GaussNB:
@@ -528,7 +528,7 @@ Prior Probability is what we know about each class before considering new inform
 This method calculates the probability of each class.
 
 <details>
-  <summary>Expand to see prior_prob().</summary>
+  <summary>Click to expand prior_prob().</summary>
   
 ```python
 class GaussNB:
@@ -581,7 +581,7 @@ P(Iris-versicolor): 0.32
 Tying the previous methods together to determine the Prior Probability for each class and the (mean, standard deviation) combination for each feature of each class.
 
 <details>
-  <summary>Expand to see train().</summary>
+  <summary>Click to expand train().</summary>
   
 ```python
 class GaussNB:
@@ -674,7 +674,7 @@ We make this calculation for each feature and multiply all of the results togeth
 Likelihood is a single value.
 
 <details>
-  <summary>Expand to see normal_pdf().</summary>
+  <summary>Click to expand normal_pdf().</summary>
   
 ```python
 class GaussNB:
@@ -742,7 +742,7 @@ Dividing by the same value will not improve the accuracy of predicting the corre
 For the purposes of sticking to the true [Bayes Theorem](#bayes-theorem), we'll use it here.
 
 <details>
-  <summary>Expand to see marginal_pdf().</summary>
+  <summary>Click to expand marginal_pdf().</summary>
 
 ```python
 class GaussNB:
@@ -816,7 +816,7 @@ Using [Bayes Theorem](#bayes-theorem) from above:
 - [Marginal Probability](#marginal-probability)
 
 <details>
-  <summary>Expand to see posterior_probabilities().</summary>
+  <summary>Click to expand posterior_probabilities().</summary>
 
 ```python
 class GaussNB:
@@ -910,7 +910,7 @@ The [Posterior Probability](#posterior-probability) is the updated believe given
 The `get_prediction()` method will simply choose the highest Posterior Probability and return the predicted class for the given `test_row`.
 
 <details>
-  <summary>Expand to see get_prediction().</summary>
+  <summary>Click to expand get_prediction().</summary>
 
 ```python
 class GaussNB:
@@ -972,7 +972,7 @@ Example input, list of lists:
 For testing this method, we'll use the data from the [sample data](#group-data) above.
 
 <details>
-  <summary>Expand to see predict().</summary>
+  <summary>Click to expand predict().</summary>
 
 ```python
 class GaussNB:
@@ -1041,7 +1041,7 @@ predicted target: ['Iris-versicolor', 'Iris-versicolor'] | true target: Iris-ver
 Accuracy will test the performance of the model by taking the total of correct predictions and dividing them by the total of predictions.
 
 <details>
-  <summary>Expand to see accuracy().</summary>
+  <summary>Click to expand accuracy().</summary>
   
 ```python
 class GaussNB:
@@ -1129,7 +1129,7 @@ Project for Columbia Probability and Statistics course - Prof. Banu Baydil
 Code also available here, [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py)
 
 <details>
-  <summary>Expand to see nb_tutorial.py</summary>
+  <summary>Click to expand nb_tutorial.py</summary>
   
 ```python
 # -*- coding: utf-8 -*-
