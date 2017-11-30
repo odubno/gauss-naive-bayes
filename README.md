@@ -485,12 +485,12 @@ class GaussNB:
         :param data: lists of events (rows) in a list
         :return:
         Use zip to line up each feature into a single column across multiple lists.
-        yield the mean and the stdev for each feature
+        yield the mean and the stdev for each feature column.
         """
-        for attributes in zip(*data):
+        for feature in zip(*data):
             yield {
-                'stdev': self.stdev(attributes),
-                'mean': self.mean(attributes)
+                'stdev': self.stdev(feature),
+                'mean': self.mean(feature)
             }
 
 def main():
