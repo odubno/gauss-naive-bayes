@@ -289,6 +289,14 @@ if __name__ == '__main__':
     main()
 ```
 
+###### Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
+###### Output:
+```Using 100 rows for training and 50 rows for testing```
+
 </details>
 
 ## Group Data
@@ -356,7 +364,9 @@ $ python nb_tutorial.py
 ```
 
 ###### Output:
-```Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']```
+```
+Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
+```
 
 </details>
 
