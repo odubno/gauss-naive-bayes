@@ -155,7 +155,7 @@ $ pip install requests
 ```
 
 ## Skeleton
-Import the necessary libraries and create the GaussNB class. This will be the foundation of the code.
+Import the necessary libraries and create the GaussNB class. This will be the foundation for the rest of the code.
 
 <details>
   <summary>Click to expand GaussNB Skeleton.</summary>
