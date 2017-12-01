@@ -114,19 +114,10 @@ The results do not change or change very little. Though we do calculate it here.
 
 See [Normal Distribution (Wikipedia)](https://en.wikipedia.org/wiki/Normal_distribution) definition.
 
-The Normal Distribution will help determine the Normal Probability of each new feature given the class. 
+The Normal Distribution will help determine the Normal Probability for each new feature given the class. 
 The product of all Normal Probabilities will result in the likelihood of the *class* occurring given the new features. 
-In other words, the Normal Distribution will calculate the Normal Probability value of each new feature.
+In other words, the Normal Distribution will calculate the Normal Probability value for each new feature.
 The product of all Normal Probabilities will be the likelihood.
-
-## Joint PDF Formula:
-![Alt text](img/joint_pdf.svg "Optional Title")
-
-See [Joint PDF (Wikipedia )](https://en.wikipedia.org/wiki/Joint_probability_distribution) definition.
-
-The Joint Probability is the product of all PDFs. In our case, the product of all Normal PDFs. 
-Multiplying all of the Normal Probabilities returns the likelihood.
-
 
 # Prepare Data
 
@@ -139,13 +130,8 @@ Here, we'll create the structure and the methods to read and prepare data for mo
 3. [Load CSV](#load-csv)
 4. [Split Data](#split-data)
 5. [Group Data](#group-data)
- 
- 
- 
-
 
 ## Prerequisites
-
 
 Every function is created from scratch.
 However, instead of having to download the data, we're using an api call to get the data.
@@ -153,7 +139,7 @@ However, instead of having to download the data, we're using an api call to get 
 ```
 $ pip install requests
 ```
-
+j
 ## Skeleton
 Import the necessary libraries and create the GaussNB class. This will be the foundation for the rest of the code.
 
@@ -220,7 +206,7 @@ class GaussNB:
         if header:
             # remove header
             dataset = dataset[1:]
-        for i in range(len(dataset)):
+        for i in range(len(dataset))
             dataset[i] = [float(x) if re.search('\d', x) else x for x in dataset[i]]
         return dataset
         
@@ -743,9 +729,9 @@ This is to be repeated for each class when running the prediction. The class wit
 The marginal probability is calculated using the sum of the product of the Prior Probability and Normal Probability.
 ![Alt text](img/bayes_marginal.JPG "Optional Title")
 
-The Marginal Probability is determined using all 3 classes and the Normal Probability of their features.
-The Marginal value, a single value, will be the same across all classes for each test. 
-We could think of the Marginal Probability as the total probability of all 3 classes occurring given the Normal Probability of each class.
+The Marginal Probability is determined using each class and the Normal Probability of their features.
+The Marginal value, a single value for each class, will be the same across all classes for each test. 
+We could think of the Marginal Probability as the total probability of all classes occurring given the Normal Probability of each class.
 Thus, the Marginal value will be the same across all classes.
 
 Reminder, to predict the class, we're looking for the **highest** [Posterior Probability](#bayes-theorem) from among all possible classes. 
