@@ -291,6 +291,18 @@ Using 100 rows for training and 50 rows for testing
 ## Group Data
 
 Group the data by class and map each class to it's rows of data.
+
+*Take this table*
+
+| sepal length  | sepal width | petal length | petal width | class |
+| :-----------: |:-----------:| :----------: | :----------:| :----:|
+| 5.1 | 3.5 | 1.4 | 0.2| Iris-setosa | 
+| 4.9 | 3.0 | 1.4 | 0.2| Iris-setosa |
+| 7.0 | 3.2 | 4.7 | 1.4| Iris-versicolor |
+| 6.3 | 2.8 | 5.1 | 1.5| Iris-virginica |
+| 6.4 | 3.2 | 4.5 | 1.5| Iris-versicolor |
+
+*and turn it into this*
 ```python
 {
        'Iris-virginica': [
@@ -305,13 +317,7 @@ Group the data by class and map each class to it's rows of data.
 }
 ```
 
-| sepal length  | sepal width | petal length | petal width | class |
-| :-----------: |:-----------:| :----------: | :----------:| :----:|
-| 5.1 | 3.5 | 1.4 | 0.2| Iris-setosa | 
-| 4.9 | 3.0 | 1.4 | 0.2| Iris-setosa |
-| 7.0 | 3.2 | 4.7 | 1.4| Iris-versicolor |
-| 6.3 | 2.8 | 5.1 | 1.5| Iris-virginica |
-| 6.4 | 3.2 | 4.5 | 1.5| Iris-versicolor |
+
 
 
 
@@ -527,6 +533,8 @@ Building methods for calculating [Bayes Theorem](#bayes-theorem):
 3. [Marginal Probability](#marginal-probability)
 4. [Posterior Probability](#posterior-probability)
 
+*Using Iris-setosa as an example*
+
 ![Naive Bayes](img/bayes_2.JPG "Naive Bayes")
 
 ## Prior Probability
@@ -674,7 +682,7 @@ Likelihood is calculated by taking the product of all Normal Probabilities.
 For each feature given the class we calculate the Normal Probability using the [Normal Distribution](#normal-pdf-formula).
 
 
-![Alt text](img/likelihood2.jpg "Marginal")
+![Likelihood](img/likelihood2.jpg "Likelihood")
 
 
 <details>
@@ -726,13 +734,13 @@ $ python nb_tutorial.py
 
 Calculate the numerator of Gauss Naive Bayes.
 
+![Joint Prob](img/joint_prob.jpg "joint probability")
+
 For each class:
 - Calculate the Prior Probability.
 - Using the Normal Distribution, calculate the Normal Probability of each feature using the mean and the standard deviation.
 - Take the product of Prior Probability and all Normal Probabilities.
 - Return one joint probability value for each class given the new data.
-
-![Alt text](img/joint_prob.jpg "Marginal")
 
 <details>
   <summary>Click to expand joint_probabilities().</summary>
