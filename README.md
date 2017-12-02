@@ -10,7 +10,6 @@ The complete code for the below tutorial could be found in [nb_tutorial.py](http
     - [Iris Data Set](#iris-data-set)
     - [Bayes Theorem](#bayes-theorem)
     - [Normal Probability Density Function](#normal-pdf)
-    - [Joint Probability Density Function](#joint-pdf)
   - [Prepare Dare](#prepare-data)
     - [Prerequisites](#prerequisites)
     - [Load CSV](#load-csv)
@@ -24,6 +23,7 @@ The complete code for the below tutorial could be found in [nb_tutorial.py](http
     - [Prior Probability](#prior-probability)
     - [Train](#train)
     - [Likelihood](#likelihood)
+    - [Joint Probability](#joint-probability)
     - [Marginal Probability](#marginal-probability)
     - [Posterior Probability](#posterior-probability)
   - [Test Model](#test-model)
@@ -46,7 +46,8 @@ The Gauss Naive Bayes Classifier will be able to run on four classic data sets:
 * [adult](http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data)
 
 
-Here we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set, which is a collection of dimensional features which define 3 different types of flower species.
+Here we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set, 
+a collection of dimensional features that define 3 different types of flower species.
 
 The logic for the code to work on all four data sets is in [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py).
 
@@ -289,7 +290,7 @@ Using 100 rows for training and 50 rows for testing
 
 ## Group Data
 
-Group the data by class, by mapping each class to its respective rows of data.
+Group the data by class and map each class to its rows of data.
 
 E.g. (This is a sample of what we mean using the [table](#iris-data-set) from above.)
 
@@ -360,8 +361,10 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 # Summarize Data
 
-Prepare the data for modeling. Mean and standard deviation is self explanatory. 
-The summary is the combination of both and will be calculated for each feature.
+Prepare the data for modeling:
+
+- The mean and the standard deviation are used whe calculating the Normal Probabiltiy value for each feature.
+- The summary is the combination of the mean and the standard deviation and will be calculated for each feature within each class.
 
 
 1. [Mean](#mean)
@@ -521,9 +524,10 @@ Building methods for calculating [Bayes Theorem](#bayes-theorem):
 
 ![Bayes](img/prior.jpg "Bayes" )
 
-Prior Probability is what we know about each class before considering new information. It is simply the probability of each class occurring.
+Prior Probability is what we know about each class before considering new information. 
 
-This method calculates the probability of each class.
+It's the probability of each class occurring.
+
 
 <details>
   <summary>Click to expand prior_prob().</summary>
@@ -576,7 +580,10 @@ P(Iris-versicolor): 0.32
 </details>
 
 ## Train
-Tying the previous methods together to determine the Prior Probability for each class and the (mean, standard deviation) combination for each feature of each class.
+
+Use the grouped classes and for each class calculate the (mean, standard deviation) combination of each feature. 
+The mean and standard deviation will be used when calculating the Normal Probability for each feature.
+
 
 <details>
   <summary>Click to expand train().</summary>
@@ -651,25 +658,13 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 ## Likelihood
 ![Alt text](img/likelihood.jpg "Optional Title")
 
-We're looking to get calculate the Likelihood for each class.
-Likelihood is calculated by multiplying the Normal Probabilities of each feature. 
+Likelihood is calculated by taking the product of all Normal Probabilities.
 
 For each feature given the class we calculate the Normal Probability using the [Normal Distribution](#normal-pdf-formula).
 
 
 ![Alt text](img/likelihood2.jpg "Marginal")
 
-
-
-E.g.
-
-As a quick example, below, we're using the Normal Distribution to calculate a single Normal Probability. 
-
-*5* is the value of the *sepal-width* and *{'mean': 4.98, 'stdev': 0.35}* is the summary for **Iris-setosa** *sepal-width*.
-
-We make this calculation for each feature and multiply all of the results together to get the Likelihood given that class.
-
-Likelihood is a single value.
 
 <details>
   <summary>Click to expand normal_pdf().</summary>
@@ -716,58 +711,40 @@ $ python nb_tutorial.py
 
 </details>
 
-## Marginal Probability
+## Joint Probability
 
-![Alt text](img/marginal.jpg "Marginal")
-P(features) is referenced from [Bayes Theorem](#bayes-theorem).
+Calculate the numerator of Gauss Naive Bayes.
 
-Below we break down Bayes Theorem further, and expand on calculating the Marginal Probability only using the **Iris-setosa** class.
-This is to be repeated for each class when running the prediction. The class with the highest posterior probability is the predicted class.
+For each class:
+- Calculate the Prior Probability.
+- Using the Normal Distribution, calculate the Normal Probability of each feature using the mean and the standard deviation.
+- Take the product of Prior Probability and all Normal Probabilities.
+- Return one joint probability value for each class given the new data.
 
-![Alt text](img/bayes_2.JPG "Optional Title")
-
-The marginal probability is calculated using the sum of the product of the Prior Probability and Normal Probability.
-![Alt text](img/bayes_marginal.JPG "Optional Title")
-
-The Marginal Probability is determined using each class and the Normal Probability of their features.
-The Marginal value, a single value for each class, will be the same across all classes for each test. 
-We could think of the Marginal Probability as the total probability of all classes occurring given the Normal Probability of each class.
-Thus, the Marginal value will be the same across all classes.
-
-Reminder, to predict the class, we're looking for the **highest** [Posterior Probability](#bayes-theorem) from among all possible classes. 
-Dividing by the same value will not improve the accuracy of predicting the correct class.
-
-For the purposes of sticking to the true [Bayes Theorem](#bayes-theorem), we'll use it here.
+![Alt text](img/joint_prob.jpg "Marginal")
 
 <details>
-  <summary>Click to expand marginal_pdf().</summary>
+  <summary>Click to expand joint_probabilities().</summary>
 
 ```python
 class GaussNB:
     . 
     . 
-    . 
-    def marginal_pdf(self, pdfs):
-        """
-        :param pdfs: list of probability densities for each feature
-        :return:
-        Marginal Probability Density Function (Predictor Prior Probability)
-        Summing up the product of P(class) prior probability and the probability density of each feature P(feature | class)
-
-        marginal pdf =
-          P(setosa) * P(sepal length | setosa) + P(versicolour) * P(sepal length | versicolour) + P(virginica) * P(sepal length | virginica)
-        + P(setosa) * P(sepal width | setosa) + P(versicolour) * P(sepal width | versicolour) + P(virginica) * P(sepal width | virginica)
-        + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | virginica)
-        + P(setosa) * P(petal width | setosa) + P(versicolour) * P(petal width | versicolour) + P(virginica) * P(petal width | virginica)
-        """
-        predictors = []
+    .
+    def joint_probabilities(self, test_row):
+        joint_probs = {}
         for target, features in self.summaries.iteritems():
+            total_features = len(features['summary'])
+            likelihood = 1
+            for index in range(total_features):
+                feature = test_row[index]
+                mean = features['summary'][index]['mean']
+                stdev = features['summary'][index]['stdev']
+                normal_prob = self.normal_pdf(feature, mean, stdev)
+                likelihood *= normal_prob
             prior_prob = features['prior_prob']
-            for index in range(len(pdfs)):
-                normal_prob = pdfs[index]
-                predictors.append(prior_prob * normal_prob)
-        marginal_prob = sum(predictors)
-        return marginal_prob
+            joint_probs[target] = prior_prob * likelihood
+        return joint_probs
 
 def main():
     nb = GaussNB()
@@ -779,8 +756,81 @@ def main():
     group = nb.group_by_class(data, -1)  # designating the last column as the class column
     print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
     nb.train(train_list, -1)
-    marginal_prob = nb.marginal_pdf(pdfs=[0.02, 0.37, 3.44e-12, 4.35e-09])
-    print marginal_prob
+    print nb.joint_probabilities([5.0, 4.98, 0.35, 4.0])
+
+if __name__ == '__main__':
+    main()
+```
+###### Execute in terminal:
+```
+$ python nb_tutorial.py
+```
+
+###### Output:
+```
+Using 100 rows for training and 50 rows for testing
+Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
+{'Iris-virginica': 7.880001356130214e-38, 'Iris-setosa': 9.616469451152855e-230, 'Iris-versicolor': 6.125801208117717e-68}
+```
+
+</details>
+
+## Marginal Probability
+
+Calculate the total sum of all class joint probabilities. 
+
+Example using just the **Iris-setosa** class.
+
+![Alt text](img/bayes_2.JPG "Optional Title")
+
+Marginal probability is calculated by:
+ - taking the sum of all class joint probabilities.
+![Alt text](img/bayes_marginal.JPG "Optional Title")
+
+The Marginal Probability is determined using each class and the Normal Probability of their features.
+The Marginal value, a single value for each class, will be the same across all classes for each test. 
+We could think of the Marginal Probability as the total probability of all classes occurring given the Normal Probability of each class.
+Thus, the Marginal value will be the same across all classes.
+
+Reminder, to predict the class, we're looking for the **highest** [Posterior Probability](#bayes-theorem) from among all possible classes. 
+Dividing by the same value will not improve the accuracy of predicting the correct class.
+
+For the purposes of sticking to the true [Bayes Theorem](#bayes-theorem), we're using it here.
+
+<details>
+  <summary>Click to expand marginal_pdf().</summary>
+
+```python
+class GaussNB:
+    . 
+    . 
+    . 
+    def marginal_pdf(self, joint_probabilities):
+        """
+        :param joint_probabilities: list of joint probabilities for each feature
+        :return:
+        Marginal Probability Density Function (Predictor Prior Probability)
+        Joint Probability = prior * likelihood
+        Marginal Probability is the sum of all joint probabilities for all classes.
+
+        marginal_pdf =
+          [P(setosa) * P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal length | setosa)]
+        + [P(versicolour) * P(sepal length | versicolour) * P(sepal width | versicolour) * P(petal length | versicolour) * P(petal length | versicolour)]
+        + [P(virginica) * P(sepal length | verginica) * P(sepal width | verginica) * P(petal length | verginica) * P(petal length | verginica)]
+
+        """
+        marginal_prob = sum(joint_probabilities.values())
+        return marginal_prob
+
+def main():
+    nb = GaussNB()
+    joint_probs = {
+        'Iris-setosa': 1.2904413965468937,
+        'Iris-versicolor': 5.414630046086964e-14,
+        'Iris-virginica': 7.087518912297627e-30
+    }
+    marginal_prob = nb.marginal_pdf(joint_probs)
+    print 'Marginal Probability: %s' % marginal_prob
 
 if __name__ == '__main__':
     main()
@@ -793,9 +843,7 @@ $ python nb_tutorial.py
 
 ###### Output:
 ```
-Using 100 rows for training and 50 rows for testing
-Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
-0.38610000431
+Marginal Probability: 1.29044139655
 ```
 
 </details>
@@ -822,37 +870,27 @@ class GaussNB:
     .
     def posterior_probabilities(self, test_row):
         """
-        :param test_row: single list of features to test
+        :param test_row: single list of features to test; new data
         :return:
         For each feature (x) in the test_row:
             1. Calculate Predictor Prior Probability using the Normal PDF N(x; µ, σ). eg = P(feature | class)
-            2. Calculate Likelihood by getting the product of the prior_prob and the Normal PDFs
-            3. Multiply Likelihood by the prior_prob to calculate the Joint PDF. P(Iris-virginica)
+            2. Calculate Likelihood by getting the product of the prior and the Normal PDFs
+            3. Multiply Likelihood by the prior to calculate the Joint Probability. 
 
         E.g.
         prior_prob: P(setosa)
         likelihood: P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)
-        numerator (joint pdf): prior_prob * likelihood
-        denominator (marginal pdf): predictor prior probability
-        posterior_prob = joint pdf/ marginal pdf
+        joint_prob: prior_prob * likelihood
+        marginal_prob: predictor prior probability
+        posterior_prob = joint_prob/ marginal_prob
 
         returning a dictionary mapping of class to it's posterior probability
         """
         posterior_probs = {}
-        for target, features in self.summaries.iteritems():
-            total_features = len(features['summary'])
-            likelihood = 0
-            normal_probs = []
-            for index in range(total_features):
-                mean = features['summary'][index]['mean']
-                stdev = features['summary'][index]['stdev']
-                x = test_row[index]
-                normal_prob = self.normal_pdf(x, mean, stdev)
-                likelihood = posterior_probs.get(target, 1) * normal_prob
-                normal_probs.append(normal_prob)
-            marginal_prob = self.marginal_pdf(normal_probs)
-            prior_prob = features['prior_prob']
-            posterior_probs[target] = (prior_prob * likelihood) / marginal_prob
+        joint_probabilities = self.joint_probabilities(test_row)
+        marginal_prob = self.marginal_pdf(joint_probabilities)
+        for target, joint_prob in joint_probabilities.iteritems():
+            posterior_probs[target] = joint_prob / marginal_prob
         return posterior_probs
 
 def main():
@@ -865,7 +903,7 @@ def main():
     group = nb.group_by_class(data, -1)  # designating the last column as the class column
     print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
     nb.train(train_list, -1)
-    posterior_probs = nb.posterior_probabilities([6.3, 2.8, 5.1, 1.5]) # 'Iris-virginica'
+    posterior_probs = nb.posterior_probabilities([6.3, 2.8, 5.1, 1.5])
     print "Posterior Probabilityies: %s" % posterior_probs
 
 if __name__ == '__main__':
@@ -882,9 +920,9 @@ $ python nb_tutorial.py
 Using 100 rows for training and 50 rows for testing
 Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 Posterior Probabilityies: {
-    'Iris-virginica': 0.01402569010123345,
-    'Iris-setosa': 2.6269216431943473e-26, 
-    'Iris-versicolor': 0.14165560618269524
+    'Iris-virginica': 0.32379024365947745,
+    'Iris-setosa': 2.5693999408505845e-158,
+    'Iris-versicolor': 0.6762097563405226
 }
 ```
 
