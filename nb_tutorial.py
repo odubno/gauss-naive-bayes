@@ -107,7 +107,7 @@ class GaussNB:
 
     def train(self, train_list, target):
         """
-        :param data: train data
+        :param data:
         :param target: target class
         :return:
         For each target:

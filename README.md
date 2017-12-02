@@ -290,10 +290,7 @@ Using 100 rows for training and 50 rows for testing
 
 ## Group Data
 
-Group the data by class and map each class to its rows of data.
-
-E.g. (This is a sample of what we mean using the [table](#iris-data-set) from above.)
-
+Group the data by class and map each class to it's rows of data.
 ```python
 {
        'Iris-virginica': [
@@ -307,6 +304,16 @@ E.g. (This is a sample of what we mean using the [table](#iris-data-set) from ab
     ]
 }
 ```
+
+| sepal length  | sepal width | petal length | petal width | class |
+| :-----------: |:-----------:| :----------: | :----------:| :----:|
+| 5.1 | 3.5 | 1.4 | 0.2| Iris-setosa | 
+| 4.9 | 3.0 | 1.4 | 0.2| Iris-setosa |
+| 7.0 | 3.2 | 4.7 | 1.4| Iris-versicolor |
+| 6.3 | 2.8 | 5.1 | 1.5| Iris-virginica |
+| 6.4 | 3.2 | 4.5 | 1.5| Iris-versicolor |
+
+
 
 <details>
   <summary>Click to expand group_by_class().</summary>
@@ -520,9 +527,13 @@ Building methods for calculating [Bayes Theorem](#bayes-theorem):
 3. [Marginal Probability](#marginal-probability)
 4. [Posterior Probability](#posterior-probability)
 
+![Naive Bayes](img/bayes_2.JPG "Naive Bayes")
+
 ## Prior Probability
 
 ![Bayes](img/prior.jpg "Bayes" )
+
+![P(Setosa)](img/prob_setosa.jpg "Setosa" )
 
 Prior Probability is what we know about each class before considering new information. 
 
@@ -770,7 +781,11 @@ $ python nb_tutorial.py
 ```
 Using 100 rows for training and 50 rows for testing
 Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
-{'Iris-virginica': 7.880001356130214e-38, 'Iris-setosa': 9.616469451152855e-230, 'Iris-versicolor': 6.125801208117717e-68}
+{
+    'Iris-virginica': 7.880001356130214e-38, 
+    'Iris-setosa': 9.616469451152855e-230, 
+    'Iris-versicolor': 6.125801208117717e-68
+}
 ```
 
 </details>
@@ -780,8 +795,6 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 Calculate the total sum of all class joint probabilities. 
 
 Example using just the **Iris-setosa** class.
-
-![Alt text](img/bayes_2.JPG "Optional Title")
 
 Marginal probability is calculated by:
  - taking the sum of all class joint probabilities.
