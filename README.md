@@ -802,10 +802,6 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 Calculate the total sum of all class joint probabilities. 
 
-Example using just the **Iris-setosa** class.
-
-Marginal probability is calculated by:
- - taking the sum of all class joint probabilities.
 ![Alt text](img/bayes_marginal.JPG "Optional Title")
 
 The Marginal Probability is determined using each class and the Normal Probability of their features.
@@ -1284,10 +1280,10 @@ class GaussNB:
         Use zip to line up each feature into a single column across multiple lists.
         yield the mean and the stdev for each feature column.
         """
-        for feature_col in zip(*data):
+        for feature in zip(*data):
             yield {
-                'stdev': self.stdev(feature_col),
-                'mean': self.mean(feature_col)
+                'stdev': self.stdev(feature),
+                'mean': self.mean(feature)
             }
 
     def prior_prob(self, group, target, data):
@@ -1301,7 +1297,7 @@ class GaussNB:
 
     def train(self, train_list, target):
         """
-        :param data: train data
+        :param data:
         :param target: target class
         :return:
         For each target:
@@ -1333,61 +1329,61 @@ class GaussNB:
         normal_prob = exponent / denominator
         return normal_prob
 
-    def marginal_pdf(self, pdfs):
+    def marginal_pdf(self, joint_probabilities):
         """
-        :param pdfs: list of probability densities for each feature
+        :param joint_probabilities: list of joint probabilities for each feature
         :return:
         Marginal Probability Density Function (Predictor Prior Probability)
-        Summing up the product of P(class) prior probability and the probability density of each feature P(feature | class)
+        Joint Probability = prior * likelihood
+        Marginal Probability is the sum of all joint probabilities for all classes.
 
-        marginal pdf =
-          P(setosa) * P(sepal length | setosa) + P(versicolour) * P(sepal length | versicolour) + P(virginica) * P(sepal length | verginica)
-        + P(setosa) * P(sepal width | setosa) + P(versicolour) * P(sepal width | versicolour) + P(virginica) * P(sepal width | verginica)
-        + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | verginica)
-        + P(setosa) * P(petal length | setosa) + P(versicolour) * P(petal length | versicolour) + P(virginica) * P(petal length | verginica)
+        marginal_pdf =
+          [P(setosa) * P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal length | setosa)]
+        + [P(versicolour) * P(sepal length | versicolour) * P(sepal width | versicolour) * P(petal length | versicolour) * P(petal length | versicolour)]
+        + [P(virginica) * P(sepal length | verginica) * P(sepal width | verginica) * P(petal length | verginica) * P(petal length | verginica)]
+
         """
-        predictors = []
-        for target, features in self.summaries.iteritems():
-            prior_prob = features['prior_prob']
-            for index in range(len(pdfs)):
-                normal_prob = pdfs[index]
-                predictors.append(prior_prob * normal_prob)
-        marginal_prob = sum(predictors)
+        marginal_prob = sum(joint_probabilities.values())
         return marginal_prob
+
+    def joint_probabilities(self, test_row):
+        joint_probs = {}
+        for target, features in self.summaries.iteritems():
+            total_features = len(features['summary'])
+            likelihood = 1
+            for index in range(total_features):
+                feature = test_row[index]
+                mean = features['summary'][index]['mean']
+                stdev = features['summary'][index]['stdev']
+                normal_prob = self.normal_pdf(feature, mean, stdev)
+                likelihood *= normal_prob
+            prior_prob = features['prior_prob']
+            joint_probs[target] = prior_prob * likelihood
+        return joint_probs
 
     def posterior_probabilities(self, test_row):
         """
-        :param test_row: single list of features to test
+        :param test_row: single list of features to test; new data
         :return:
         For each feature (x) in the test_row:
             1. Calculate Predictor Prior Probability using the Normal PDF N(x; µ, σ). eg = P(feature | class)
             2. Calculate Likelihood by getting the product of the prior and the Normal PDFs
-            3. Multiply Likelihood by the prior to calculate the Joint PDF. P(Iris-virginica)
+            3. Multiply Likelihood by the prior to calculate the Joint Probability.
 
         E.g.
         prior_prob: P(setosa)
         likelihood: P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)
-        numerator (joint pdf): prior_prob * likelihood
-        denominator (marginal pdf): predictor prior probability
-        posterior_prob = joint pdf/ marginal pdf
+        joint_prob: prior_prob * likelihood
+        marginal_prob: predictor prior probability
+        posterior_prob = joint_prob/ marginal_prob
 
         returning a dictionary mapping of class to it's posterior probability
         """
         posterior_probs = {}
-        for target, features in self.summaries.iteritems():
-            total_features = len(features['summary'])
-            likelihood = 0
-            normal_probs = []
-            for index in range(total_features):
-                mean = features['summary'][index]['mean']
-                stdev = features['summary'][index]['stdev']
-                test_feature = test_row[index]
-                normal_prob = self.normal_pdf(test_feature, mean, stdev)
-                likelihood = posterior_probs.get(target, 1) * normal_prob
-                normal_probs.append(normal_prob)
-            marginal = self.marginal_pdf(normal_probs)
-            prior_prob = features['prior_prob']
-            posterior_probs[target] = (prior_prob * likelihood) / marginal
+        joint_probabilities = self.joint_probabilities(test_row)
+        marginal_prob = self.marginal_pdf(joint_probabilities)
+        for target, joint_prob in joint_probabilities.iteritems():
+            posterior_probs[target] = joint_prob / marginal_prob
         return posterior_probs
 
     def get_prediction(self, test_row):

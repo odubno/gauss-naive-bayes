@@ -243,8 +243,9 @@ def main():
     group = nb.group_by_class(data, -1)  # designating the last column as the class column
     print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
     nb.train(train_list, -1)
-    posterior_probs = nb.posterior_probabilities([6.3, 2.8, 5.1, 1.5]) # 'Iris-virginica'
-    print "Posterior Probabilityies: %s" % posterior_probs
+    predicted = nb.predict(test_list)
+    accuracy = nb.accuracy(test_list, predicted)
+    print 'Accuracy: %.3f' % accuracy
 
 if __name__ == '__main__':
     main()
