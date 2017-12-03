@@ -30,7 +30,7 @@ The complete code could be found in [nb_tutorial.py](https://github.com/odubno/n
     - [Get Prediction](#get-prediction)
     - [Predict](#predict)
     - [Accuracy](#accuracy)
-  - [Summary](#summary)
+  - [Recap](#recap)
   - [Authors](#authors)
   - [Acknowledgments](#acknowledgments)
   - [Complete Code](#complete-code)
@@ -683,11 +683,9 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 Likelihood is calculated by taking the product of all Normal Probabilities.
 
-For each feature given the class we calculate the Normal Probability using the [Normal Distribution](#normal-pdf-formula).
-
-
 ![Likelihood](img/likelihood2.jpg "Likelihood")
 
+For each feature given the class we calculate the Normal Probability using the [Normal Distribution](#normal-pdf-formula).
 
 <details>
   <summary>Click to expand normal_pdf().</summary>
@@ -816,10 +814,10 @@ Calculate the total sum of all class joint probabilities.
 
 The Marginal Probability is determined using each class and the Normal Probability of their features.
 The Marginal value, a single value for each class, will be the same across all classes for each test. 
-We could think of the Marginal Probability as the total probability of all classes occurring given the Normal Probability of each class.
+We could think of the Marginal Probability as the total probability of all classes occurring given the new data.
 Thus, the Marginal value will be the same across all classes.
 
-Reminder, to predict the class, we're looking for the **highest** [Posterior Probability](#bayes-theorem) from among all possible classes. 
+Reminder, to predict the class, we're looking for the **highest** Posterior Probability from among all possible classes. 
 Dividing by the same value will not improve the accuracy of predicting the correct class.
 
 For the purposes of sticking to the true [Bayes Theorem](#bayes-theorem), we're using it here.
@@ -1017,7 +1015,7 @@ According to the test row the best prediction is: Iris-versicolor
 
 ## Predict
 
-This method will return a prediction for each list (row).
+This method will return a prediction for each test_row.
 
 Example input, list of lists: 
 ```
@@ -1151,13 +1149,13 @@ Accuracy: 0.960
 
 </details>
 
-## Summary
+## Recap
 
-Bayes theorem make a very **strong assumption** that all features are independent when calculating the likelihood; hence "Naive".
-Likelihood is calculated using the Gaussian Distribution and the assumption here is that all of the features are normally distributed; hence, the "Gauss". 
+The Naive Bayes Classification model makes some strong assumptions. All of the features are assumed to be independent when calculating the likelihood; hence "Naive".
+Likelihood is calculated using the Gaussian Distribution (Normal Distribution) and all of the features are assumed to be normally distribtuted; hence "Gauss". 
 
-Minus the drawbacks, the Gauss Naive Bayes is a fast performing probabilitstic classifier and works amazingly well on small data sets. 
-Once there's a lot of data, the "Naive" in Gauss NB fails to be effective. As features increase and data grows, Gauss NB loses it's effectiveness. 
+Overlooking Gauss NB's **strong assumptions**, the classifier is very fast and accurate. 
+Gauss NB does not require a lot of data to be accurate and is highly scalable.
 
 You could find the [Complete Code](#complete-code) below.
 
@@ -1174,7 +1172,7 @@ See the list of [contributors](https://github.com/odubno/naive_bayes/graphs/cont
 A hat tip to the authors that made this tutorial possible.
 
 | Author                  | URL           |
-| -------------           |:-------------:|
+| -------------           |:-------------|
 | Dr. Jason Brownlee      | [How To Implement Naive Bayes From Scratch in Python](https://machinelearningmastery.com/naive-bayes-classifier-scratch-python/) |
 | Chris Albon             | [Naive Bayes Classifier From Scratch](https://chrisalbon.com/machine-learning/naive_bayes_classifier_from_scratch.html) |
 | Sunil Ray               | [6 Easy Steps to Learn Naive Bayes Algorithm](https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/) |
@@ -1343,15 +1341,21 @@ class GaussNB:
         Marginal Probability is the sum of all joint probabilities for all classes.
 
         marginal_pdf =
-          [P(setosa) * P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal length | setosa)]
-        + [P(versicolour) * P(sepal length | versicolour) * P(sepal width | versicolour) * P(petal length | versicolour) * P(petal length | versicolour)]
-        + [P(virginica) * P(sepal length | verginica) * P(sepal width | verginica) * P(petal length | verginica) * P(petal length | verginica)]
+          [P(setosa) * P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)]
+        + [P(versicolour) * P(sepal length | versicolour) * P(sepal width | versicolour) * P(petal length | versicolour) * P(petal width | versicolour)]
+        + [P(virginica) * P(sepal length | verginica) * P(sepal width | verginica) * P(petal length | verginica) * P(petal width | verginica)]
 
         """
         marginal_prob = sum(joint_probabilities.values())
         return marginal_prob
 
     def joint_probabilities(self, test_row):
+        """
+        :param test_row: single list of features to test; new data
+        :return:
+        Use the normal_pdf(self, x, mean, stdev) to calculate the Normal Probability for each feature
+        Take the product of all Normal Probabilities and the Prior Probability.
+        """
         joint_probs = {}
         for target, features in self.summaries.iteritems():
             total_features = len(features['summary'])
@@ -1393,7 +1397,7 @@ class GaussNB:
 
     def get_prediction(self, test_row):
         """
-        :param test_row: single list of features to test
+        :param test_row: single list of features to test; new data
         :return:
         Return the target class with the largest/best posterior probability
         """
