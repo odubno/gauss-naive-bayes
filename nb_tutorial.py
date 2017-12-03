@@ -148,15 +148,21 @@ class GaussNB:
         Marginal Probability is the sum of all joint probabilities for all classes.
 
         marginal_pdf =
-          [P(setosa) * P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal length | setosa)]
-        + [P(versicolour) * P(sepal length | versicolour) * P(sepal width | versicolour) * P(petal length | versicolour) * P(petal length | versicolour)]
-        + [P(virginica) * P(sepal length | verginica) * P(sepal width | verginica) * P(petal length | verginica) * P(petal length | verginica)]
+          [P(setosa) * P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)]
+        + [P(versicolour) * P(sepal length | versicolour) * P(sepal width | versicolour) * P(petal length | versicolour) * P(petal width | versicolour)]
+        + [P(virginica) * P(sepal length | verginica) * P(sepal width | verginica) * P(petal length | verginica) * P(petal width | verginica)]
 
         """
         marginal_prob = sum(joint_probabilities.values())
         return marginal_prob
 
     def joint_probabilities(self, test_row):
+        """
+        :param test_row: single list of features to test; new data
+        :return:
+        Use the normal_pdf(self, x, mean, stdev) to calculate the Normal Probability for each feature
+        Take the product of all Normal Probabilities and the Prior Probability.
+        """
         joint_probs = {}
         for target, features in self.summaries.iteritems():
             total_features = len(features['summary'])
@@ -198,7 +204,7 @@ class GaussNB:
 
     def get_prediction(self, test_row):
         """
-        :param test_row: single list of features to test
+        :param test_row: single list of features to test; new data
         :return:
         Return the target class with the largest/best posterior probability
         """
