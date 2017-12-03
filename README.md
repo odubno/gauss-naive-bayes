@@ -532,15 +532,15 @@ Building the class methods for calculating [Bayes Theorem](#bayes-theorem):
 4. [Marginal Probability](#marginal-probability)
 5. [Posterior Probability](#posterior-probability)
 
-<center>Features and Class</center>
+*Features and Class*
 
 ![features](img/features.JPG "Features and Class")
 
-*<center>Bayes Tree Diagram</center>*
+*Bayes Tree Diagram*
 
 ![tree](img/bayes_tree.JPG "Bayes Tree")
 
-*<center>Using Iris-setosa as an example</center>*
+*Using Iris-setosa as an example*
 
 ![Naive Bayes](img/bayes_3.png "Naive Bayes")
 
