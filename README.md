@@ -51,12 +51,12 @@ a collection of dimensional features that define 3 different types of flower spe
 
 The logic for the code to work on all four data sets is in [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py).
 
-This tutorial will follow the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
+Here we'll break down the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
 
 ## Iris Data Set:
 
 The Iris data set is a classic and is widely used when explaining classification models. 
-The data set has 4 independent variables and 1 dependent variable that has 3 different classes.
+The data set has 4 independent variables and 1 dependent variable that has 3 different classes with 150 instances.
 
 The first 4 columns are the independent variables (features).                                      
 The 5th column is the dependent variable (class).
@@ -65,14 +65,12 @@ The 5th column is the dependent variable (class).
 2. *sepal width* (cm) 
 3. *petal length* (cm) 
 4. *petal width* (cm) 
-5. classes: 
+5. class: 
     * *Iris Setosa*, 
     * *Iris Versicolour*
     * *Iris Virginica*
 
-#### 5 Row Sample
-- The first 4 columns represent the **features** (*sepal length*, *sepal width*, *petal length*, *petal width*)
-- The last column represents the **class** for each row. (*Setosa*, *Versicolour*, *Virginica*)
+#### Random 5 Row Sample
 
 | sepal length  | sepal width | petal length | petal width | class |
 | :-----------: |:-----------:| :----------: | :----------:| :----:|
@@ -290,7 +288,7 @@ Using 100 rows for training and 50 rows for testing
 
 ## Group Data
 
-Group the data by class and map each class to it's rows of data.
+Group the data according to class by mapping each class to it's instances.
 
 *Take this table*
 
@@ -374,11 +372,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 # Summarize Data
 
-Prepare the data for modeling:
-
-- The mean and the standard deviation are used whe calculating the Normal Probabiltiy value for each feature.
-- The summary is the combination of (mean, standard deviation) and will be calculated for each feature within each class.
-
+Prepare the data for modeling. Here we calculate descriptive statistics later used in the model.
 
 1. [Mean](#mean)
 2. [Standard Deviation](#standard-deviation)
@@ -473,6 +467,8 @@ Standard Deviation: 1.88414436814
 
 ## Summary
 Return the (mean, standard deviation) combination for each feature column of the data set.
+The mean and the standard deviation will be used when calculating the Normal Probabiltiy value for each feature.
+
 
 <details>
   <summary>Click to expand summarize().</summary>
@@ -527,19 +523,22 @@ Feature Summary:
 
 # Build Model
 
-Building methods for calculating [Bayes Theorem](#bayes-theorem):
+Building the class methods for calculating [Bayes Theorem](#bayes-theorem):
+
 1. [Prior Probability](#prior-probability)
 2. [Likelihood](#likelihood)
-3. [Marginal Probability](#marginal-probability)
-4. [Posterior Probability](#posterior-probability)
+3. [Joint Probability](#joint-probability)
+4. [Marginal Probability](#marginal-probability)
+5. [Posterior Probability](#posterior-probability)
 
-*Features and Class*
+*<center>Features and Class</center>*
 ![features](img/features.JPG "Features and Class")
 
-*Tree*
+*<center>Bayes Tree Diagram</center>*
+
 ![tree](img/bayes_tree.JPG "Bayes Tree")
 
-*Using Iris-setosa as an example*
+*<center>Using Iris-setosa as an example</center>*
 
 ![Naive Bayes](img/bayes_3.png "Naive Bayes")
 
@@ -737,7 +736,7 @@ $ python nb_tutorial.py
 
 ## Joint Probability
 
-Calculate the numerator of Gauss Naive Bayes.
+Calculate the numerator of the Gauss Naive Bayes.
 
 ![Joint Prob](img/joint_prob.jpg "joint probability")
 
