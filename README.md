@@ -1,4 +1,4 @@
-# Gauss Naive Bayes In Python
+# Gauss Naive Bayes From Scratch
 
 Building a Naive Bayes classifier using Python with drawings.
 
@@ -9,8 +9,8 @@ The complete code could be found in [nb_tutorial.py](https://github.com/odubno/n
   - [Overview](#overview)
     - [Iris Data Set](#iris-data-set)
     - [Bayes Theorem](#bayes-theorem)
-    - [Normal Probability Density Function](#normal-pdf)
-  - [Prepare Dare](#prepare-data)
+    - [Normal Probability Density Function](#normal-pdf-formula)
+  - [Prepare Data](#prepare-data)
     - [Prerequisites](#prerequisites)
     - [Load CSV](#load-csv)
     - [Split Data](#split-data)
@@ -36,9 +36,10 @@ The complete code could be found in [nb_tutorial.py](https://github.com/odubno/n
   - [Complete Code](#complete-code)
       
 # Overview 
-We will be using Naive Bayes and the Gaussian Distribution (Normal Distribution) to build a classifier in Python from scratch.
+We will be using Naive Bayes and the Gaussian Distribution (Normal Distribution) to build a classifier 
+that will predict flower species based off of petal and sepal features.
 
-The Gauss Naive Bayes Classifier will be able to run on four classic data sets:
+We first built the Gauss Naive Bayes classifier that could run on the four classic data sets:
 
 * [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)
 * [diabetes](https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data)
@@ -46,12 +47,11 @@ The Gauss Naive Bayes Classifier will be able to run on four classic data sets:
 * [adult](http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data)
 
 
-Here we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set, 
+However, we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set, 
 a collection of dimensional features that define 3 different types of flower species.
 
-The logic for the code to work on all four data sets is in [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py).
-
-Here we'll break down the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
+- The logic for the code to work on all four data sets is in [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py).
+- Here we'll break down the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
 
 ## Iris Data Set:
 
