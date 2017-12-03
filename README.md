@@ -739,13 +739,13 @@ $ python nb_tutorial.py
 
 ## Joint Probability
 
-Calculate the numerator of the Gauss Naive Bayes.
+Joint Probability is calculated by taking the product of the Prior Probability and the Likelihood.
 
 ![Joint Prob](img/joint_prob.jpg "joint probability")
 
 For each class:
 - Calculate the Prior Probability.
-- Using the Normal Distribution calculate the Normal Probability for each feature. e.g. **N(x; µ, σ)**.
+- Use the Normal Distribution to calculate the Normal Probability for each feature. e.g. **N(x; µ, σ)**.
 - Take the product of the Prior Probability and all Normal Probabilities.
 - Return one Joint Probability value for each class given the new data.
 
