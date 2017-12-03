@@ -2,7 +2,7 @@
 
 Building a Naive Bayes classifier using Python with drawings.
 
-The complete code for the below tutorial could be found in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py)
+The complete code could be found in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py)
 
 
 # Table of Contents
@@ -140,7 +140,7 @@ However, instead of having to download the data, we're using an api call to get 
 ```
 $ pip install requests
 ```
-j
+
 ## Skeleton
 Import the necessary libraries and create the GaussNB class. This will be the foundation for the rest of the code.
 
@@ -302,7 +302,7 @@ Group the data by class and map each class to it's rows of data.
 | 6.3 | 2.8 | 5.1 | 1.5| Iris-virginica |
 | 6.4 | 3.2 | 4.5 | 1.5| Iris-versicolor |
 
-*and turn it into this*
+*and turn it into this map*
 ```python
 {
        'Iris-virginica': [
@@ -377,7 +377,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 Prepare the data for modeling:
 
 - The mean and the standard deviation are used whe calculating the Normal Probabiltiy value for each feature.
-- The summary is the combination of the mean and the standard deviation and will be calculated for each feature within each class.
+- The summary is the combination of (mean, standard deviation) and will be calculated for each feature within each class.
 
 
 1. [Mean](#mean)
@@ -533,9 +533,15 @@ Building methods for calculating [Bayes Theorem](#bayes-theorem):
 3. [Marginal Probability](#marginal-probability)
 4. [Posterior Probability](#posterior-probability)
 
+*Features and Class*
+![features](img/features.JPG "Features and Class")
+
+*Tree*
+![tree](img/bayes_tree.JPG "Bayes Tree")
+
 *Using Iris-setosa as an example*
 
-![Naive Bayes](img/bayes_2.JPG "Naive Bayes")
+![Naive Bayes](img/bayes_3.png "Naive Bayes")
 
 ## Prior Probability
 
@@ -600,9 +606,8 @@ P(Iris-versicolor): 0.32
 
 ## Train
 
-Use the grouped classes and for each class calculate the (mean, standard deviation) combination of each feature. 
-The mean and standard deviation will be used when calculating the Normal Probability for each feature.
-
+Using the grouped classes, calculate the (mean, standard deviation) 
+combination for each feature. 
 
 <details>
   <summary>Click to expand train().</summary>
@@ -738,7 +743,7 @@ Calculate the numerator of Gauss Naive Bayes.
 
 For each class:
 - Calculate the Prior Probability.
-- Using the Normal Distribution, calculate the Normal Probability of each feature using the mean and the standard deviation.
+- Using the Normal Distribution calculate the Normal Probability for each feature using the mean and the standard deviation.
 - Take the product of Prior Probability and all Normal Probabilities.
 - Return one joint probability value for each class given the new data.
 
@@ -751,6 +756,12 @@ class GaussNB:
     . 
     .
     def joint_probabilities(self, test_row):
+        """
+        :param test_row: single list of features to test; new data
+        :return:
+        Use the normal_pdf(self, x, mean, stdev) to calculate the Normal Probability for each feature
+        Take the product of all Normal Probabilities and the Prior Probability.
+        """
         joint_probs = {}
         for target, features in self.summaries.iteritems():
             total_features = len(features['summary'])
@@ -802,7 +813,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 Calculate the total sum of all class joint probabilities. 
 
-![Alt text](img/bayes_marginal.JPG "Optional Title")
+![Alt text](img/marginal_prob.JPG "Optional Title")
 
 The Marginal Probability is determined using each class and the Normal Probability of their features.
 The Marginal value, a single value for each class, will be the same across all classes for each test. 
@@ -831,9 +842,9 @@ class GaussNB:
         Marginal Probability is the sum of all joint probabilities for all classes.
 
         marginal_pdf =
-          [P(setosa) * P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal length | setosa)]
-        + [P(versicolour) * P(sepal length | versicolour) * P(sepal width | versicolour) * P(petal length | versicolour) * P(petal length | versicolour)]
-        + [P(virginica) * P(sepal length | verginica) * P(sepal width | verginica) * P(petal length | verginica) * P(petal length | verginica)]
+          [P(setosa) * P(sepal length | setosa) * P(sepal width | setosa) * P(petal length | setosa) * P(petal width | setosa)]
+        + [P(versicolour) * P(sepal length | versicolour) * P(sepal width | versicolour) * P(petal length | versicolour) * P(petal width | versicolour)]
+        + [P(virginica) * P(sepal length | verginica) * P(sepal width | verginica) * P(petal length | verginica) * P(petal width | verginica)]
 
         """
         marginal_prob = sum(joint_probabilities.values())
@@ -871,11 +882,6 @@ Marginal Probability: 1.29044139655
 - Posterior Probability is the updated belief given the new data (features).
 - Calculate the Posterior Probability for each class.
 - Predict the class by choosing the highest Posterior Probability.
-
-Use [Bayes Theorem](#bayes-theorem) from above:
-- [Prior Probability](#prior-probability)
-- [Normal Probability](#normal-probability)
-- [Marginal Probability](#marginal-probability)
 
 <details>
   <summary>Click to expand posterior_probabilities().</summary>
