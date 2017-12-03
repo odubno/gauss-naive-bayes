@@ -880,11 +880,12 @@ Marginal Probability: 1.29044139655
 </details>
 
 ## Posterior Probability
-![Alt text](img/posterior.jpg "Optional Title")
 
-- Posterior Probability is the updated belief given the new data (features).
-- Calculate the Posterior Probability for each class.
-- Predict the class by choosing the highest Posterior Probability.
+The Posterior Probability is the probability of a class occuring and is calculated for each class given the new data.
+
+![Posterior](img/posterior.jpg "Posterior")
+
+This where all the preceding class methods tie together to calculate the Gauss Naive Bayes formula.
 
 <details>
   <summary>Click to expand posterior_probabilities().</summary>
