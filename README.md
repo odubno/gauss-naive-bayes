@@ -550,7 +550,7 @@ Building the class methods for calculating [Bayes Theorem](#bayes-theorem):
 
 ![P(Setosa)](img/prob_setosa.jpg "Setosa" )
 
-Prior Probability is what we know about each class before considering new information. 
+Prior Probability is what we know about each class before considering the new data. 
 
 It's the probability of each class occurring.
 
@@ -607,8 +607,9 @@ P(Iris-versicolor): 0.32
 
 ## Train
 
-Using the grouped classes, calculate the (mean, standard deviation) 
-combination for each feature. 
+Using the grouped classes, calculate the (mean, standard deviation) combination for each feature. 
+This is where we learn from the train set, by claculating the mean and the standard deviation. 
+The calculations later will use the (mean, standard deviation) of each feature to calculate probabilities. 
 
 <details>
   <summary>Click to expand train().</summary>
@@ -681,13 +682,15 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 </details>
 
 ## Likelihood
-![Alt text](img/likelihood.jpg "Optional Title")
 
 Likelihood is calculated by taking the product of all Normal Probabilities.
 
-![Likelihood](img/likelihood2.jpg "Likelihood")
+![Alt text](img/likelihood.jpg "Optional Title")
 
 For each feature given the class we calculate the Normal Probability using the [Normal Distribution](#normal-pdf-formula).
+
+![Likelihood](img/likelihood2.jpg "Likelihood")
+
 
 <details>
   <summary>Click to expand normal_pdf().</summary>
@@ -742,9 +745,9 @@ Calculate the numerator of the Gauss Naive Bayes.
 
 For each class:
 - Calculate the Prior Probability.
-- Using the Normal Distribution calculate the Normal Probability for each feature using the mean and the standard deviation.
-- Take the product of Prior Probability and all Normal Probabilities.
-- Return one joint probability value for each class given the new data.
+- Using the Normal Distribution calculate the Normal Probability for each feature. e.g. **N(x; µ, σ)**.
+- Take the product of the Prior Probability and all Normal Probabilities.
+- Return one Joint Probability value for each class given the new data.
 
 <details>
   <summary>Click to expand joint_probabilities().</summary>
@@ -819,8 +822,9 @@ The Marginal value, a single value for each class, will be the same across all c
 We could think of the Marginal Probability as the total probability of all classes occurring given the new data.
 Thus, the Marginal value will be the same across all classes.
 
-Reminder, to predict the class, we're looking for the **highest** Posterior Probability from among all possible classes. 
-Dividing by the same value will not improve the accuracy of predicting the correct class.
+Reminder, we're looking to predict the class by choosing the **highest** Posterior Probability. 
+The prediction doesn't care about the exact probability of each class ocurring and 
+dividing by the same value is more memory intensive and does not improve the accuracy of predicting the correct class.
 
 For the purposes of sticking to the true [Bayes Theorem](#bayes-theorem), we're using it here.
 
