@@ -815,7 +815,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 ## Marginal Probability
 
-Calculate the total sum of all class joint probabilities. 
+Calculate the total sum of all joint probabilities. 
 
 ![Alt text](img/marginal_prob.JPG "Optional Title")
 
