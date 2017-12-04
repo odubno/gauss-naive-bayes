@@ -607,9 +607,11 @@ P(Iris-versicolor): 0.32
 
 ## Train
 
-Using the grouped classes, calculate the (mean, standard deviation) combination for each feature. 
-This is where we learn from the train set, by claculating the mean and the standard deviation. 
-The calculations later will use the (mean, standard deviation) of each feature to calculate probabilities. 
+This is where we learn from the train set, by claculating the mean and the standard deviation.
+
+Using the grouped classes, calculate the (mean, standard deviation) combination for each feature of each class. 
+
+The calculations will later use the (mean, standard deviation) of each feature to calculate class likelihoods.
 
 <details>
   <summary>Click to expand train().</summary>
