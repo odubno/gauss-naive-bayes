@@ -748,7 +748,7 @@ Joint Probability is calculated by taking the product of the Prior Probability a
 For each class:
 - Calculate the Prior Probability.
 - Use the Normal Distribution to calculate the Normal Probability for each feature. e.g. **N(x; µ, σ)**.
-- Take the product of the Prior Probability and all Normal Probabilities.
+- Take the product of the Prior Probability and the Likelihood.
 - Return one Joint Probability value for each class given the new data.
 
 <details>
