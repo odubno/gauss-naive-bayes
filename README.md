@@ -1171,7 +1171,9 @@ You could find the [Complete Code](#complete-code) below.
 # Authors
 
 * **Oleh Dubno** - [github.odubno](http://odubno.github.io/)
+  - Code and the images.
 * **Danny Argov** - [github.datargov](http://github.com/datargov/)
+  - Wording and the logic of text. 
 
 See the list of [contributors](https://github.com/odubno/naive_bayes/graphs/contributors) who participated in this project.
 
