@@ -965,11 +965,11 @@ Posterior Probabilityies: {
 
 ## Get Prediction
 
-This method will call our `posterior_probabilities()` method on a single `test vector` eg (`[6.3, 2.8, 5.1, 1.5]`). 
+This method will call our `posterior_probabilities()` method on a single `test_row` eg (`[6.3, 2.8, 5.1, 1.5]`). 
 
-The `test vector` is a list of features. For each `test vector` we will calculate 3 Posterior Probabilities; one for each class.
+The `test_row` is a list of features. For each `test_row` we will calculate 3 Posterior Probabilities; one for each class.
 
-The [Posterior Probability](#posterior-probability) is the updated belief given the new data, `test vector`.
+The [Posterior Probability](#posterior-probability) is the updated belief given the new data, `test_row`.
 
 The `get_prediction()` method will simply choose the highest Posterior Probability and return the predicted class for the given `test_row`.
 
