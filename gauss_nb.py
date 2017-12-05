@@ -113,21 +113,17 @@ class GaussNB:
         print 'Identified %s different target classes: %s' % (len(target_map.keys()), target_map.keys())
         return dict(target_map)
 
-    def summarize(self, data):
+    def summarize(self, test_set):
         """
-        :param data: lists of events (rows) in a list
+        :param test_set: lists of features
         :return:
         Use zip to line up each feature into a single column across multiple lists.
-        yield the mean and the stdev for each feature
+        yield the mean and the stdev for each feature.
         """
-        for attributes in zip(*data):
-            if self.normalize:
-                attributes = self.normalize_data(attributes)
-            if self.standardize:
-                attributes = self.standardize_data(attributes)
+        for feature in zip(*test_set):
             yield {
-                'stdev': self.stdev(attributes),
-                'mean': self.mean(attributes)
+                'stdev': self.stdev(feature),
+                'mean': self.mean(feature)
             }
 
     def train(self, train_list, target):

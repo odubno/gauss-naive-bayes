@@ -83,14 +83,14 @@ class GaussNB:
         var = squared_diff_sum / sample_n
         return var ** .5
 
-    def summarize(self, data):
+    def summarize(self, test_set):
         """
-        :param data: lists of events (rows) in a list
+        :param test_set: lists of features
         :return:
         Use zip to line up each feature into a single column across multiple lists.
-        yield the mean and the stdev for each feature column.
+        yield the mean and the stdev for each feature.
         """
-        for feature in zip(*data):
+        for feature in zip(*test_set):
             yield {
                 'stdev': self.stdev(feature),
                 'mean': self.mean(feature)
