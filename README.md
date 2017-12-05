@@ -39,7 +39,7 @@ The complete code could be found in [nb_tutorial.py](https://github.com/odubno/n
 We will be using Naive Bayes and the Gaussian Distribution (Normal Distribution) to build a classifier 
 that will predict flower species based off of petal and sepal features.
 
-We first built the Gauss Naive Bayes classifier that could run on the four classic data sets:
+The initial, [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py), Gauss Naive Bayes classifier could run on the four classic data sets:
 
 * [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)
 * [diabetes](https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data)
@@ -56,7 +56,7 @@ a collection of dimensional features that define 3 different types of flower spe
 ## Iris Data Set:
 
 The Iris data set is a classic and is widely used when explaining classification models. 
-The data set has 4 independent variables and 1 dependent variable that has 3 different classes with 150 instances.
+The data set has 4 independent variables and 1 dependent variable that have 3 different classes with 150 instances.
 
 The first 4 columns are the independent variables (features).                                      
 The 5th column is the dependent variable (class).
@@ -235,9 +235,9 @@ $ python nb_tutorial.py
 </details>
 
 ## Split Data
-Split the data into a train set and a test set.
+Split the data into a `train_set` and a `test_set`.
 
-The weight will determine how much of the data will be in the train set.
+The weight will determine how much of the data will be in the `train_set`.
 
 <details>
   <summary>Click to expand split_data().</summary>
@@ -289,7 +289,7 @@ Using 100 rows for training and 50 rows for testing
 
 ## Group Data
 
-Group the data according to class by mapping each class to it's instances.
+Group the data according to class by mapping each class to individual instances.
 
 *Take this table*
 
@@ -373,7 +373,7 @@ Grouped into 3 classes: ['Iris-virginica', 'Iris-setosa', 'Iris-versicolor']
 
 # Summarize Data
 
-Prepare the data for modeling. Here we calculate descriptive statistics later used in the model.
+Prepare the data for modeling. Calculate the descriptive statistics that will later be used in the model.
 
 1. [Mean](#mean)
 2. [Standard Deviation](#standard-deviation)
@@ -467,8 +467,8 @@ Standard Deviation: 1.88414436814
 </details>
 
 ## Summary
-Return the (mean, standard deviation) combination for each feature column of the data set.
-The mean and the standard deviation will be used when calculating the Normal Probabiltiy value for each feature.
+Return the (mean, standard deviation) combination for each feature of the `train_set`.
+The mean and the standard deviation will be used when calculating the Normal Probabiltiy values for each feature of the `test_set`.
 
 
 <details>
@@ -479,14 +479,14 @@ class GaussNB:
     . 
     . 
     . 
-    def summarize(self, data):
+    def summarize(self, test_set):
         """
-        :param data: lists of events (rows) in a list
+        :param test_set: lists of features
         :return:
         Use zip to line up each feature into a single column across multiple lists.
-        yield the mean and the stdev for each feature column.
+        yield the mean and the stdev for each feature.
         """
-        for feature in zip(*data):
+        for feature in zip(*test_set):
             yield {
                 'stdev': self.stdev(feature),
                 'mean': self.mean(feature)
@@ -1287,14 +1287,14 @@ class GaussNB:
         var = squared_diff_sum / sample_n
         return var ** .5
 
-    def summarize(self, data):
+    def summarize(self, test_set):
         """
-        :param data: lists of events (rows) in a list
+        :param test_set: lists of features
         :return:
         Use zip to line up each feature into a single column across multiple lists.
-        yield the mean and the stdev for each feature column.
+        yield the mean and the stdev for each feature.
         """
-        for feature in zip(*data):
+        for feature in zip(*test_set):
             yield {
                 'stdev': self.stdev(feature),
                 'mean': self.mean(feature)
