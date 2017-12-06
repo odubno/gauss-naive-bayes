@@ -814,7 +814,7 @@ Calculate the total sum of all joint probabilities.
 
 The Marginal Probability is determined using each class and the Normal Probability of their features.
 The Marginal value, a single value for each class, will be the same across all classes for each test. 
-We could think of the Marginal Probability as the total probability of all classes occurring given the new data.
+We could think of the Marginal Probability as the total joint probability of all classes occurring given the new data.
 Thus, the Marginal value will be the same across all classes.
 
 Reminder, we're looking to predict the class by choosing the **highest** Posterior Probability. 
