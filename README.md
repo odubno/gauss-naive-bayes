@@ -538,7 +538,7 @@ Building the class methods for calculating [Bayes Theorem](#bayes-theorem):
 
 *Bayes Tree Diagram*
 
-![tree](img/bayes_tree_2.jpg "Bayes Tree")
+![tree](img/bayes_tree.jpg "Bayes Tree")
 
 *Using Iris-setosa as an example*
 
