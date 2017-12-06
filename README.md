@@ -127,7 +127,7 @@ Here, we'll create the structure and the methods to read and prepare data for mo
 ## Prerequisites
 
 Every function is created from scratch.
-However, instead of having to download the data, we're using an api call to get the data.
+However, instead of having to download the data, we're using an API call to get the data.
 
 ```
 $ pip install requests
@@ -600,7 +600,7 @@ P(Iris-versicolor): 0.32
 
 ## Train
 
-This is where we learn from the train set, by claculating the mean and the standard deviation.
+This is where we learn from the train set, by calculating the mean and the standard deviation.
 
 Using the grouped classes, calculate the (mean, standard deviation) combination for each feature of each class. 
 
