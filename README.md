@@ -2,7 +2,7 @@
 
 Building a Naive Bayes classifier using Python with drawings.
 
-We will translate each part of the Bayes Theorem into Python code using the Gaussian Distribution. 
+We will translate each part of the Gauss Naive Bayes into Python code and explain the logic behind it's methods.
 
 The complete code could be found in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py)
 
