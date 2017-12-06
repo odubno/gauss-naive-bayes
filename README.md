@@ -1,6 +1,6 @@
 # Gauss Naive Bayes From Scratch
 
-Building a Naive Bayes classifier using Python with drawings from scratch.
+Building a Naive Bayes classifier using Python with drawings.
 
 We will translate each part of the Gauss Naive Bayes into Python code and explain the logic behind its methods.
 
