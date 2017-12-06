@@ -39,19 +39,10 @@ The complete code could be found in [nb_tutorial.py](https://github.com/odubno/n
 We will be using Naive Bayes and the Gaussian Distribution (Normal Distribution) to build a classifier 
 that will predict flower species based off of petal and sepal features.
 
-The initial, [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py), Gauss Naive Bayes classifier could run on the four classic data sets:
-
-* [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)
-* [diabetes](https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data)
-* [redwine](http://archive.ics.ucimachine-learning-databases/wine-quality/winequality-red.csv)
-* [adult](http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data)
-
-
-However, we'll be working with just the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set, 
+The [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set is
 a collection of dimensional features that define 3 different types of flower species.
 
-- The logic for the code to work on all four data sets is in [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py).
-- Here we'll break down the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
+Follow the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
 
 ## Iris Data Set:
 
@@ -1167,6 +1158,15 @@ Overlooking Gauss NB's **strong assumptions**, the classifier is very fast and a
 Gauss NB does not require a lot of data to be accurate and is highly scalable.
 
 You could find the [Complete Code](#complete-code) below.
+
+The initial build of Gauss Naive Bayes classifier could run on the four classic data sets:
+
+* [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)
+* [diabetes](https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data)
+* [redwine](http://archive.ics.ucimachine-learning-databases/wine-quality/winequality-red.csv)
+* [adult](http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data)
+
+You could find that code in [gauss_nb.py](https://github.com/odubno/naive_bayes/blob/master/gauss_nb.py)
 
 # Authors
 
