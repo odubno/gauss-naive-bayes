@@ -42,9 +42,9 @@ We will be using Naive Bayes and the Gaussian Distribution (Normal Distribution)
 that will predict flower species based off of petal and sepal features.
 
 The [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set is
-a collection of dimensional features that define 3 different types of flower species.
+a collection of 4 dimensional features that define 3 different types of flower species.
 
-Follow the logic in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
+Click the, `Click to expand` to view the Python code in each section.
 
 ## Iris Data Set:
 
