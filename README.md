@@ -44,7 +44,7 @@ that will predict flower species based off of petal and sepal features.
 The [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set is
 a collection of 4 dimensional features that define 3 different types of flower species.
 
-Click the, `Click to expand` to view the Python code in each section.
+In some sections you'll see `Click to expand`. Click it to view the Python code.
 
 ## Iris Data Set:
 
