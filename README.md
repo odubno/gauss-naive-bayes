@@ -2,9 +2,9 @@
 
 Building a Naive Bayes classifier using Python with drawings.
 
-We will translate each part of the Gauss Naive Bayes into Python code and explain the logic behind it's methods.
+We will translate each part of the Gauss Naive Bayes into Python code and explain the logic behind its methods.
 
-The complete code could be found in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py)
+The [Complete Code](#complete-code) could be found at the bottom of this page or in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py)
 
 
 # Table of Contents
@@ -38,13 +38,11 @@ The complete code could be found in [nb_tutorial.py](https://github.com/odubno/n
   - [Complete Code](#complete-code)
       
 # Overview 
-We will be using Naive Bayes and the Gaussian Distribution (Normal Distribution) to build a classifier 
+Using Naive Bayes and the Gaussian Distribution (Normal Distribution) to build a classifier 
 that will predict flower species based off of petal and sepal features.
 
-The [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set is
+We will be working with the [iris](http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data) data set,
 a collection of 4 dimensional features that define 3 different types of flower species.
-
-In some sections you'll see `Click to expand`. Click it to view the Python code.
 
 ## Iris Data Set:
 
@@ -132,6 +130,8 @@ However, instead of having to download the data, we're using an API call to get 
 ```
 $ pip install requests
 ```
+
+In some sections you'll see "Click to expand". Click it to view the Python code.
 
 ## Skeleton
 Import the necessary libraries and create the GaussNB class. This will be the foundation for the rest of the code.
