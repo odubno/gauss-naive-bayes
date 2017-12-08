@@ -75,7 +75,7 @@ The 5th column is the dependent variable (class).
 
 Naive Bayes, more technically referred to as the Posterior Probability, updates the prior belief of an event given the new information. The classification model could handle binary and multiple class classifications. 
 
-The classification allows you to select the best class given new data. The model calculates the Posterior Probability for all classes given the new data and selects the Maximum A Posterior (MAP). MAP is the highest probable class given the new information.
+The classification allows you to select the best class given new data. The model calculates the Posterior Probability for all classes given the new data and selects the Maximum A Posterior (MAP). MAP is the highest Posterior Probability.
 
 ![Bayes](img/bayes_1.JPG "Bayes" )
 *drawn by Oleh Dubno*
