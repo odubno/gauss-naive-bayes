@@ -81,7 +81,7 @@ The classification allows you to select the best class given new data. The model
 *drawn by Oleh Dubno*
 
 **Posterior Probability:**
-* This is the updated belief given the new data, and the objective probability, derived from the Naive Bayes technique.
+* This is the updated belief given the new data, and the objective probability of each class, derived from the Naive Bayes technique.
 
 **Class Prior Probability:** 
 * This is the Prior Belief; the probability of the class before updating the belief.
@@ -822,8 +822,8 @@ The Marginal value, a single value for each class, will be the same across all c
 We could think of the Marginal Probability as the total joint probability of all classes occurring given the new data.
 Thus, the Marginal value will be the same across all classes.
 
-Reminder, we're looking to predict the class by choosing the **highest** Posterior Probability. 
-The prediction doesn't care about the exact probability of each class ocurring and 
+Reminder, we're looking to predict the class by choosing the Maximum A Posterior (MAP).
+The prediction doesn't care about the exact posterior probability of each class and 
 dividing by the same value is more memory intensive and does not improve the accuracy of predicting the correct class.
 
 For the purposes of sticking to the true [Bayes Theorem](#bayes-theorem), we're using it here.
@@ -885,7 +885,7 @@ The Posterior Probability is the probability of a class occuring and is calculat
 
 ![Posterior](img/posterior.jpg "Posterior")
 
-This where all the preceding class methods tie together to calculate the Gauss Naive Bayes formula.
+This where all the preceding class methods tie together to calculate the Gauss Naive Bayes formula with the goal of selecting MAP.
 
 <details>
   <summary>Click to expand posterior_probabilities().</summary>
@@ -969,7 +969,7 @@ The `test_row` is a list of features. For each `test_row` we will calculate 3 Po
 
 The [Posterior Probability](#posterior-probability) is the updated belief given the new data, `test_row`.
 
-The `get_prediction()` method will simply choose the highest Posterior Probability and return the predicted class for the given `test_row`.
+The `get_prediction()` method will simply choose the Maximum A Posterior Probability and return the associated class for the given `test_row`.
 
 <details>
   <summary>Click to expand get_prediction().</summary>
