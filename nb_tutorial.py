@@ -219,11 +219,11 @@ class GaussNB:
         Predict the likeliest target for each row of the test_set.
         Return a list of predicted targets.
         """
-        predictions = []
+        maps = []
         for row in test_set:
-            result = self.get_map(row)
-            predictions.append(result)
-        return predictions
+            map = self.get_map(row)
+            maps.append(map)
+        return maps
 
     def accuracy(self, test_set, predicted):
         """
