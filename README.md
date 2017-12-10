@@ -985,8 +985,8 @@ class GaussNB:
         Return the target class with the largest/best posterior probability
         """
         posterior_probs = self.posterior_probabilities(test_row)
-        map = max(posterior_probs, key=posterior_probs.get)
-        return map
+        map_prob = max(posterior_probs, key=posterior_probs.get)
+        return map_prob
 
 def main():
     nb = GaussNB()
@@ -1047,11 +1047,11 @@ class GaussNB:
         Predict the likeliest target for each row of the test_set.
         Return a list of predicted targets.
         """
-        maps = []
+        map_probs = []
         for row in test_set:
-            map = self.get_map(row)
-            maps.append(map)
-        return maps
+            map_prob = self.get_map(row)
+            map_probs.append(map_prob)
+        return map_probs
 
 def main():
     nb = GaussNB()
