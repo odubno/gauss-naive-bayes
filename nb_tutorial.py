@@ -223,7 +223,7 @@ class GaussNB:
         for row in test_set:
             map = self.get_map(row)
             maps.append(map)
-        return maps
+        return maps  # maximum a posterior
 
     def accuracy(self, test_set, predicted):
         """
