@@ -104,7 +104,7 @@ The Normal PDF is calculated using the Gaussian Distribution. Hence, the name Ga
 * It is the probability given the new data under all possible features for each class. 
 * It isn't necessary for the Naive Bayes Classifier to calculate this, 
 because we're only looking for the prediction and not the exact probability. 
-* The results do not change or change very little. Though we do calculate it here.
+* The results do not change at all. Though we do calculate it here.
 
 
 ## Normal PDF Formula:
