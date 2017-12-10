@@ -29,7 +29,7 @@ The [Complete Code](#complete-code) could be found at the bottom of this page or
     - [Marginal Probability](#marginal-probability)
     - [Posterior Probability](#posterior-probability)
   - [Test Model](#test-model)
-    - [Get Prediction](#get-prediction)
+    - [Get Maximum A Posterior](#get-maximum-a-posterior)
     - [Predict](#predict)
     - [Accuracy](#accuracy)
   - [Recap](#recap)
