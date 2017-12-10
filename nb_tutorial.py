@@ -56,7 +56,7 @@ class GaussNB:
             if not features:
                 continue
             x = features[target]
-            target_map[x].append(features[:-1])
+            target_map[x].append(features[:-1])  # designating the last column as the class column
         return dict(target_map)
 
     def mean(self, numbers):
@@ -202,7 +202,7 @@ class GaussNB:
             posterior_probs[target] = joint_prob / marginal_prob
         return posterior_probs
 
-    def get_prediction(self, test_row):
+    def get_map(self, test_row):
         """
         :param test_row: single list of features to test; new data
         :return:
@@ -221,7 +221,7 @@ class GaussNB:
         """
         predictions = []
         for row in test_set:
-            result = self.get_prediction(row)
+            result = self.get_map(row)
             predictions.append(result)
         return predictions
 
