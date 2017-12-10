@@ -958,13 +958,15 @@ Posterior Probabilityies: {
 
 # Test Model
 
-1. [Get Prediction](#get-prediction)
+Testing the model and predicting a class given the new data. 
+
+1. [Get Maximum A Posterior](#get-maximum-a-posterior)
 2. [Predict](#predict)
 3. [Accuracy](#accuracy)
 
 ## Get Maximum A Posterior
 
-This is where the prediction happens. `get_map()` method will call the `posterior_probabilities()` method on a single `test_row` eg (`[6.3, 2.8, 5.1, 1.5]`). 
+The `get_map()` method will call the `posterior_probabilities()` method on a single `test_row` eg (`[6.3, 2.8, 5.1, 1.5]`). 
 
 For each `test_row` we will calculate 3 Posterior Probabilities; one for each class. The goal is to select MAP, the Maximum A Posterior probability.
 
