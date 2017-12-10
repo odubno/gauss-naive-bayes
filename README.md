@@ -342,7 +342,6 @@ class GaussNB:
                 continue
             x = features[target]
             target_map[x].append(features[:-1])  # designating the last column as the class column
-        print 'Identified %s different target classes: %s' % (len(target_map.keys()), target_map.keys())
         return dict(target_map)
 
 def main():
@@ -747,7 +746,7 @@ Joint Probability is calculated by taking the product of the Prior Probability a
 
 For each class:
 - Calculate the Prior Probability.
-- Use the Normal Distribution to calculate the Normal Probability for each feature. e.g. **N(x; µ, σ)**.
+- Use the Normal Distribution to calculate the Normal Probability of each feature. e.g. **N(x; µ, σ)**.
 - Take the product of the Prior Probability and the Likelihood.
 - Return one Joint Probability value for each class given the new data.
 
@@ -963,25 +962,23 @@ Posterior Probabilityies: {
 2. [Predict](#predict)
 3. [Accuracy](#accuracy)
 
-## Get Prediction
+## Get Maximum A Posterior
 
-This method will call our `posterior_probabilities()` method on a single `test_row` eg (`[6.3, 2.8, 5.1, 1.5]`). 
+This is where the prediction happens. `get_map()` method will call the `posterior_probabilities()` method on a single `test_row` eg (`[6.3, 2.8, 5.1, 1.5]`). 
 
-The `test_row` is a list of features. For each `test_row` we will calculate 3 Posterior Probabilities; one for each class.
+For each `test_row` we will calculate 3 Posterior Probabilities; one for each class. The goal is to select MAP, the Maximum A Posterior probability.
 
-The [Posterior Probability](#posterior-probability) is the updated belief given the new data, `test_row`.
-
-The `get_prediction()` method will simply choose the Maximum A Posterior Probability and return the associated class for the given `test_row`.
+The `get_map()` method will simply choose the Maximum A Posterior Probability and return the associated class for the given `test_row`.
 
 <details>
-  <summary>Click to expand get_prediction().</summary>
+  <summary>Click to expand get_map().</summary>
 
 ```python
 class GaussNB:
     .
     . 
     . 
-    def get_prediction(self, test_row):
+    def get_map(self, test_row):
         """
         :param test_row: single list of features to test
         :return:
@@ -1001,7 +998,7 @@ def main():
     group = nb.group_by_class(data, -1)  # designating the last column as the class column
     print "Grouped into %s classes: %s" % (len(group.keys()), group.keys())
     nb.train(train_list, -1)
-    prediction = nb.get_prediction([6.3, 2.8, 5.1, 1.5])  # 'Iris-virginica'
+    prediction = nb.get_map([6.3, 2.8, 5.1, 1.5])  # 'Iris-virginica'
     print 'According to the test row the best prediction is: %s' % prediction
 
 if __name__ == '__main__':
@@ -1052,7 +1049,7 @@ class GaussNB:
         """
         predictions = []
         for row in test_set:
-            result = self.get_prediction(row)
+            result = self.get_map(row)
             predictions.append(result)
         return predictions
 
@@ -1415,7 +1412,7 @@ class GaussNB:
             posterior_probs[target] = joint_prob / marginal_prob
         return posterior_probs
 
-    def get_prediction(self, test_row):
+    def get_map(self, test_row):
         """
         :param test_row: single list of features to test; new data
         :return:
@@ -1434,7 +1431,7 @@ class GaussNB:
         """
         predictions = []
         for row in test_set:
-            result = self.get_prediction(row)
+            result = self.get_map(row)
             predictions.append(result)
         return predictions
 
