@@ -985,8 +985,8 @@ class GaussNB:
         Return the target class with the largest/best posterior probability
         """
         posterior_probs = self.posterior_probabilities(test_row)
-        best_target = max(posterior_probs, key=posterior_probs.get)
-        return best_target
+        map = max(posterior_probs, key=posterior_probs.get)
+        return map
 
 def main():
     nb = GaussNB()
