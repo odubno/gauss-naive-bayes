@@ -106,7 +106,7 @@ The Normal PDF is calculated using the Gaussian Distribution. Hence, the name Ga
 * It is the probability given the new data under all possible features for each class. 
 * It isn't necessary for the Naive Bayes Classifier to calculate this, 
 because we're only looking for the prediction and not the exact probability. 
-* The results do not change at all. Though we do calculate it here.
+* The results do not change at all, however we do calculate it here to show that this is the case.
 
 
 ## Normal PDF Formula:
@@ -690,7 +690,7 @@ Likelihood is calculated by taking the product of all Normal Probabilities.
 
 ![Alt text](img/likelihood.jpg "Optional Title")
 
-For each feature given the class we calculate the Normal Probability using the [Normal Distribution](#normal-pdf-formula).
+For each feature given the class we calculate the Normal Probability using the Guassian or [Normal Distribution](#normal-pdf-formula).
 
 ![Likelihood](img/likelihood2.jpg "Likelihood")
 
@@ -822,7 +822,7 @@ Calculate the total sum of all joint probabilities.
 
 The Marginal Probability is determined using each class and the Normal Probability of their features.
 The Marginal value, a single value for each class, will be the same across all classes for each test. 
-We could think of the Marginal Probability as the total joint probability of all classes occurring given the new data.
+We could think of the Marginal Probability as the total joint probability of all classes occurring, given the new data.
 Thus, the Marginal value will be the same across all classes.
 
 Reminder, we're looking to predict the class by choosing the Maximum A Posterior (MAP).
@@ -1103,7 +1103,7 @@ predicted target: ['Iris-versicolor', 'Iris-versicolor'] | true target: Iris-ver
 </details>
 
 ## Accuracy
-Accuracy will test the performance of the model by taking the total of correct predictions and dividing them by the total of predictions.
+Accuracy will test the performance of the model by taking the total of correct predictions and dividing them by the total of predictions. This is critical in understanding the veracity of the model.
 
 <details>
   <summary>Click to expand accuracy().</summary>
