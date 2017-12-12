@@ -1204,6 +1204,8 @@ A hat tip to the authors that made this tutorial possible.
 # Inspiration:  
 Project for Columbia University Probability and Statistics course - Prof. Banu Baydil
 
+With the massive popularity of Bayes' Theorem as well as the default use of Gaussian/Normal distributions for common data sets, we were keen to better understand firstly, if the assumption to use the Normal distrubition on differing data sets was a fit or not, and secondly, how to take the Normal distribution and Bayes' Theorem and apply it in use via repeatable code. Initially, we were intrigued by the idea of pulling public data from sites such as OKCupid or facebook to produce interesting "predictions" of human behavior, but it dawned on us that diving in to the fundamentals of knowing which statistical distribution to leverage on differing data sets, along with understanding the workings of Bayes' Theorem in practice, that we decided to focus on buildings the rungs of the ladder first, figuratively.
+
 # Complete Code
 
 Code is also available in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py).
