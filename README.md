@@ -73,11 +73,13 @@ The 5th column is the dependent variable (class).
 
 ## Bayes Theorem:
 
-Naive Bayes, more technically referred to as the Posterior Probability, updates the prior belief of an event given new information. 
+Naive Bayes, more technically referred to as the Posterior Probability, updates the prior belief of an event given new information.
+The result is the probability of the class occuring given the new data.
+
 The classification model could handle binary and multiple classifications. 
 
-To predict a class we only care about the Maximum A Posterior probability. 
-The model calculates the the posterior probability for all classes and MAP is the selection of the highest posterior probability.
+When predicting a class, the model calculates the posterior probability for all classes and 
+selects the largest posterior probability as the predicted class. This value is referred to as the Maximum A Posterior (MAP).
 
 ![Bayes](img/bayes_1.JPG "Bayes" )
 *drawn by Oleh Dubno*
