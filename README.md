@@ -888,7 +888,7 @@ The Posterior Probability is the probability of a class occuring and is calculat
 
 ![Posterior](img/posterior.jpg "Posterior")
 
-This where all the preceding class methods tie together to calculate the Gauss Naive Bayes formula with the goal of selecting MAP.
+This where all of the preceding class methods tie together to calculate the Gauss Naive Bayes formula with the goal of selecting MAP.
 
 <details>
   <summary>Click to expand posterior_probabilities().</summary>
