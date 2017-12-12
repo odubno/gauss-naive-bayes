@@ -690,7 +690,7 @@ Likelihood is calculated by taking the product of all Normal Probabilities.
 
 ![Alt text](img/likelihood.jpg "Optional Title")
 
-For each feature given the class we calculate the Normal Probability using the Guassian or [Normal Distribution](#normal-pdf-formula).
+For each feature given the class we calculate the Normal Probability using the [Normal Distribution](#normal-pdf-formula).
 
 ![Likelihood](img/likelihood2.jpg "Likelihood")
 
@@ -820,10 +820,9 @@ Calculate the total sum of all joint probabilities.
 
 ![Alt text](img/marginal_prob.JPG "Optional Title")
 
-The Marginal Probability is determined using each class and the Normal Probability of their features.
-The Marginal value, a single value for each class, will be the same across all classes for each test. 
-We could think of the Marginal Probability as the total joint probability of all classes occurring, given the new data.
-Thus, the Marginal value will be the same across all classes.
+The Marginal Probability is calculated using the sum of all joint probabilities.
+The Marginal value, a single value, will be the same across all classes. 
+We could think of the Marginal Probability as the total joint probability of all classes occurring given the new data.
 
 Reminder, we're looking to predict the class by choosing the Maximum A Posterior (MAP).
 The prediction doesn't care about the exact posterior probability of each class and 
@@ -972,7 +971,7 @@ The `get_map()` method will call the `posterior_probabilities()` method on a sin
 
 For each `test_row` we will calculate 3 Posterior Probabilities; one for each class. The goal is to select MAP, the Maximum A Posterior probability.
 
-The `get_map()` method will simply choose the Maximum A Posterior Probability and return the associated class for the given `test_row`.
+The `get_map()` method will simply choose the Maximum A Posterior probability and return the associated class for the given `test_row`.
 
 <details>
   <summary>Click to expand get_map().</summary>
@@ -1103,7 +1102,9 @@ predicted target: ['Iris-versicolor', 'Iris-versicolor'] | true target: Iris-ver
 </details>
 
 ## Accuracy
-Accuracy will test the performance of the model by taking the total of correct predictions and dividing them by the total of predictions. This is critical in understanding the veracity of the model.
+Accuracy will test the performance of the model by taking the total number of correct predictions and 
+divide them by the total number of predictions. 
+This is critical in understanding the veracity of the model.
 
 <details>
   <summary>Click to expand accuracy().</summary>
