@@ -1,5 +1,8 @@
 # Gauss Naive Bayes From Scratch
 
+**featured on NYC Open Data**
+https://opendata.cityofnewyork.us/projects/311-data-life-in-nyc/
+
 Building a Naive Bayes classifier using Python with drawings.
 
 We will translate each part of the Gauss Naive Bayes into Python code and explain the logic behind its methods.
