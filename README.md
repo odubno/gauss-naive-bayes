@@ -6,6 +6,8 @@ We will translate each part of the Gauss Naive Bayes into Python code and explai
 
 The [Complete Code](#complete-code) could be found at the bottom of this page or in [nb_tutorial.py](https://github.com/odubno/naive_bayes/blob/master/nb_tutorial.py)
 
+The Overview will just be that, the overview, and a soft introduction to Naive Bayes. Stay with us! Preparing Data is where the excitement begins.
+
 
 # Table of Contents
   - [Overview](#overview)
