@@ -701,6 +701,8 @@ For each feature given the class we calculate the Normal Probability using the [
   <summary>Click to expand normal_pdf().</summary>
   
 ```python
+from math import e
+
 class GaussNB:
     . 
     . 
