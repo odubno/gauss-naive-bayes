@@ -1195,7 +1195,7 @@ See the list of [contributors](https://github.com/odubno/naive_bayes/graphs/cont
 
 # Acknowledgments
 
-A hat tip to the authors that made this tutorial possible.
+Tip of the hat to the authors that made this tutorial possible.
 
 | Author                  | URL           |
 | -------------           |:-------------|
